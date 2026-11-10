@@ -466,8 +466,16 @@ const META = /*META*/{};
   }
 
   // ---- 置き換え（元に戻せるように textarea への入力として行う） ----
+  // Safari（WebKit）は、直前のキー入力と次の insertText を1回の取り消しにまとめる（⌘Z で打った文字まで消える）。
+  // 置き換えの前に undo→redo を挟んで入力のまとまりを切る。文字列が変わってしまったら元の文字列に戻してから進む
+  const SPLIT_UNDO = /AppleWebKit/.test(navigator.userAgent) && !/Chrome|Chromium|Edg|OPR/.test(navigator.userAgent);
   function replaceRange(s, e, to) {
     ta.focus({ preventScroll: true });
+    if (SPLIT_UNDO) {
+      const before = ta.value;
+      try { document.execCommand('undo'); document.execCommand('redo'); } catch (err) { /* そのまま進む */ }
+      if (ta.value !== before) ta.value = before;
+    }
     ta.setSelectionRange(s, e);
     let ok = false;
     try { ok = to === '' ? document.execCommand('delete') : document.execCommand('insertText', false, to); } catch (err) { ok = false; }

@@ -130,8 +130,10 @@
       // s＝開きかっこの位置、e＝閉じかっこの次（閉じていなければ行末）
       const inner = text.slice(s + 1, closed ? e - 1 : e);
       const after = text.slice(e, e + 2);
+      // 「○○」という店・「○○」として販売・「○○」と題した・と名付けた・と銘打つ・と呼ばれる は名前の書き方（発言の合図にしない）
+      const nameCue = /^と(?:い[うっ]|して|題|名付|名づ|銘打|呼(?:ば|ぶ|ん))/.test(text.slice(e, e + 4));
       const utter = /[。、！？!?]/.test(inner) || cpLen(inner) > 15 ||
-        (after.charAt(0) === 'と' && after.charAt(1) !== '「') || after === 'って';
+        (after.charAt(0) === 'と' && after.charAt(1) !== '「' && !nameCue) || after === 'って';
       inQuote.fill(utter ? 1 : 2, s, e);
     };
     for (let i = 0; i < text.length; i++) {
@@ -463,16 +465,47 @@
     }
     // 置き換えを全部反映。opts（{level}）を渡すと、置換→再点検を最大3回まで繰り返す
     // （１０００円→1000円→1,000円 のように、置き換えた結果に別の規則が当たる場合）
-    // 2回目以降は、再点検で出た「直す」と置き換えられる「形」が対象
-    function applyAll(text, findings, opts) {
-      let out = applyEdits(text, editsOf(findings));
-      if (!opts) return out;
-      for (let round = 1; round < 3; round++) {
-        const edits = editsOf(check(out, opts).findings);
-        if (!edits.length) break;
-        out = applyEdits(out, edits);
+    // 2回目以降は、再点検で出た「直す」と置き換えられる「形」が対象。
+    // ただし渡されなかった置き換え（画面の「×」で消した指摘）は、位置を追いかけて2回目以降も対象から外す
+    function applyTracked(text, edits) {
+      const list = edits.slice().sort((a, b) => b.start - a.start || b.end - a.end);
+      let out = text;
+      let floor = Infinity;
+      const done = [];
+      for (const ed of list) {
+        if (ed.end > floor) continue; // applyEdits と同じ：重なる置き換えは飛ばす
+        out = out.slice(0, ed.start) + ed.to + out.slice(ed.end);
+        floor = ed.start;
+        done.push(ed);
       }
-      return out;
+      // 置き換え前の範囲 → 置き換え後の範囲（置き換えと重なった範囲は null）
+      const map = (h) => {
+        let shift = 0;
+        for (const ed of done) {
+          if (ed.end <= h.start) shift += ed.to.length - (ed.end - ed.start);
+          else if (ed.start < h.end) return null;
+        }
+        return { id: h.id, start: h.start + shift, end: h.end + shift };
+      };
+      return { out, map };
+    }
+    function applyAll(text, findings, opts) {
+      let step = applyTracked(text, editsOf(findings));
+      if (!opts) return step.out;
+      const sig = (f) => f.id + ':' + f.start + ':' + f.end;
+      const given = new Set(findings.map((f) => sig({ id: f.rule.id, start: f.start, end: f.end })));
+      let held = check(text, opts).findings
+        .filter((f) => editsOf([f]).length)
+        .map((f) => ({ id: f.rule.id, start: f.start, end: f.end }))
+        .filter((h) => !given.has(sig(h)));
+      for (let round = 1; round < 3; round++) {
+        held = held.map(step.map).filter(Boolean);
+        const skip = new Set(held.map(sig));
+        const edits = editsOf(check(step.out, opts).findings.filter((f) => !skip.has(sig({ id: f.rule.id, start: f.start, end: f.end }))));
+        if (!edits.length) break;
+        step = applyTracked(step.out, edits);
+      }
+      return step.out;
     }
     function applyOne(text, f) {
       return f.edits ? applyEdits(text, f.edits.slice()) : text;

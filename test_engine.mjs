@@ -125,6 +125,24 @@ console.log('(1b) 決まった例文');
   ok(fs(sample, 2).every((f) => !/\s/.test(f.key)), 'key に空白が入っている');
   const dup = fs(body('味噌。味噌。味噌。味噌。'), 1).filter((f) => f.rule.label === '味噌→みそ').map((f) => f.key);
   ok(new Set(dup).size === dup.length, 'key が重複している');
+  // 渡さなかった指摘（画面の「×」で消した指摘）は、全部反映の2回目以降でも直さない。続きの置き換え（１０００→1000→1,000）は止めない
+  const canFix = (f) => !!f.edits && f.rule.kind !== 'check';
+  const dm = body('市内に色々な店ができた。様々な品が並び、費用は１０００円。');
+  const dmOut = eng.applyAll(dm, fs(dm).filter((f) => f.text !== '様々'), { level: 1 });
+  ok(dmOut.includes('様々') && dmOut.includes('いろいろ') && dmOut.includes('1,000円'), `全部反映：渡さなかった指摘まで直る、または続きの置き換えが止まる: ${JSON.stringify(dmOut)}`);
+  const dm2 = body('色々様々な品が並ぶ。');
+  const dm2Out = eng.applyAll(dm2, fs(dm2).filter((f) => f.text !== '様々'), { level: 1 });
+  ok(dm2Out.includes('いろいろ様々'), `全部反映：隣り合う指摘の片方だけ渡したのに両方直る: ${JSON.stringify(dm2Out)}`);
+  // 「○○」という店・「○○」と呼ばれる は名前（確かめるに下げる）。「…」と呼びかける・「…」と話す は発言（直すのまま）
+  const nc = fs(body('市内に「綺麗屋」という店ができた。店主は「是非来て下さい」と呼びかける。会場は「綺麗堂」と呼ばれる。客は「綺麗」と話す。'));
+  const kirei = nc.filter((f) => f.text === '綺麗');
+  ok(kirei.length === 3 && kirei[0].down === 'name' && kirei[1].down === 'name' && kirei[0].rule.kind === 'check' && !kirei[0].edits, 'かっこ：「○○」という／と呼ばれる の中が「確かめる」に下がらない');
+  ok(kirei.length === 3 && kirei[2].rule.kind === 'fix' && !kirei[2].down, 'かっこ：「○○」と話す の中が「直す」で出ない');
+  ok(nc.some((f) => f.text === '是非' && f.rule.kind === 'fix' && !f.down), 'かっこ：「…」と呼びかける の中が「直す」で出ない');
+  // 行の頭が「。」で始まる行：字下げ（全角スペースを足す）と句読点の前の空白（消す）が打ち消し合わない
+  const lp = '▽本文\n　会場で販売する\n　。同店で販売する 。\n。次の行も販売する。\n';
+  const lpOut = eng.applyAll(lp, fs(lp), { level: 1 });
+  ok(lpOut.includes('販売する。\n') && !fs(lpOut).filter(canFix).length, `全部反映：行頭が句点の行で置き換えが往復する: ${JSON.stringify(lpOut)}`);
   console.log(`  ${n}項目`);
 }
 
