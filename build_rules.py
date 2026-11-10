@@ -63,7 +63,7 @@ BUILTIN = [
     dict(builtin="indent", kind="form", level=1, area="text",
          label="段落の先頭は全角スペース1文字", why="リード・本文の各段落は全角スペース1文字で始める（半角・タブ・2文字以上は直す）",
          ch=1, sec="1-2 入稿仕様", r="", stat="TOP20 #0", n=0),
-    dict(builtin="blank_space", kind="form", level=1, area="all",
+    dict(builtin="blank_space", kind="form", level=2, area="all",
          label="段落の間の空行に空白を入れない", why="空行は何も入れずに改行だけにする（全角スペースだけの行は消す）",
          ch=1, sec="1-2 記事の構成要素と入稿仕様", r="", stat="", n=0),
     dict(builtin="nested_quote", kind="fix", level=1, area="all",

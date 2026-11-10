@@ -27,7 +27,8 @@
     return m ? m[1] : null;
   }
   function areaOfMark(name) {
-    if (/写真タイトル|関連画像|外部リンク|リンク|住所|地図|URL|ＵＲＬ|メモ|備考/.test(name)) return 'skip';
+    if (/写真タイトル|関連画像/.test(name)) return 'caption'; // 写真のタイトル（11/10：本部が1年で234か所直していた）
+    if (/外部リンク|リンク|住所|地図|URL|ＵＲＬ|メモ|備考/.test(name)) return 'skip';
     if (/キャプション/.test(name)) return 'caption';
     if (/タイトル|見出し/.test(name)) return 'title';
     if (/リード/.test(name)) return 'lead';

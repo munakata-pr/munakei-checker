@@ -172,7 +172,7 @@
  {
   "id": "k011",
   "kind": "check",
-  "level": 1,
+  "level": 2,
   "area": "body",
   "ji": 1,
   "re": "開催され",
@@ -240,7 +240,7 @@
  {
   "id": "k015",
   "kind": "check",
-  "level": 1,
+  "level": 2,
   "area": "text",
   "ji": 1,
   "re": "振り返(?=[るりっ])",
@@ -325,7 +325,7 @@
  {
   "id": "k020",
   "kind": "check",
-  "level": 1,
+  "level": 2,
   "area": "all",
   "ji": 0,
   "re": "開催(?=する|した|して|しま|し、)",
@@ -800,13 +800,13 @@
  },
  {
   "id": "k048",
-  "kind": "fix",
+  "kind": "check",
   "level": 1,
   "area": "all",
   "ji": 1,
   "re": "キャンペーン",
-  "to": "企画",
-  "label": "キャンペーン→企画",
+  "to": null,
+  "label": "キャンペーン",
   "why": "広告色が出るため「企画」に",
   "ch": 7,
   "sec": "7-10 禁止ワード・表現",
@@ -2688,6 +2688,23 @@
  {
   "id": "k159",
   "kind": "check",
+  "level": 2,
+  "area": "all",
+  "ji": 0,
+  "re": "(?<=[のな])方(?=[がはをにもと、。」])",
+  "to": null,
+  "label": "方／方々→人／人たち",
+  "why": "かぎかっこの中でも、人を指す「方」は本部が「人」に直すことが多い",
+  "ch": 8,
+  "sec": "8-1 ひらがな・漢字の使い分け（用字）",
+  "r": "R41",
+  "stat": "本部修正16本",
+  "n": 16,
+  "src": "guide"
+ },
+ {
+  "id": "k160",
+  "kind": "check",
   "level": 1,
   "area": "all",
   "ji": 0,
@@ -2703,7 +2720,58 @@
   "src": "guide"
  },
  {
-  "id": "k160",
+  "id": "k161",
+  "kind": "fix",
+  "level": 1,
+  "area": "all",
+  "ji": 0,
+  "re": "(?<=お客|皆)様",
+  "to": "さま",
+  "label": "お客様／皆様→お客さま／皆さま",
+  "why": "かぎかっこの中は「お客さま」「皆さま」（地の文は「客」→第5章）",
+  "ch": 8,
+  "sec": "8-1 ひらがな・漢字の使い分け（用字）",
+  "r": "R41",
+  "stat": "",
+  "n": 0,
+  "src": "guide"
+ },
+ {
+  "id": "k162",
+  "kind": "fix",
+  "level": 1,
+  "area": "all",
+  "ji": 0,
+  "re": "よび(?=かけ|掛け)",
+  "to": "呼び",
+  "label": "よびかける→呼びかける",
+  "why": "「呼びかける」と漢字で書く",
+  "ch": 8,
+  "sec": "8-1 ひらがな・漢字の使い分け（用字）",
+  "r": "R41",
+  "stat": "",
+  "n": 0,
+  "src": "guide"
+ },
+ {
+  "id": "k163",
+  "kind": "check",
+  "level": 1,
+  "area": "all",
+  "ji": 0,
+  "re": "(?<=[0-9０-９]|参加|加盟|協力|出店|飲食|各|全)店舗",
+  "to": null,
+  "label": "参加店舗／〇店舗→参加店／〇店",
+  "why": "「参加店」「〇店」で足りることが多い（本部が直したのは半数）",
+  "ch": 8,
+  "sec": "8-1 ひらがな・漢字の使い分け（用字）",
+  "r": "R41",
+  "stat": "",
+  "n": 0,
+  "src": "guide"
+ },
+ {
+  "id": "k164",
   "kind": "fix",
   "level": 1,
   "area": "all",
@@ -2720,7 +2788,7 @@
   "src": "guide"
  },
  {
-  "id": "k161",
+  "id": "k165",
   "kind": "fix",
   "level": 1,
   "area": "all",
@@ -2737,7 +2805,7 @@
   "src": "guide"
  },
  {
-  "id": "k162",
+  "id": "k166",
   "kind": "fix",
   "level": 1,
   "area": "all",
@@ -2754,7 +2822,7 @@
   "src": "guide"
  },
  {
-  "id": "k163",
+  "id": "k167",
   "kind": "fix",
   "level": 1,
   "area": "all",
@@ -2771,7 +2839,7 @@
   "src": "guide"
  },
  {
-  "id": "k164",
+  "id": "k168",
   "kind": "fix",
   "level": 1,
   "area": "all",
@@ -2788,7 +2856,7 @@
   "src": "guide"
  },
  {
-  "id": "k165",
+  "id": "k169",
   "kind": "check",
   "level": 1,
   "area": "all",
@@ -2805,7 +2873,7 @@
   "src": "guide"
  },
  {
-  "id": "k166",
+  "id": "k170",
   "kind": "fix",
   "level": 1,
   "area": "all",
@@ -2822,7 +2890,7 @@
   "src": "guide"
  },
  {
-  "id": "k167",
+  "id": "k171",
   "kind": "fix",
   "level": 1,
   "area": "all",
@@ -2839,7 +2907,7 @@
   "src": "guide"
  },
  {
-  "id": "k168",
+  "id": "k172",
   "kind": "check",
   "level": 2,
   "area": "all",
@@ -2856,7 +2924,7 @@
   "src": "guide"
  },
  {
-  "id": "k169",
+  "id": "k173",
   "kind": "fix",
   "level": 1,
   "area": "all",
@@ -2873,7 +2941,7 @@
   "src": "guide"
  },
  {
-  "id": "k170",
+  "id": "k174",
   "kind": "check",
   "level": 1,
   "area": "all",
@@ -2890,7 +2958,7 @@
   "src": "guide"
  },
  {
-  "id": "k171",
+  "id": "k175",
   "kind": "check",
   "level": 2,
   "area": "all",
@@ -2907,7 +2975,7 @@
   "src": "guide"
  },
  {
-  "id": "k172",
+  "id": "k176",
   "kind": "fix",
   "level": 1,
   "area": "all",
@@ -2924,7 +2992,7 @@
   "src": "guide"
  },
  {
-  "id": "k173",
+  "id": "k177",
   "kind": "check",
   "level": 2,
   "area": "all",
@@ -2941,7 +3009,7 @@
   "src": "guide"
  },
  {
-  "id": "k174",
+  "id": "k178",
   "kind": "check",
   "level": 2,
   "area": "all",
@@ -2958,7 +3026,7 @@
   "src": "guide"
  },
  {
-  "id": "k175",
+  "id": "k179",
   "kind": "check",
   "level": 2,
   "area": "all",
@@ -2975,7 +3043,7 @@
   "src": "guide"
  },
  {
-  "id": "k176",
+  "id": "k180",
   "kind": "check",
   "level": 1,
   "area": "all",
@@ -2992,7 +3060,7 @@
   "src": "guide"
  },
  {
-  "id": "k177",
+  "id": "k181",
   "kind": "check",
   "level": 2,
   "area": "all",
@@ -3009,7 +3077,7 @@
   "src": "guide"
  },
  {
-  "id": "k178",
+  "id": "k182",
   "kind": "fix",
   "level": 1,
   "area": "all",
@@ -3026,7 +3094,7 @@
   "src": "guide"
  },
  {
-  "id": "k179",
+  "id": "k183",
   "kind": "fix",
   "level": 1,
   "area": "all",
@@ -3043,7 +3111,7 @@
   "src": "guide"
  },
  {
-  "id": "k180",
+  "id": "k184",
   "kind": "fix",
   "level": 1,
   "area": "all",
@@ -3060,7 +3128,7 @@
   "src": "guide"
  },
  {
-  "id": "k181",
+  "id": "k185",
   "kind": "fix",
   "level": 1,
   "area": "all",
@@ -3077,7 +3145,7 @@
   "src": "guide"
  },
  {
-  "id": "k182",
+  "id": "k186",
   "kind": "fix",
   "level": 1,
   "area": "all",
@@ -3094,7 +3162,7 @@
   "src": "guide"
  },
  {
-  "id": "k183",
+  "id": "k187",
   "kind": "fix",
   "level": 1,
   "area": "all",
@@ -3111,7 +3179,7 @@
   "src": "guide"
  },
  {
-  "id": "k184",
+  "id": "k188",
   "kind": "fix",
   "level": 1,
   "area": "all",
@@ -3128,7 +3196,7 @@
   "src": "guide"
  },
  {
-  "id": "k185",
+  "id": "k189",
   "kind": "fix",
   "level": 1,
   "area": "all",
@@ -3145,7 +3213,7 @@
   "src": "guide"
  },
  {
-  "id": "k186",
+  "id": "k190",
   "kind": "fix",
   "level": 1,
   "area": "all",
@@ -3162,7 +3230,7 @@
   "src": "guide"
  },
  {
-  "id": "k187",
+  "id": "k191",
   "kind": "fix",
   "level": 1,
   "area": "all",
@@ -3179,7 +3247,7 @@
   "src": "guide"
  },
  {
-  "id": "k188",
+  "id": "k192",
   "kind": "fix",
   "level": 1,
   "area": "all",
@@ -3196,7 +3264,7 @@
   "src": "guide"
  },
  {
-  "id": "k189",
+  "id": "k193",
   "kind": "fix",
   "level": 1,
   "area": "all",
@@ -3213,7 +3281,7 @@
   "src": "guide"
  },
  {
-  "id": "k190",
+  "id": "k194",
   "kind": "fix",
   "level": 1,
   "area": "all",
@@ -3230,7 +3298,7 @@
   "src": "guide"
  },
  {
-  "id": "k191",
+  "id": "k195",
   "kind": "fix",
   "level": 1,
   "area": "all",
@@ -3247,15 +3315,15 @@
   "src": "guide"
  },
  {
-  "id": "k192",
+  "id": "k196",
   "kind": "fix",
   "level": 1,
   "area": "all",
   "ji": 0,
-  "re": "コミュニティ(?!ー)",
+  "re": "コミュニティ(?!ー)(?![・･]?センター)",
   "to": "コミュニティー",
   "label": "コミュニティ→コミュニティー",
-  "why": "外来語の表記（記者ハン準拠）",
+  "why": "語末の「ティ」は「ティー」（施設名の「コミュニティ・センター」はそのまま）",
   "ch": 8,
   "sec": "8-3 カタカナ表記",
   "r": "",
@@ -3264,7 +3332,7 @@
   "src": "guide"
  },
  {
-  "id": "k193",
+  "id": "k197",
   "kind": "fix",
   "level": 1,
   "area": "all",
@@ -3281,7 +3349,7 @@
   "src": "guide"
  },
  {
-  "id": "k194",
+  "id": "k198",
   "kind": "fix",
   "level": 1,
   "area": "all",
@@ -3298,7 +3366,7 @@
   "src": "guide"
  },
  {
-  "id": "k195",
+  "id": "k199",
   "kind": "fix",
   "level": 1,
   "area": "all",
@@ -3315,7 +3383,7 @@
   "src": "guide"
  },
  {
-  "id": "k196",
+  "id": "k200",
   "kind": "fix",
   "level": 1,
   "area": "all",
@@ -3332,7 +3400,7 @@
   "src": "guide"
  },
  {
-  "id": "k197",
+  "id": "k201",
   "kind": "fix",
   "level": 1,
   "area": "all",
@@ -3349,7 +3417,7 @@
   "src": "guide"
  },
  {
-  "id": "k198",
+  "id": "k202",
   "kind": "fix",
   "level": 1,
   "area": "all",
@@ -3366,7 +3434,7 @@
   "src": "guide"
  },
  {
-  "id": "k199",
+  "id": "k203",
   "kind": "fix",
   "level": 1,
   "area": "all",
@@ -3383,7 +3451,7 @@
   "src": "guide"
  },
  {
-  "id": "k200",
+  "id": "k204",
   "kind": "fix",
   "level": 1,
   "area": "all",
@@ -3400,7 +3468,7 @@
   "src": "guide"
  },
  {
-  "id": "k201",
+  "id": "k205",
   "kind": "check",
   "level": 1,
   "area": "all",
@@ -3417,7 +3485,7 @@
   "src": "guide"
  },
  {
-  "id": "k202",
+  "id": "k206",
   "kind": "check",
   "level": 2,
   "area": "all",
@@ -3434,7 +3502,7 @@
   "src": "guide"
  },
  {
-  "id": "k203",
+  "id": "k207",
   "kind": "check",
   "level": 2,
   "area": "all",
@@ -3451,7 +3519,7 @@
   "src": "guide"
  },
  {
-  "id": "k204",
+  "id": "k208",
   "kind": "fix",
   "level": 1,
   "area": "all",
@@ -3468,7 +3536,7 @@
   "src": "guide"
  },
  {
-  "id": "k205",
+  "id": "k209",
   "kind": "check",
   "level": 2,
   "area": "all",
@@ -3485,7 +3553,7 @@
   "src": "guide"
  },
  {
-  "id": "k206",
+  "id": "k210",
   "kind": "fix",
   "level": 1,
   "area": "all",
@@ -3502,7 +3570,7 @@
   "src": "guide"
  },
  {
-  "id": "k207",
+  "id": "k211",
   "kind": "fix",
   "level": 1,
   "area": "all",
@@ -3519,7 +3587,7 @@
   "src": "guide"
  },
  {
-  "id": "k208",
+  "id": "k212",
   "kind": "fix",
   "level": 1,
   "area": "all",
@@ -3536,7 +3604,7 @@
   "src": "guide"
  },
  {
-  "id": "k209",
+  "id": "k213",
   "kind": "fix",
   "level": 1,
   "area": "all",
@@ -3553,7 +3621,7 @@
   "src": "guide"
  },
  {
-  "id": "k210",
+  "id": "k214",
   "kind": "fix",
   "level": 1,
   "area": "all",
@@ -3570,7 +3638,7 @@
   "src": "guide"
  },
  {
-  "id": "k211",
+  "id": "k215",
   "kind": "fix",
   "level": 1,
   "area": "all",
@@ -3587,7 +3655,7 @@
   "src": "guide"
  },
  {
-  "id": "k212",
+  "id": "k216",
   "kind": "fix",
   "level": 1,
   "area": "all",
@@ -3604,7 +3672,7 @@
   "src": "guide"
  },
  {
-  "id": "k213",
+  "id": "k217",
   "kind": "fix",
   "level": 1,
   "area": "all",
@@ -3621,7 +3689,7 @@
   "src": "guide"
  },
  {
-  "id": "k214",
+  "id": "k218",
   "kind": "fix",
   "level": 1,
   "area": "all",
@@ -3638,7 +3706,7 @@
   "src": "guide"
  },
  {
-  "id": "k215",
+  "id": "k219",
   "kind": "fix",
   "level": 1,
   "area": "all",
@@ -3655,7 +3723,7 @@
   "src": "guide"
  },
  {
-  "id": "k216",
+  "id": "k220",
   "kind": "fix",
   "level": 1,
   "area": "all",
@@ -3672,7 +3740,7 @@
   "src": "guide"
  },
  {
-  "id": "k217",
+  "id": "k221",
   "kind": "fix",
   "level": 1,
   "area": "all",
@@ -3689,7 +3757,7 @@
   "src": "guide"
  },
  {
-  "id": "k218",
+  "id": "k222",
   "kind": "check",
   "level": 1,
   "area": "all",
@@ -3706,7 +3774,7 @@
   "src": "guide"
  },
  {
-  "id": "k219",
+  "id": "k223",
   "kind": "fix",
   "level": 1,
   "area": "all",
@@ -3723,7 +3791,7 @@
   "src": "guide"
  },
  {
-  "id": "k220",
+  "id": "k224",
   "kind": "fix",
   "level": 1,
   "area": "all",
@@ -3740,7 +3808,7 @@
   "src": "guide"
  },
  {
-  "id": "k221",
+  "id": "k225",
   "kind": "fix",
   "level": 1,
   "area": "all",
@@ -3757,7 +3825,7 @@
   "src": "guide"
  },
  {
-  "id": "k222",
+  "id": "k226",
   "kind": "fix",
   "level": 1,
   "area": "all",
@@ -3774,7 +3842,7 @@
   "src": "guide"
  },
  {
-  "id": "k223",
+  "id": "k227",
   "kind": "fix",
   "level": 1,
   "area": "all",
@@ -3791,7 +3859,7 @@
   "src": "guide"
  },
  {
-  "id": "k224",
+  "id": "k228",
   "kind": "fix",
   "level": 1,
   "area": "all",
@@ -3808,7 +3876,7 @@
   "src": "guide"
  },
  {
-  "id": "k225",
+  "id": "k229",
   "kind": "fix",
   "level": 1,
   "area": "all",
@@ -3825,7 +3893,7 @@
   "src": "guide"
  },
  {
-  "id": "k226",
+  "id": "k230",
   "kind": "fix",
   "level": 1,
   "area": "all",
@@ -3842,7 +3910,7 @@
   "src": "guide"
  },
  {
-  "id": "k227",
+  "id": "k231",
   "kind": "fix",
   "level": 1,
   "area": "all",
@@ -3859,7 +3927,7 @@
   "src": "guide"
  },
  {
-  "id": "k228",
+  "id": "k232",
   "kind": "fix",
   "level": 1,
   "area": "all",
@@ -3876,7 +3944,7 @@
   "src": "guide"
  },
  {
-  "id": "k229",
+  "id": "k233",
   "kind": "fix",
   "level": 1,
   "area": "all",
@@ -3893,7 +3961,7 @@
   "src": "guide"
  },
  {
-  "id": "k230",
+  "id": "k234",
   "kind": "fix",
   "level": 1,
   "area": "all",
@@ -3910,7 +3978,7 @@
   "src": "guide"
  },
  {
-  "id": "k231",
+  "id": "k235",
   "kind": "fix",
   "level": 1,
   "area": "all",
@@ -3927,7 +3995,7 @@
   "src": "guide"
  },
  {
-  "id": "k232",
+  "id": "k236",
   "kind": "form",
   "level": 1,
   "area": "all",
@@ -3944,7 +4012,7 @@
   "src": "guide"
  },
  {
-  "id": "k233",
+  "id": "k237",
   "kind": "form",
   "level": 1,
   "area": "all",
@@ -3961,7 +4029,7 @@
   "src": "guide"
  },
  {
-  "id": "k234",
+  "id": "k238",
   "kind": "form",
   "level": 1,
   "area": "all",
@@ -3978,7 +4046,7 @@
   "src": "guide"
  },
  {
-  "id": "k235",
+  "id": "k239",
   "kind": "form",
   "level": 2,
   "area": "all",
@@ -3995,7 +4063,7 @@
   "src": "guide"
  },
  {
-  "id": "k236",
+  "id": "k240",
   "kind": "form",
   "level": 2,
   "area": "all",
@@ -4012,15 +4080,15 @@
   "src": "guide"
  },
  {
-  "id": "k237",
-  "kind": "fix",
+  "id": "k241",
+  "kind": "check",
   "level": 1,
   "area": "all",
   "ji": 0,
   "re": "(?<=[一-龯])ヶ(?=[一-龯])(?![月所国])",
-  "to": "ケ",
+  "to": null,
   "label": "地名の「ヶ」→「ケ」",
-  "why": "地名の小書き「ヶ」は使わず「ケ」",
+  "why": "地名の小書き「ヶ」は使わず「ケ」。学校名など正式名に「ヶ」を使う例があり、本部もそのままにすることが多い",
   "ch": 8,
   "sec": "8-5 地名の「ヶ」「ッ」",
   "r": "R34",
@@ -4029,7 +4097,7 @@
   "src": "guide"
  },
  {
-  "id": "k238",
+  "id": "k242",
   "kind": "form",
   "level": 1,
   "area": "all",
@@ -4046,7 +4114,7 @@
   "src": "guide"
  },
  {
-  "id": "k239",
+  "id": "k243",
   "kind": "form",
   "level": 1,
   "area": "all",
@@ -4063,7 +4131,7 @@
   "src": "autopilot"
  },
  {
-  "id": "k240",
+  "id": "k244",
   "kind": "form",
   "level": 1,
   "area": "all",
@@ -4080,7 +4148,7 @@
   "src": "guide"
  },
  {
-  "id": "k241",
+  "id": "k245",
   "kind": "form",
   "level": 1,
   "area": "all",
@@ -4097,7 +4165,7 @@
   "src": "guide"
  },
  {
-  "id": "k242",
+  "id": "k246",
   "kind": "form",
   "level": 1,
   "area": "all",
@@ -4114,7 +4182,7 @@
   "src": "guide"
  },
  {
-  "id": "k243",
+  "id": "k247",
   "kind": "form",
   "level": 1,
   "area": "all",
@@ -4131,7 +4199,7 @@
   "src": "guide"
  },
  {
-  "id": "k244",
+  "id": "k248",
   "kind": "form",
   "level": 1,
   "area": "all",
@@ -4148,7 +4216,7 @@
   "src": "guide"
  },
  {
-  "id": "k245",
+  "id": "k249",
   "kind": "form",
   "level": 1,
   "area": "all",
@@ -4165,7 +4233,7 @@
   "src": "guide"
  },
  {
-  "id": "k246",
+  "id": "k250",
   "kind": "form",
   "level": 1,
   "area": "all",
@@ -4182,7 +4250,7 @@
   "src": "guide"
  },
  {
-  "id": "k247",
+  "id": "k251",
   "kind": "check",
   "level": 1,
   "area": "all",
@@ -4199,7 +4267,7 @@
   "src": "guide"
  },
  {
-  "id": "k248",
+  "id": "k252",
   "kind": "form",
   "level": 1,
   "area": "all",
@@ -4216,7 +4284,7 @@
   "src": "guide"
  },
  {
-  "id": "k249",
+  "id": "k253",
   "kind": "form",
   "level": 1,
   "area": "all",
@@ -4233,7 +4301,7 @@
   "src": "guide"
  },
  {
-  "id": "k250",
+  "id": "k254",
   "kind": "form",
   "level": 1,
   "area": "all",
@@ -4250,7 +4318,7 @@
   "src": "guide"
  },
  {
-  "id": "k251",
+  "id": "k255",
   "kind": "form",
   "level": 1,
   "area": "all",
@@ -4267,7 +4335,7 @@
   "src": "guide"
  },
  {
-  "id": "k252",
+  "id": "k256",
   "kind": "check",
   "level": 2,
   "area": "all",
@@ -4284,7 +4352,7 @@
   "src": "guide"
  },
  {
-  "id": "k253",
+  "id": "k257",
   "kind": "form",
   "level": 1,
   "area": "all",
@@ -4301,7 +4369,7 @@
   "src": "guide"
  },
  {
-  "id": "k254",
+  "id": "k258",
   "kind": "check",
   "level": 1,
   "area": "all",
@@ -4318,7 +4386,7 @@
   "src": "guide"
  },
  {
-  "id": "k255",
+  "id": "k259",
   "kind": "check",
   "level": 1,
   "area": "all",
@@ -4335,7 +4403,7 @@
   "src": "guide"
  },
  {
-  "id": "k256",
+  "id": "k260",
   "kind": "check",
   "level": 2,
   "area": "all",
@@ -4352,7 +4420,7 @@
   "src": "autopilot"
  },
  {
-  "id": "k257",
+  "id": "k261",
   "kind": "check",
   "level": 1,
   "area": "all",
@@ -4369,7 +4437,7 @@
   "src": "guide"
  },
  {
-  "id": "k258",
+  "id": "k262",
   "kind": "check",
   "level": 2,
   "area": "all",
@@ -4386,7 +4454,7 @@
   "src": "guide"
  },
  {
-  "id": "k259",
+  "id": "k263",
   "kind": "check",
   "level": 1,
   "area": "all",
@@ -4403,7 +4471,7 @@
   "src": "guide"
  },
  {
-  "id": "k260",
+  "id": "k264",
   "kind": "check",
   "level": 2,
   "area": "all",
@@ -4420,13 +4488,13 @@
   "src": "guide"
  },
  {
-  "id": "k261",
-  "kind": "fix",
-  "level": 1,
+  "id": "k265",
+  "kind": "check",
+  "level": 2,
   "area": "all",
   "ji": 0,
   "re": "(?<=[はもがにでと])、(?=「)",
-  "to": "",
+  "to": null,
   "label": "引用「」直前の読点",
   "why": "発話主体＋助詞の直後、「」の前に読点を打たない",
   "ch": 7,
@@ -4437,9 +4505,9 @@
   "src": "guide"
  },
  {
-  "id": "k262",
+  "id": "k266",
   "kind": "check",
-  "level": 1,
+  "level": 2,
   "area": "all",
   "ji": 0,
   "re": "の様子",
@@ -4454,7 +4522,7 @@
   "src": "guide"
  },
  {
-  "id": "k263",
+  "id": "k267",
   "kind": "check",
   "level": 2,
   "area": "all",
@@ -4471,7 +4539,7 @@
   "src": "guide"
  },
  {
-  "id": "k264",
+  "id": "k268",
   "kind": "check",
   "level": 1,
   "area": "all",
@@ -4488,7 +4556,7 @@
   "src": "guide"
  },
  {
-  "id": "k265",
+  "id": "k269",
   "kind": "check",
   "level": 1,
   "area": "all",
@@ -4505,7 +4573,7 @@
   "src": "guide"
  },
  {
-  "id": "k266",
+  "id": "k270",
   "kind": "check",
   "level": 2,
   "area": "all",
@@ -4522,7 +4590,7 @@
   "src": "guide"
  },
  {
-  "id": "k267",
+  "id": "k271",
   "kind": "check",
   "level": 2,
   "area": "text",
@@ -4539,7 +4607,7 @@
   "src": "guide"
  },
  {
-  "id": "k268",
+  "id": "k272",
   "kind": "check",
   "level": 2,
   "area": "text",
@@ -4556,7 +4624,7 @@
   "src": "guide"
  },
  {
-  "id": "k269",
+  "id": "k273",
   "kind": "check",
   "level": 2,
   "area": "text",
@@ -4573,7 +4641,7 @@
   "src": "guide"
  },
  {
-  "id": "k270",
+  "id": "k274",
   "kind": "fix",
   "level": 1,
   "area": "title",
@@ -4590,7 +4658,7 @@
   "src": "guide"
  },
  {
-  "id": "k271",
+  "id": "k275",
   "kind": "check",
   "level": 1,
   "area": "title",
@@ -4607,7 +4675,7 @@
   "src": "guide"
  },
  {
-  "id": "k272",
+  "id": "k276",
   "kind": "fix",
   "level": 1,
   "area": "title",
@@ -4624,7 +4692,7 @@
   "src": "guide"
  },
  {
-  "id": "k273",
+  "id": "k277",
   "kind": "check",
   "level": 1,
   "area": "title",
@@ -4641,13 +4709,13 @@
   "src": "guide"
  },
  {
-  "id": "k274",
-  "kind": "fix",
-  "level": 1,
+  "id": "k278",
+  "kind": "check",
+  "level": 2,
   "area": "caption",
   "ji": 0,
   "re": "。$",
-  "to": "",
+  "to": null,
   "label": "キャプション末尾の「。」",
   "why": "最後の「。」は不要",
   "ch": 9,
@@ -4658,9 +4726,9 @@
   "src": "guide"
  },
  {
-  "id": "k275",
+  "id": "k279",
   "kind": "check",
-  "level": 1,
+  "level": 2,
   "area": "caption",
   "ji": 0,
   "re": "・",
@@ -4675,7 +4743,7 @@
   "src": "guide"
  },
  {
-  "id": "k276",
+  "id": "k280",
   "kind": "check",
   "level": 1,
   "area": "caption",
@@ -4692,7 +4760,7 @@
   "src": "guide"
  },
  {
-  "id": "k277",
+  "id": "k281",
   "kind": "fix",
   "level": 1,
   "area": "all",
@@ -4709,7 +4777,7 @@
   "src": "autopilot"
  },
  {
-  "id": "k278",
+  "id": "k282",
   "kind": "fix",
   "level": 1,
   "area": "all",
@@ -4726,7 +4794,7 @@
   "src": "autopilot"
  },
  {
-  "id": "k279",
+  "id": "k283",
   "kind": "check",
   "level": 2,
   "area": "all",
@@ -4743,7 +4811,7 @@
   "src": "autopilot"
  },
  {
-  "id": "k280",
+  "id": "k284",
   "kind": "check",
   "level": 2,
   "area": "all",
@@ -4760,7 +4828,7 @@
   "src": "autopilot"
  },
  {
-  "id": "k281",
+  "id": "k285",
   "kind": "fix",
   "level": 1,
   "area": "all",
@@ -4777,7 +4845,7 @@
   "src": "autopilot"
  },
  {
-  "id": "k282",
+  "id": "k286",
   "kind": "fix",
   "level": 1,
   "area": "all",
@@ -4794,7 +4862,7 @@
   "src": "autopilot"
  },
  {
-  "id": "k283",
+  "id": "k287",
   "kind": "fix",
   "level": 1,
   "area": "all",
@@ -4811,7 +4879,7 @@
   "src": "autopilot"
  },
  {
-  "id": "k284",
+  "id": "k288",
   "kind": "fix",
   "level": 1,
   "area": "all",
@@ -4828,7 +4896,7 @@
   "src": "autopilot"
  },
  {
-  "id": "k285",
+  "id": "k289",
   "kind": "fix",
   "level": 1,
   "area": "all",
@@ -4845,7 +4913,7 @@
   "src": "autopilot"
  },
  {
-  "id": "k286",
+  "id": "k290",
   "kind": "fix",
   "level": 1,
   "area": "all",
@@ -4862,7 +4930,7 @@
   "src": "autopilot"
  },
  {
-  "id": "k287",
+  "id": "k291",
   "kind": "fix",
   "level": 1,
   "area": "all",
@@ -4879,7 +4947,126 @@
   "src": "autopilot"
  },
  {
-  "id": "k288",
+  "id": "k292",
+  "kind": "fix",
+  "level": 1,
+  "area": "all",
+  "ji": 0,
+  "re": "ワクワク",
+  "to": "わくわく",
+  "label": "ワクワク→わくわく",
+  "why": "気持ちを表す語はひらがな",
+  "ch": 8,
+  "sec": "8-4 食べ物の表記",
+  "r": "",
+  "stat": "本部修正3本",
+  "n": 3,
+  "src": "guide"
+ },
+ {
+  "id": "k293",
+  "kind": "form",
+  "level": 1,
+  "area": "all",
+  "ji": 0,
+  "re": "[ 　]+(?=[。、」』）])",
+  "to": "",
+  "label": "句読点・閉じかっこの前の空白",
+  "why": "「。」「、」や閉じかっこの前に空白を入れない",
+  "ch": 8,
+  "sec": "8-5 その他の表記ルール",
+  "r": "",
+  "stat": "",
+  "n": 0,
+  "src": "guide"
+ },
+ {
+  "id": "k294",
+  "kind": "form",
+  "level": 1,
+  "area": "all",
+  "ji": 0,
+  "re": "(?<=[A-Za-z0-9])　(?=[A-Za-z])|(?<=[A-Za-z])　(?=[A-Za-z0-9])",
+  "to": " ",
+  "label": "英字の間の全角スペース→半角",
+  "why": "英字の語と語の間のスペースは半角",
+  "ch": 8,
+  "sec": "8-5 その他の表記ルール",
+  "r": "",
+  "stat": "",
+  "n": 0,
+  "src": "guide"
+ },
+ {
+  "id": "k295",
+  "kind": "form",
+  "level": 1,
+  "area": "title",
+  "ji": 0,
+  "re": "(?<=[^\\s　])　{2,}(?=[^\\s　])",
+  "to": "　",
+  "label": "タイトルのスペースは1つ",
+  "why": "区切りの全角スペースは1つ。二つ並べない",
+  "ch": 8,
+  "sec": "8-5 その他の表記ルール",
+  "r": "",
+  "stat": "",
+  "n": 0,
+  "src": "guide"
+ },
+ {
+  "id": "k296",
+  "kind": "fix",
+  "level": 1,
+  "area": "all",
+  "ji": 0,
+  "re": "([0-9]+(?:個|台|キロ|枚|本|皿|杯|食|セット|袋|箱|グラム|人前|kg|g))(?=[0-9][0-9,]*円)",
+  "to": "$1＝",
+  "label": "数量と価格の間に「＝」",
+  "why": "「8個＝600円」のように数量と価格は「＝」でつなぐ",
+  "ch": 6,
+  "sec": "6-2 金額の書き方",
+  "r": "",
+  "stat": "本部修正5本",
+  "n": 5,
+  "src": "guide"
+ },
+ {
+  "id": "k297",
+  "kind": "check",
+  "level": 1,
+  "area": "all",
+  "ji": 0,
+  "re": "(?:になれば|になったら|できれば|もらえれば|られれば)うれしい",
+  "to": null,
+  "label": "「〜になればうれしい」",
+  "why": "引用は「〜になれば」で止める",
+  "ch": 7,
+  "sec": "7-6 インタビュー体は使わない／引用の動詞は「話す」",
+  "r": "",
+  "stat": "本部修正3本",
+  "n": 3,
+  "src": "guide"
+ },
+ {
+  "id": "k298",
+  "kind": "check",
+  "level": 2,
+  "area": "all",
+  "ji": 0,
+  "re": "(?<=」と)来場を(?=呼び|よび)",
+  "to": null,
+  "label": "「〜」と来場を呼びかける",
+  "why": "「〇〇」と呼びかける、で足りる（呼びかけの中身は「」で伝わる）",
+  "ch": 7,
+  "sec": "7-6 インタビュー体は使わない／引用の動詞は「話す」",
+  "r": "",
+  "stat": "本部修正6本",
+  "n": 6,
+  "src": "guide"
+ },
+ {
+  "id": "k299",
   "kind": "form",
   "level": 1,
   "area": "title",
@@ -4897,7 +5084,7 @@
   "builtin": "title_len"
  },
  {
-  "id": "k289",
+  "id": "k300",
   "kind": "check",
   "level": 1,
   "area": "title",
@@ -4915,7 +5102,7 @@
   "builtin": "title_space"
  },
  {
-  "id": "k290",
+  "id": "k301",
   "kind": "form",
   "level": 1,
   "area": "lead",
@@ -4933,7 +5120,7 @@
   "builtin": "lead_len"
  },
  {
-  "id": "k291",
+  "id": "k302",
   "kind": "form",
   "level": 1,
   "area": "text",
@@ -4951,7 +5138,7 @@
   "builtin": "body_len"
  },
  {
-  "id": "k292",
+  "id": "k303",
   "kind": "form",
   "level": 1,
   "area": "text",
@@ -4969,9 +5156,9 @@
   "builtin": "indent"
  },
  {
-  "id": "k293",
+  "id": "k304",
   "kind": "form",
-  "level": 1,
+  "level": 2,
   "area": "all",
   "ji": 0,
   "re": "",
@@ -4987,7 +5174,7 @@
   "builtin": "blank_space"
  },
  {
-  "id": "k294",
+  "id": "k305",
   "kind": "fix",
   "level": 1,
   "area": "all",

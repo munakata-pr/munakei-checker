@@ -28,9 +28,13 @@ for (const level of [1, 2]) {
   console.log(`  level${level}: 1回目 直す${count(r1.findings, 'fix')}・確かめる${count(r1.findings, 'check')}・形${count(r1.findings, 'form')} → 反映後 直す${f2.length}・置換できる形${fm2.length}`);
   if (f2.length) fail('反映後に直すが残る: ' + f2.map((f) => `${f.rule.label}「${f.text}」`).join('、'));
   if (fm2.length) fail('反映後に置換できる形が残る: ' + fm2.map((f) => `${f.rule.label}「${f.text}」`).join('、'));
-  if (level === 1) {
+  {
     const ids = new Set(r1.findings.map((f) => f.rule.builtin || f.rule.label));
-    for (const b of ['title_len', 'indent', 'nested_quote', 'blank_space']) if (!ids.has(b)) fail(`サンプルで組み込みの点検 ${b} が出ない`);
+    // blank_space は 11/10 からデスク向け（level 2）だけ
+    for (const b of level === 1 ? ['title_len', 'indent', 'nested_quote'] : ['blank_space']) if (!ids.has(b)) fail(`サンプルで組み込みの点検 ${b} が出ない（level${level}）`);
+    if (level === 1 && ids.has('blank_space')) fail('blank_space が記者向け（level1）に出ている');
+  }
+  if (level === 1) {
     if (detail) for (const f of r1.findings) console.log(`    ${f.rule.kind} ${f.area} 「${f.text}」→${f.to === null ? '-' : '「' + f.to + '」'} ${f.rule.label}${f.info ? ' / ' + f.info : ''}`);
     console.log('  反映後の原稿（先頭120字）: ' + JSON.stringify(fixed.slice(0, 120)));
   }
@@ -65,11 +69,14 @@ if (detail && noHit.length) console.log('    当たらない: ' + noHit.join('�
 // (3) 返却版の精度
 console.log('(3) 返却版の精度');
 const testDir = join(HERE, '_test');
-const files = existsSync(testDir) ? readdirSync(testDir).filter((f) => /_v2\.json$/.test(f)) : [];
-if (!files.length) console.log('  _test/*_v2.json がない（公開リポジトリには入れないので、手元でだけ測る）');
+const hqFile = join(testDir, 'hq', 'hq_1y_20261110.json');
+const sets = existsSync(hqFile)
+  ? [['1年分（_test/hq）', JSON.parse(readFileSync(hqFile, 'utf8')).docs]]
+  : (existsSync(testDir) ? readdirSync(testDir).filter((f) => /_v2\.json$/.test(f)) : []).map((f) => [f, [JSON.parse(readFileSync(join(testDir, f), 'utf8'))]]);
+const files = sets;
+if (!files.length) console.log('  _test/hq/*.json も _test/*_v2.json もない（公開リポジトリには入れないので、手元でだけ測る）');
 const total = { edits: 0, caught: 0, caughtFix: 0, findings: 0, extra: 0, byKind: {} };
-for (const fn of files) {
-  const d = JSON.parse(readFileSync(join(testDir, fn), 'utf8'));
+function buildDoc(d) {
   const lines = [];
   const edits = [];
   let pos = 0;
@@ -92,30 +99,27 @@ for (const fn of files) {
     lines.push(orig);
     pos += orig.length + 1;
   }
-  const text = lines.join('\n');
-  const touches = (f, e) => (e.end > e.start ? f.start < e.end && e.start < f.end : f.start <= e.start && e.start <= f.end);
+  return { text: lines.join('\n'), edits };
+}
+const touches = (f, e) => (e.end > e.start ? f.start < e.end && e.start < f.end : f.start <= e.start && e.start <= f.end);
+const pct = (a, b) => (b ? Math.round((a / b) * 1000) / 10 : 0);
+for (const [name, docs] of files) {
   for (const level of [1, 2]) {
-    const fs = eng.check(text, { level }).findings.filter((f) => f.end > f.start);
-    const caught = edits.filter((e) => fs.some((f) => touches(f, e)));
-    const caughtFix = edits.filter((e) => fs.some((f) => f.rule.kind !== 'check' && touches(f, e)));
-    const extra = fs.filter((f) => !edits.some((e) => touches(f, e)));
-    const byKind = {};
-    for (const f of fs) {
-      const k = f.rule.kind;
-      byKind[k] = byKind[k] || { n: 0, extra: 0 };
-      byKind[k].n++;
-      if (!edits.some((e) => touches(f, e))) byKind[k].extra++;
-    }
-    const pct = (a, b) => (b ? Math.round((a / b) * 1000) / 10 : 0);
-    console.log(`  ${fn} level${level}: 本部の直し ${edits.length}か所・光った ${fs.length}（${Object.entries(byKind).map(([k, v]) => `${k} ${v.n}（余計 ${v.extra}）`).join('・')}）・拾えた ${caught.length}（${pct(caught.length, edits.length)}%、直す・形だけで ${caughtFix.length}）・余計な指摘 ${extra.length}`);
-    if (level === 2) {
-      total.edits += edits.length; total.caught += caught.length; total.caughtFix += caughtFix.length;
-      total.findings += fs.length; total.extra += extra.length;
-      if (detail) {
+    const t = { edits: 0, caught: 0, caughtFix: 0, fs: 0, extra: 0 };
+    for (const d of docs) {
+      const { text, edits } = buildDoc(d);
+      const fs = eng.check(text, { level }).findings.filter((f) => f.end > f.start);
+      const caught = edits.filter((e) => fs.some((f) => touches(f, e)));
+      t.edits += edits.length; t.caught += caught.length; t.fs += fs.length;
+      t.caughtFix += edits.filter((e) => fs.some((f) => f.rule.kind !== 'check' && touches(f, e))).length;
+      t.extra += fs.filter((f) => !edits.some((e) => touches(f, e))).length;
+      if (detail && level === 2 && docs.length <= 5) {
         for (const f of fs) console.log(`    ${edits.some((e) => touches(f, e)) ? '○' : '×'} ${f.rule.kind} ${f.area} 「${f.text.slice(0, 20)}」 ${f.rule.label}${f.info ? ' / ' + f.info : ''}`);
         for (const e of edits.filter((x) => !caught.includes(x))) console.log(`    未 「${e.del.slice(0, 20)}」→「${e.ins.slice(0, 20)}」`);
       }
     }
+    console.log(`  ${name} ${docs.length}本 level${level}: 本部の直し ${t.edits}か所・拾えた ${t.caught}（${pct(t.caught, t.edits)}%、直す・形だけで ${t.caughtFix}）・光った ${t.fs}・余計な指摘 ${t.extra}（${pct(t.extra, t.fs)}%）`);
+    if (level === 2) Object.assign(total, { edits: total.edits + t.edits, caught: total.caught + t.caught, caughtFix: total.caughtFix + t.caughtFix, findings: total.findings + t.fs, extra: total.extra + t.extra });
   }
 }
 if (files.length > 1) console.log(`  合計（level2）: 本部の直し ${total.edits}・拾えた ${total.caught}（直す・形だけで ${total.caughtFix}）・光った ${total.findings}・余計な指摘 ${total.extra}`);
