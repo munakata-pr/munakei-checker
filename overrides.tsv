@@ -1,0 +1,156 @@
+file	ng	kind	level	area	ji	re	to	why	mayoi
+ch08_notation.md	渡る	fix	1	all	0	に渡(?=[らりるれっ])	にわた	範囲・期間の「にわたる」はひらがな（「海を渡る」など移動の意味は漢字）	「に渡る」の形だけ直し、「海を渡る」は光らせない
+ch08_notation.md	経つ	fix	1	all	0	経(?=[ちつっ])	た	時間が「たつ」はひらがな	「経て（へて）」「経た」は対象外にした
+ch08_notation.md	頃	fix	1	all	0	(?<=[のこそあど])頃	ころ	「〜のころ」はひらがな	「の頃」は「ころ」、それ以外は「ごろ」と機械で振り分けた
+ch08_notation.md	頃	fix	1	all	0	(?<![のこそあど])頃	ごろ	「正午ごろ」など時刻・時期の「ごろ」はひらがな	
+ch08_notation.md	様（人物への敬称）	check	1	all	1	(?<![同模多仕紋文異今王殿神仏])様(?![子々式相])		人物への敬称は「さま」。地の文の人物は「さん」	人物かどうかは機械で決められないので「確かめる」にした
+ch08_notation.md	達	fix	1	all	0	(?<=[私僕君者員生徒手もら供])達(?![成人])	たち	複数を表す「たち」はひらがな	友達・配達・上達を除くため、人を表す語の直後だけ光らせる
+ch08_notation.md	等	fix	1	all	0	(?<![平一二三上下高均同対特劣優初中何])等(?![しく級身間分辺価号圧々])	など	「など」はひらがな	平等・高等・均等・等身大などを除外した
+ch08_notation.md	上手い・美味い	fix	1	all	0	(?:上手|美味)(?=[いくかけ])	うま	「うまい」はひらがな	「上手（じょうず）な」は光らない
+ch08_notation.md	留める	check	2	all	0	留め(?=[るたてなず])		「とどめる」の意味ならひらがな	「気に留める（とめる）」もあるので「確かめる」にした
+ch08_notation.md	コツ	fix	1	all	0	(?<![ァ-ヺー])コツ(?![ァ-ヺー])	こつ	「こつ」はひらがな	
+ch08_notation.md	司る	fix	1	all	0	(?<![上宮行寿祭])司(?=[るりっ])	つかさど	「つかさどる」はひらがな	
+ch08_notation.md	教えて貰う	fix	1	all	0	て貰(?=[わいうえおっ])	てもら	補助動詞はひらがな	
+ch08_notation.md	歩いて居る	fix	1	all	0	([てで])居(?=[るたてなまれ])	$1い	補助動詞はひらがな	
+ch08_notation.md	読んで見る	check	1	all	0	(て|んで|いで)見(?=[るたてなよれま])		試しにする意味の「みる」はひらがな（目で見る意味は漢字）	「手に取って見る」のように目で見る意味もあるので「確かめる」にした
+ch08_notation.md	歩いて来る	fix	1	all	0	(て|んで|いで)来る	$1くる	補助動詞はひらがな	
+ch08_notation.md	歩いて来る	fix	1	all	0	(て|んで|いで)来(?=[たてましず])	$1き	補助動詞はひらがな	
+ch08_notation.md	歩いて来る	fix	1	all	0	(て|んで|いで)来(?=[なよら])	$1こ	補助動詞はひらがな	
+ch08_notation.md	言って置く	fix	1	all	0	(て|んで|いで)置(?=[かきくけこい])	$1お	補助動詞はひらがな	
+ch08_notation.md	行って仕舞う	fix	1	all	0	(て|んで|いで)仕舞(?=[わいうえおっ])	$1しま	補助動詞はひらがな	
+ch08_notation.md	来て呉れる	fix	1	all	0	(て|んで|いで)呉(?=れ)	$1く	補助動詞はひらがな	
+ch08_notation.md	来て欲しい（補助形容詞）	fix	1	all	0	(て|んで|いで)欲し(?=[いくかけ])	$1ほし	補助形容詞「〜してほしい」はひらがな	
+ch08_notation.md	歩いて行く	fix	1	all	0	(て|んで|いで)行(?=[かきくけこ])	$1い	補助動詞はひらがな	「行った」は「行う」の過去形と区別できないので対象外
+ch08_notation.md	もの	check	1	all	0	(?<=[たるいうく])もの(?=[をがはもにで、。])		具体的な物品は「物」（「作りたい物」）。「〜するものだ」の形式名詞はひらがなで、構文自体を使わない	物品か形式名詞かは文脈次第なので「確かめる」にした
+ch08_notation.md	とも	check	1	all	0	(?<=[者方社人])とも(?![だに])		「両者共」など、全部を表す「とも」は漢字	
+ch08_notation.md	もとに	check	1	all	0	もとに		「資料を基に」「体験を元に」と漢字で	基と元のどちらかは文脈次第
+ch08_notation.md	まち／街	check	2	all	0	(?<![商店繁市])街(?![道灯])|まち(?=づくり|おこし|の魅力)		「町おこし」「町の魅力」は「町」。「街」も「町」に	「商店街」などは除外した
+ch08_notation.md	○○づくり	check	2	all	0	づくり		記者ハンは「作り」。本部が「つくり」に直した例もあり要確認	ガイド自体が要確認のため「確かめる」
+ch08_notation.md	よく／よかった	check	2	all	0	(?<![ぁ-ゖ])よ(?=かっ|く[、なしてもの])		「良い」の意味なら漢字（「良かった」）。頻度の「よく」はひらがな	意味で分かれるので「確かめる」
+ch08_notation.md	あたり	fix	1	all	0	(?<=[人個回日枚杯本台件])あたり	当たり	「1人当たり」は漢字	数量の直後だけ直す（「このあたり」は除外）
+ch08_notation.md	コメ	fix	1	all	0	(?<![ァ-ヺー])コメ(?![ァ-ヺー])	米		「コメント」は除外
+ch08_notation.md	方／方々	check	1	all	1	方々		人を指す「方々」は「人たち」（「人々」と混ぜない）	
+ch08_notation.md	僕たち	fix	1	all	1	僕たち	私たち	地の文は「私たち」（発言の「」内はそのまま）	
+ch08_notation.md	営む	fix	1	all	1	営む	経営する		
+ch08_notation.md	営む	fix	1	all	1	営んで	経営して		
+ch08_notation.md	営む	fix	1	all	1	営んだ	経営した		
+ch08_notation.md	会する・集う	check	1	all	0	会する|集う|集っ(?=[たて])		→「集まる」	
+ch08_notation.md	明太	fix	1	all	0	明太子	めんたいこ		
+ch08_notation.md	明太	fix	1	all	0	明太(?!子)	めんたい		
+ch08_notation.md	手書き（絵の場合）	check	2	all	0	手書き		絵なら「手描き」、文字なら「手書き」	
+ch08_notation.md	準ずる	check	1	all	0	準(?=[ずじ])		古い言い回しなので使わない	
+ch08_notation.md	みな	check	2	all	0	(?<![ぁ-ゖ])みな(?![さとぎかもりみし])		→「みんな」	
+ch08_notation.md	JC	fix	1	all	0	(?<![A-Za-z])JC(?![A-Za-z])	青年会議所	略称は使わない	
+ch08_notation.md	城山中学校	check	2	all	0	(?<![一-龯ァ-ヺ])(?!小中学校|中高一貫)(?:(?!立)[一-龯ァ-ヺ]){1,6}(?:小学校|中学校|高等学校|高校)		学校名は設置者を含む正式名（例：宗像市立城山中学校）	設置者が付いているかは機械で一部しか分からない
+ch08_notation.md	出会う	check	2	all	0	出[会合](?=[うわいえっ])		人と人は「出会う」、物・事は「出合う」	
+ch08_notation.md	出合う	skip							
+ch08_notation.md	修行	check	2	all	0	修[行業]		武者修行は「修行」、板前修業など技芸は「修業」	
+ch08_notation.md	修業	skip							
+ch08_notation.md	製作	check	1	all	0	製作|制作|作成		一点物の作品＝制作、量産物＝製作、書類・データ＝作成	
+ch08_notation.md	制作	skip							
+ch08_notation.md	作成	skip							
+ch08_notation.md	お勧め	check	2	all	0	お(?:勧|薦)め		勧誘は「お勧め」、推薦は「お薦め」	
+ch08_notation.md	お薦め	skip							
+ch08_notation.md	立つ	skip							
+ch08_notation.md	建つ	skip							
+ch08_notation.md	惣菜	fix	1	all	0	惣菜	総菜	「惣」は常用外	
+ch08_notation.md	プレイ	fix	1	all	0	(?<![ァ-ヺー])プレイ(?![ァ-ヺ])	プレー		複合語（プレイヤーなど）は光らせない
+ch08_notation.md	① ② ③	fix	1	all	0	[①-⑳]	@circled	丸数字は機種依存文字	
+ch08_notation.md	㈱ ㈲	check	1	all	0	[㈱㈲]		機種依存文字。「株式会社」自体も書かない	
+ch08_notation.md	アクサンテギュなどの付いた欧文字	check	2	all	0	[À-ÖØ-öø-ÿ]		欧文字の記号（アクセント）は付けない	
+ch08_notation.md	～（全角チルダ U+FF5E）	check	2	all	0	～		旧基準では機種依存文字。字種（〜／～）は本部に要確認	ガイド自体が要確認
+ch08_notation.md	シーチキン	fix	1	all	0	シーチキン	ツナ	登録商標は一般名に	
+ch08_notation.md	ゆかり	check	2	all	0	ゆかり(?!の)		商標。一般名は「赤しそふりかけ」	「ゆかりの地」や人名と区別できないので「確かめる」
+ch08_notation.md	タッパー	fix	1	all	0	タッパー(?:ウェア|ウエア)?	保存容器	登録商標は一般名に	
+ch08_notation.md	ガチャ	fix	1	all	0	ガチャ(?:ガチャ|ポン)?(?![ァ-ヺ])	カプセルトイ	登録商標は一般名に	
+ch08_notation.md	スパム	fix	1	all	0	スパム(?!メール)	ランチョンミート	登録商標は一般名に	
+ch05_names.md	お店	fix	1	all	1	お店	店	地の文では敬称を抑える	
+ch05_names.md	お客さま	fix	1	all	1	お客(?:さま|様|さん)?	客	地の文では敬称を抑える	
+ch05_names.md	常連さま	fix	1	all	1	常連(?:さま|様|さん)	常連客	地の文では敬称を抑える	
+ch05_names.md	〇〇の方（人を指す）	check	1	all	1	(?<=[のな])方(?=[がはをにもと、。])		人を指す「方」は「人」	「行き方」など人以外も拾うので「確かめる」
+ch05_names.md	ザ・ビジーズ（ザ・美・爺ズ）	skip							
+ch06_numbers.md	無休・不定休／ラストオーダー／「なくなり次第終了」／深夜営業店の一般的な但し書き／持ち帰り可	check	1	all	0	無休|不定休|ラストオーダー|L\.O\.|次第終了|持ち帰り可		営業情報で書かないもの。定休日と基本の閉店時刻を書く	
+ch07_expression.md	原料には〜〜が使われている	check	1	body	1	使われ(?=[てたる])		受動態は使わない（→「〜を使う」）	
+ch07_expression.md	プレゼントされる	check	1	body	1	プレゼントされ		受動態は使わない（→「プレゼントする」「進呈する」）	
+ch07_expression.md	購入できる	check	1	body	1	購入でき|買うことができ		事業者目線で「販売する」	
+ch07_expression.md	行われる	check	1	body	1	行われ		受動態は使わない（→「行う」）	
+ch07_expression.md	食べられる	check	1	body	1	食べられ|食べることができ		→「食べる」。事業者目線なら「提供する」	
+ch07_expression.md	○○が開催された／行われた（本文）	check	1	body	1	開催され		→「○○を開いた／行った」	
+ch07_expression.md	意気込む	check	1	text	1	意気込(?=[むんみまめ])		引用の動詞は「話す」（締めの一文は除く）	
+ch07_expression.md	呼びかける	check	1	text	1	呼び[掛か]け		「呼びかける」は記事末尾の締めだけ。中盤は「話す」	
+ch07_expression.md	期待を寄せる	check	1	text	1	期待を寄せ		引用の動詞は「話す」	
+ch07_expression.md	振り返る	check	1	text	1	振り返(?=[るりっ])		引用の動詞は「話す」	
+ch07_expression.md	来店を呼びかける	skip							
+ch07_expression.md	期待を込める	fix	1	text	1	期待を込め	期待を寄せ		
+ch07_expression.md	意気込みを見せる	check	1	text	1	意気込みを見せ		→「意気込む」または「話す」	
+ch07_expression.md	語る／語った	fix	1	text	1	(?<!物)語る	話す	引用の動詞は「話す」	
+ch07_expression.md	語る／語った	fix	1	text	1	(?<!物)語っ(?=[たて])	話し	引用の動詞は「話す」	
+ch07_expression.md	○○を開催する／開催した／開催され	check	1	all	0	開催(?=する|した|して|しま|し、)		動詞の「開催」は「開く」「行う」に（「開催日」など名詞は可）	
+ch07_expression.md	実施する／実施した	fix	1	all	0	実施する	行う		
+ch07_expression.md	実施する／実施した	fix	1	all	0	実施し(?=[たて])	行っ		
+ch07_expression.md	実施する／実施した	fix	1	all	0	実施し(?=[、ま])	行い		
+ch07_expression.md	使用する／使用した／用いる	fix	1	all	0	使用する|用いる	使う		
+ch07_expression.md	使用する／使用した／用いる	fix	1	all	0	(?:使用し|用い)(?=[たて])	使っ		
+ch07_expression.md	使用する／使用した／用いる	fix	1	all	0	使用し(?=[、ま])	使い		
+ch07_expression.md	開始する	fix	1	all	0	開始する	始める		
+ch07_expression.md	開始する	fix	1	all	0	開始し(?=[たて、ま])	始め		
+ch07_expression.md	販売を行う	fix	1	all	0	販売を行う	販売する		
+ch07_expression.md	販売を行う	fix	1	all	0	販売を行(?:っ(?=[たて])|い)	販売し		
+ch07_expression.md	営んでいた	skip							
+ch07_expression.md	体験を行う	fix	1	all	0	体験を行う	体験する		
+ch07_expression.md	体験を行う	fix	1	all	0	体験を行(?:っ(?=[たて])|い)	体験し		
+ch07_expression.md	「○○」という店	check	1	all	0	」という		削っても意味が通る「という」は削る	
+ch07_expression.md	「○○」というイベント	skip							
+ch07_expression.md	開発に携わったという（確定情報なのに）	check	2	text	1	(?<=[たる])という(?=。)		確定した事実なら「という」を付けない	
+ch07_expression.md	〜していただく／〜していただいた	fix	1	all	1	([てで])(?:いただ|頂)く	$1もらう	地の文は敬語を使わない	
+ch07_expression.md	〜していただく／〜していただいた	fix	1	all	1	([てで])(?:いただ|頂)い(?=[たて])	$1もらっ	地の文は敬語を使わない	
+ch07_expression.md	〜していただく／〜していただいた	fix	1	all	1	([てで])(?:いただ|頂)き	$1もらい	地の文は敬語を使わない	
+ch07_expression.md	〜していただく／〜していただいた	fix	1	all	1	([てで])(?:いただ|頂)け	$1もらえ	地の文は敬語を使わない	
+ch07_expression.md	〜です。／〜ます。	check	1	text	1	(?:です|ます|でした|ました)(?=。)		地の文は常体（だ・する）	
+ch07_expression.md	ご来場ください／ぜひお越しください	check	1	all	1	ください|下さい		地の文で呼びかけない。来場の呼びかけは締めの引用で	
+ch07_expression.md	ご紹介する／ご用意する	fix	1	all	1	ご(紹介|用意)(?=す|し)	$1	地の文は敬語を使わない	
+ch07_expression.md	また	check	1	text	1	(?<=^|[。　])また(?=、)		接続詞の使い回し。文頭に書かない（「併せて」なら可）	
+ch07_expression.md	そして	check	1	text	1	そして		使わない	
+ch07_expression.md	なお	check	1	text	1	(?<=^|[。　])なお(?=、)		使わない	
+ch07_expression.md	にて	fix	1	all	1	にて	で	古い言い回し	
+ch07_expression.md	ぜひ	fix	1	all	0	(?:ぜひ|是非)、?		本文・引用とも削る	
+ch07_expression.md	！	check	1	all	1	[！!]		使わない（イベント名の「」内は可）	
+ch07_expression.md	キャンペーン	fix	1	all	1	キャンペーン	企画	広告色が出るため「企画」に	
+ch07_expression.md	各種	check	2	all	0	各種		なるべく割愛	
+ch07_expression.md	〜次第終了／なくなり次第終了／売り切れ次第終了	skip							
+ch07_expression.md	これは〜するものだ／〜というものです	check	1	text	1	これは[^。]{1,30}もの(?:だ|です)|というもの(?:だ|です)		「これはもの文」は使わない。事実を直接書く	
+ch07_expression.md	告知記事	check	2	all	1	告知記事		内輪の言葉	
+ch07_expression.md	大きな／小さな／特大	check	2	all	1	大きな|小さな|特大		大きさは寸法・席数で書く	
+ch07_expression.md	イベント規模の「大型」「小型」	check	2	all	1	大型|小型		比較対象がなければ主観	
+ch07_expression.md	佇む、高品質、かわいい	check	1	all	1	佇(?=[むまんみ])|高品質|かわい(?=[いく])|可愛		曖昧な持ち上げ表現	
+ch07_expression.md	アットホームな店内／アットホームな雰囲気	check	1	all	1	アットホーム		抽象的な空間描写。大きさ・素材・席数などで書く	
+ch07_expression.md	居心地のいい店／居心地のいい空間	check	1	all	1	居心地の(?:いい|良い|よい)		抽象的な空間描写	
+ch07_expression.md	「当事者だからこそ語れる」	check	2	all	1	だからこそ		強調言葉。先方の言い分として引用に	
+ch07_expression.md	すべての／あらゆる／どの○も	check	2	all	1	すべての|全ての|あらゆる|どの[一-龯ァ-ヺ]{1,4}も		全称表現。「など」「主な」と限定的に	
+ch07_expression.md	「○○にこだわっている」「○○へのこだわり」	check	1	all	1	にこだわっ|へのこだわり		地の文で持ち上げない。直接引用にする	
+ch07_expression.md	「○○を大切にしている」「○○を大事にしている」	check	1	all	1	を大切にし|を大事にし		地の文で持ち上げない。直接引用にする	
+ch07_expression.md	「細部にまで工夫を凝らしている」	check	1	all	1	工夫を凝らし		地の文で持ち上げない。直接引用にする	
+ch07_expression.md	「○○を追求している」「○○を磨き続けている」	check	1	all	1	を追求し|を磨き続け		地の文で持ち上げない。直接引用にする	
+ch07_expression.md	「丁寧に作られている」「心を込めて」	check	1	all	1	丁寧に作られ|心を込め		地の文で持ち上げない。直接引用にする	
+ch07_expression.md	「○○への想い」「○○への情熱」「○○への愛情」	check	1	all	1	への(?:想い|思い|情熱|愛情)		地の文で持ち上げない。直接引用にする	
+ch07_expression.md	「努力を重ねている」「日々研鑽している」	check	1	all	1	努力を重ね|研さん|研鑽		地の文で持ち上げない。直接引用にする	
+ch07_expression.md	「○○ならではの」「○○だけの」「他にはない」	check	1	all	1	ならではの|他にはない|ここだけの		地の文で持ち上げない。直接引用にする	「○○だけの」は数が多すぎるので「ここだけの」に絞った
+ch07_expression.md	一押し・おすすめ	check	1	all	1	一押し|イチオシ|おすすめ|オススメ		→「代表メニュー」「人気の○○」など	
+ch07_expression.md	愛される・愛着	check	1	all	1	愛され|愛着		→削除、または「○○年続く」などの事実に	
+ch07_expression.md	〜のほか	check	2	all	0	のほか		本部は「〜をはじめ」に置き換えることが多い	
+ch07_expression.md	開業（した）	check	2	all	0	開業(?=し|する)		本部は「出店」に置き換えることが多い	
+ch07_expression.md	提供（する）	check	2	all	0	提供(?=する|し|され)		本部は「用意」「販売」に置き換えることが多い	
+ch07_expression.md	今年度	fix	1	all	0	今年度	本年度		
+ch07_expression.md	地元	check	2	all	0	地元		本部は「地域」に置き換えることがある	
+90_appendix.md	髙橋	skip							
+90_appendix.md	﨑山	skip							
+90_appendix.md	㈱	skip							
+90_appendix.md	① ② ③	skip							
+90_appendix.md	使用する	skip							
+90_appendix.md	実施する	skip							
+90_appendix.md	開始する	skip							
+90_appendix.md	等	skip							
+90_appendix.md	シーチキン	skip							
+90_appendix.md	教えて貰う	skip							
+90_appendix.md	歩いて居る	skip							
+ch08_notation.md	米国	check	1	all	0	米国		ガイドは「アメリカ」に統一（第8章）。ただし本部が「アメリカ」を「米国」に直した例もあるので、文脈で判断する	本部が逆向き（アメリカ→米国）に直した例があるため「確かめる」に下げた（11/10 中村さん決定）

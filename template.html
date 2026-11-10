@@ -1,0 +1,471 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'unsafe-inline'; style-src 'unsafe-inline'; img-src data:; connect-src 'none'; form-action 'none'; base-uri 'none'">
+<link rel="icon" href="data:,">
+<title>宗像経済新聞 表記チェッカー</title>
+<style>
+:root {
+  color-scheme: light;
+  --bg: #f4f2ee; --paper: #ffffff; --text: #1f2328; --muted: #5d6470; --line: #d9d5cc; --accent: #1f4e79;
+  --fix: #c0262d; --fix-bg: rgba(214, 48, 49, .22);
+  --check: #9a6700; --check-bg: rgba(242, 190, 20, .42);
+  --form: #1d5bd6; --form-bg: rgba(48, 110, 230, .2);
+  --act: #111;
+  --font: "Hiragino Kaku Gothic ProN", "Hiragino Sans", "Yu Gothic UI", "YuGothic", "Meiryo", sans-serif;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    color-scheme: dark;
+    --bg: #17191c; --paper: #202328; --text: #e6e6e3; --muted: #9aa1ab; --line: #3a3f46; --accent: #8cb8e8;
+    --fix: #ff7b7b; --fix-bg: rgba(255, 90, 90, .3);
+    --check: #f0c34a; --check-bg: rgba(240, 195, 74, .3);
+    --form: #7fb0ff; --form-bg: rgba(110, 160, 255, .28);
+    --act: #fff;
+  }
+}
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --bg: #17191c; --paper: #202328; --text: #e6e6e3; --muted: #9aa1ab; --line: #3a3f46; --accent: #8cb8e8;
+  --fix: #ff7b7b; --fix-bg: rgba(255, 90, 90, .3);
+  --check: #f0c34a; --check-bg: rgba(240, 195, 74, .3);
+  --form: #7fb0ff; --form-bg: rgba(110, 160, 255, .28);
+  --act: #fff;
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; height: 100%; }
+body { background: var(--bg); color: var(--text); font-family: var(--font); font-size: 14px; line-height: 1.6; }
+button, select, input { font: inherit; color: inherit; }
+button { cursor: pointer; }
+select, input[type="search"] { background: var(--paper); border: 1px solid var(--line); border-radius: 6px; padding: 2px 6px; }
+header { display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap; padding: 10px 20px; border-bottom: 1px solid var(--line); background: var(--paper); }
+header h1 { font-size: 17px; margin: 0; letter-spacing: .02em; }
+header .lede { color: var(--muted); font-size: 13px; margin: 0; }
+header .meta { margin-left: auto; color: var(--muted); font-size: 12px; }
+main { display: grid; grid-template-columns: minmax(0, 55fr) minmax(0, 45fr); gap: 16px; padding: 14px 20px; height: calc(100vh - 52px); }
+.pane { display: flex; flex-direction: column; min-height: 0; }
+
+/* 左：原稿 */
+.bar { display: flex; flex-wrap: wrap; gap: 8px 14px; align-items: center; margin-bottom: 8px; }
+.meter { font-size: 13px; color: var(--muted); }
+.meter b { color: var(--text); font-weight: 600; font-variant-numeric: tabular-nums; }
+.meter.over b { color: var(--fix); }
+.bar .tools { margin-left: auto; display: flex; gap: 6px; }
+.btn { border: 1px solid var(--line); background: var(--paper); border-radius: 6px; padding: 4px 10px; font-size: 13px; }
+.btn:hover { border-color: var(--accent); }
+.btn.primary { background: var(--accent); border-color: var(--accent); color: var(--paper); }
+.btn:disabled { opacity: .45; cursor: default; }
+.note { font-size: 12px; color: var(--muted); margin: 0 0 6px; }
+.editor { position: relative; flex: 1; min-height: 0; border: 1px solid var(--line); border-radius: 8px; background: var(--paper); overflow: hidden; }
+.editor textarea, .editor .hl {
+  position: absolute; inset: 0; margin: 0; border: 0; padding: 14px 16px; width: 100%; height: 100%;
+  font-family: var(--font); font-size: 15px; line-height: 1.85; letter-spacing: 0; tab-size: 4;
+  white-space: pre-wrap; overflow-wrap: break-word; word-break: normal;
+  overflow-y: auto; scrollbar-gutter: stable;
+}
+.editor .hl { color: transparent; pointer-events: none; overflow-y: hidden; z-index: 0; }
+.editor textarea { z-index: 1; background: transparent; color: var(--text); caret-color: var(--text); resize: none; outline: none; }
+.hl span { border-radius: 2px; }
+.hl .m-fix { background: var(--fix-bg); }
+.hl .m-check { background: var(--check-bg); }
+.hl .m-form { background: var(--form-bg); }
+.hl .u-form { text-decoration: underline wavy var(--form); text-decoration-thickness: 1.5px; text-underline-offset: 4px; text-decoration-skip-ink: none; }
+.hl .u-check { text-decoration: underline wavy var(--check); text-decoration-thickness: 1.5px; text-underline-offset: 4px; text-decoration-skip-ink: none; }
+.hl .u-fix { text-decoration: underline wavy var(--fix); text-decoration-thickness: 1.5px; text-underline-offset: 4px; text-decoration-skip-ink: none; }
+.hl .act { box-shadow: 0 0 0 2px var(--act); }
+
+/* 右：指摘・辞典・使い方 */
+.tabs { display: flex; gap: 2px; border-bottom: 1px solid var(--line); }
+.tab { border: 0; background: none; padding: 6px 14px; font-size: 14px; color: var(--muted); border-bottom: 2px solid transparent; margin-bottom: -1px; }
+.tab[aria-selected="true"] { color: var(--text); border-bottom-color: var(--accent); font-weight: 600; }
+.panel { flex: 1; min-height: 0; overflow-y: auto; padding: 10px 2px 20px; }
+.panel[hidden] { display: none; }
+.summary { display: flex; flex-wrap: wrap; gap: 8px 14px; align-items: center; margin-bottom: 8px; }
+.chip { display: inline-flex; align-items: center; gap: 6px; font-size: 13px; }
+.chip i { display: inline-block; width: 12px; height: 12px; border-radius: 3px; }
+.chip.fix i { background: var(--fix-bg); outline: 1px solid var(--fix); }
+.chip.check i { background: var(--check-bg); outline: 1px solid var(--check); }
+.chip.form i { background: var(--form-bg); outline: 1px solid var(--form); }
+.chip b { font-variant-numeric: tabular-nums; }
+.controls { display: flex; flex-wrap: wrap; gap: 8px 12px; align-items: center; margin-bottom: 10px; font-size: 13px; }
+.controls label { display: inline-flex; align-items: center; gap: 4px; }
+.controls .grow { flex: 1; }
+ul.items { list-style: none; margin: 0; padding: 0; }
+.item { border: 1px solid var(--line); border-left: 4px solid var(--line); background: var(--paper); border-radius: 6px; padding: 8px 10px; margin-bottom: 8px; cursor: pointer; }
+.item.k-fix { border-left-color: var(--fix); }
+.item.k-check { border-left-color: var(--check); }
+.item.k-form { border-left-color: var(--form); }
+.item.act { box-shadow: 0 0 0 2px var(--accent); }
+.row1 { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
+.badge { font-size: 11px; padding: 1px 6px; border-radius: 4px; color: var(--paper); font-weight: 600; white-space: nowrap; }
+.b-fix { background: var(--fix); } .b-check { background: var(--check); } .b-form { background: var(--form); }
+.word { font-size: 15px; }
+.arrow { color: var(--muted); }
+.to { font-size: 15px; font-weight: 600; }
+.sp { flex: 1; }
+.mini { border: 1px solid var(--line); background: var(--paper); border-radius: 5px; padding: 1px 8px; font-size: 12px; }
+.mini.apply { border-color: var(--fix); color: var(--fix); }
+.mini.x { color: var(--muted); }
+.why { font-size: 13px; margin-top: 4px; }
+.src { font-size: 12px; color: var(--muted); margin-top: 2px; }
+.empty { color: var(--muted); padding: 24px 4px; }
+.dict-item { border-bottom: 1px solid var(--line); padding: 7px 2px; }
+.dict-item .row1 .label { font-size: 14px; font-weight: 600; }
+.help h2 { font-size: 15px; margin: 16px 0 6px; }
+.help p, .help li { font-size: 13.5px; }
+.help ul { padding-left: 1.2em; }
+.ws { color: var(--muted); }
+#toast { position: fixed; left: 50%; bottom: 24px; transform: translateX(-50%); background: var(--text); color: var(--paper); padding: 6px 14px; border-radius: 6px; font-size: 13px; opacity: 0; transition: opacity .2s; pointer-events: none; }
+#toast.show { opacity: .92; }
+
+@media (max-width: 900px) {
+  header { padding: 10px 16px; }
+  header .meta { margin-left: 0; }
+  main { grid-template-columns: minmax(0, 1fr); height: auto; padding: 12px 16px; }
+  .editor { min-height: 60vh; flex: none; height: 60vh; }
+  .panel { overflow: visible; }
+}
+</style>
+</head>
+<body>
+<header>
+  <h1>宗像経済新聞 表記チェッカー（試作）</h1>
+  <p class="lede">原稿を貼ると、記者ガイドの表記ルールに当たる語が光ります。原稿はこの画面の外に送りません。</p>
+  <span class="meta" id="meta"></span>
+</header>
+<main>
+  <section class="pane" aria-label="原稿">
+    <div class="bar">
+      <span class="meter" id="m-title">タイトル <b>－</b></span>
+      <span class="meter" id="m-lead">リード <b>－</b></span>
+      <span class="meter" id="m-body">リード＋本文 <b>－</b></span>
+      <span class="tools">
+        <button class="btn" id="sample" type="button">サンプル原稿</button>
+        <button class="btn" id="copy" type="button">原稿をコピー</button>
+      </span>
+    </div>
+    <p class="note" id="mode-note"></p>
+    <div class="editor">
+      <div class="hl" id="hl" aria-hidden="true"></div>
+      <textarea id="src" spellcheck="false" aria-label="原稿" placeholder="ここに原稿を貼り付けてください。&#10;▽タイトル・▽写真キャプション・▽本文 の印があれば、欄ごとに点検します（印がなければ1行目をタイトル、次の段落をリードとみなします）。"></textarea>
+    </div>
+  </section>
+
+  <section class="pane" aria-label="指摘とルール">
+    <div class="tabs" role="tablist">
+      <button class="tab" role="tab" aria-selected="true" data-tab="p-find" type="button">指摘</button>
+      <button class="tab" role="tab" aria-selected="false" data-tab="p-dict" type="button">ルール辞典</button>
+      <button class="tab" role="tab" aria-selected="false" data-tab="p-help" type="button">使い方</button>
+    </div>
+
+    <div class="panel" id="p-find" role="tabpanel">
+      <div class="summary">
+        <span class="chip fix"><i></i>直す <b id="c-fix">0</b></span>
+        <span class="chip check"><i></i>確かめる <b id="c-check">0</b></span>
+        <span class="chip form"><i></i>形 <b id="c-form">0</b></span>
+      </div>
+      <div class="controls">
+        <label><input type="checkbox" id="desk"> 細かい点も表示（デスク向け）</label>
+        <label>並び <select id="sort"><option value="n">本部に直された回数の順</option><option value="pos">原稿の順</option></select></label>
+        <span class="grow"></span>
+        <button class="btn primary" id="apply-all" type="button">置き換えを全部反映</button>
+      </div>
+      <ul class="items" id="list"></ul>
+    </div>
+
+    <div class="panel" id="p-dict" role="tabpanel" hidden>
+      <div class="controls">
+        <input type="search" id="q" placeholder="語・理由で探す" style="flex:1;min-width:140px;padding:3px 8px;border:1px solid var(--line);border-radius:6px;background:var(--paper)">
+        <select id="f-ch"></select>
+        <select id="f-kind"><option value="">種類すべて</option><option value="fix">直す</option><option value="check">確かめる</option><option value="form">形</option></select>
+        <select id="f-sort"><option value="n">回数の順</option><option value="ch">章の順</option></select>
+      </div>
+      <div class="controls"><span id="d-count"></span><span class="grow"></span><button class="btn" id="dl" type="button">表記ルール.md をダウンロード</button></div>
+      <div id="dict"></div>
+    </div>
+
+    <div class="panel help" id="p-help" role="tabpanel" hidden>
+      <h2>何をする道具か</h2>
+      <p>宗像経済新聞の記者ガイド（正本）にある表記の表を、原稿に機械で当てる道具です。AI は使いません。本部に直された回数が多い規則ほど上に並びます。</p>
+      <h2>3種類の指摘</h2>
+      <ul>
+        <li><b>直す</b>（赤）：答えが一つに決まる語。［直す］で置き換えられます。</li>
+        <li><b>確かめる</b>（黄）：文脈で答えが変わる語。理由を読んで、自分で直すかどうか決めてください。置き換えボタンは出しません。</li>
+        <li><b>形</b>（青）：タイトル35字・リード90字・リード＋本文600〜1000字の目安、段落先頭の全角スペース、全角数字、金額のカンマ、和暦など。置き換えられるものには［直す］が出ます。字数の超過は波線で示します。</li>
+      </ul>
+      <h2>使い方</h2>
+      <ul>
+        <li>Word の原稿を全部選んでコピーし、左の欄に貼ります。▽タイトル・▽写真キャプション・▽本文 の印を残したままで構いません。▽関連画像・▽外部リンク・▽住所 の欄は点検しません。</li>
+        <li>指摘をクリックすると、原稿の該当箇所が選ばれます。［×］でその指摘を消せます。</li>
+        <li>［置き換えを全部反映］で「直す」と置き換えられる「形」をまとめて直します。直したあとは［原稿をコピー］で Word に戻してください。Ctrl＋Z（⌘＋Z）で元に戻せます。</li>
+        <li>「細かい点も表示（デスク向け）」をオンにすると、本部の言い回しの好みなど、判断の要る指摘も出します。</li>
+        <li>「地の文だけ」の規則は、かぎかっこ「」の中（発言の引用）では光りません。</li>
+      </ul>
+      <h2>原稿はどこにも送りません</h2>
+      <p>このページは外部と通信しない設定（Content-Security-Policy で通信先を0件に指定）になっています。原稿も保存しません。覚えるのは「細かい点も表示」のオン・オフだけです。</p>
+      <h2>機械では見つけられない規則</h2>
+      <p>読点の打ち方、助詞の「も」、中黒と読点の使い分け、主語と述語のねじれなどは、機械では見つけられません。［ルール辞典］から「表記ルール.md」をダウンロードし、自分が使っている AI に原稿と一緒に渡して確かめてください。最終的な判断は記者ガイドとデスクに従ってください。</p>
+    </div>
+  </section>
+</main>
+<div id="toast" role="status" aria-live="polite"></div>
+
+<script>
+const RULES = /*RULES_JSON*/null;
+const RULES_MD = /*RULES_MD*/"";
+const SAMPLE = /*SAMPLE*/"";
+const META = /*META*/{};
+</script>
+<script>
+/*ENGINE_JS*/
+</script>
+<script>
+(function () {
+  'use strict';
+  const eng = MunakeiEngine.createEngine(RULES);
+  const LIMIT = MunakeiEngine.LIMIT;
+  const $ = (s) => document.querySelector(s);
+  const ta = $('#src');
+  const hl = $('#hl');
+  const list = $('#list');
+  const KIND = { fix: '直す', check: '確かめる', form: '形' };
+  const PRI = { fix: 0, form: 1, check: 2 };
+  const AREA = { title: 'タイトル', lead: 'リード', body: '本文', caption: 'キャプション' };
+  let level = 1;
+  try { if (localStorage.getItem('munakei-checker-desk') === '1') level = 2; } catch (e) { /* 使えなくても動く */ }
+  $('#desk').checked = level === 2;
+  let dismissed = new Set();
+  let findings = [];
+  let activeKey = null;
+  let timer = null;
+
+  const esc = (s) => s.replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+  const vis = (s) => esc(s).replace(/　/g, '<span class="ws">□</span>').replace(/ /g, '<span class="ws">␣</span>').replace(/\t/g, '<span class="ws">⇥</span>');
+  const chLabel = (ch) => (ch ? '第' + ch + '章' : '付録');
+  function srcLine(r) {
+    const parts = [chLabel(r.ch) + (r.sec ? ' ' + r.sec : '')];
+    if (r.r) parts.push(r.r);
+    if (r.stat) parts.push(r.stat);
+    if (r.ji) parts.push('地の文だけ');
+    if (r.level === 2) parts.push('デスク向け');
+    return parts.join('・');
+  }
+  function toast(msg) {
+    const t = $('#toast');
+    t.textContent = msg;
+    t.classList.add('show');
+    clearTimeout(toast.t);
+    toast.t = setTimeout(() => t.classList.remove('show'), 1600);
+  }
+
+  $('#meta').textContent = '規則 ' + RULES.length + '件' + (META.built ? '（記者ガイド ' + META.built + ' 時点）' : '');
+
+  // ---- 点検 ----
+  function run() {
+    const res = eng.check(ta.value, { level });
+    findings = res.findings.filter((f) => !dismissed.has(f.key));
+    renderBar(res.stats);
+    renderHL();
+    renderList();
+  }
+  function schedule() {
+    clearTimeout(timer);
+    timer = setTimeout(run, 250);
+  }
+
+  function renderBar(st) {
+    const set = (id, label, html, over) => {
+      const el = $(id);
+      el.innerHTML = label + ' <b>' + html + '</b>';
+      el.classList.toggle('over', !!over);
+    };
+    const t = st.title[0];
+    set('#m-title', 'タイトル', t === undefined ? '－' : t + '/' + LIMIT.title, t > LIMIT.title);
+    set('#m-lead', 'リード', st.lead === null ? '－' : st.lead + '/' + LIMIT.lead, st.lead > LIMIT.lead);
+    const b = st.body;
+    set('#m-body', 'リード＋本文', b ? b + '字（目安' + LIMIT.bodyMin + '〜' + LIMIT.bodyMax + '）' : '－', b && (b < LIMIT.bodyMin || b > LIMIT.bodyMax));
+    $('#mode-note').textContent = ta.value.trim() && !st.hasMarks ? '▽印がないので、1行目をタイトル、次の段落をリード（最初の「。」まで）とみなしています。' : '';
+  }
+
+  function renderHL() {
+    const text = ta.value;
+    const fs = findings.filter((f) => f.end > f.start);
+    const pts = new Set([0, text.length]);
+    for (const f of fs) { pts.add(f.start); pts.add(f.end); }
+    const arr = Array.from(pts).sort((a, b) => a - b);
+    let html = '';
+    for (let i = 0; i < arr.length - 1; i++) {
+      const a = arr[i];
+      const b = arr[i + 1];
+      const seg = esc(text.slice(a, b));
+      const cov = fs.filter((f) => f.start <= a && f.end >= b);
+      if (!cov.length) { html += seg; continue; }
+      const cls = new Set();
+      let key = '';
+      for (const f of cov) {
+        cls.add((f.wide ? 'u-' : 'm-') + f.rule.kind);
+        if (f.key === activeKey) cls.add('act');
+        if (!key || !f.wide) key = f.key;
+      }
+      html += '<span class="' + Array.from(cls).join(' ') + '" data-k="' + esc(key) + '">' + seg + '</span>';
+    }
+    if (text.endsWith('\n') || !text) html += ' ';
+    hl.innerHTML = html;
+    hl.scrollTop = ta.scrollTop;
+  }
+
+  function sorted() {
+    const by = $('#sort').value;
+    return findings.slice().sort((a, b) => (by === 'n' ? (b.rule.n - a.rule.n) || (PRI[a.rule.kind] - PRI[b.rule.kind]) : 0) || a.start - b.start);
+  }
+
+  function renderList() {
+    const c = { fix: 0, check: 0, form: 0 };
+    for (const f of findings) c[f.rule.kind]++;
+    $('#c-fix').textContent = c.fix;
+    $('#c-check').textContent = c.check;
+    $('#c-form').textContent = c.form;
+    const n = findings.filter((f) => f.edits && f.rule.kind !== 'check').length;
+    const btn = $('#apply-all');
+    btn.textContent = '置き換えを全部反映（' + n + '件）';
+    btn.disabled = n === 0;
+    if (!ta.value.trim()) {
+      list.innerHTML = '<li class="empty">原稿を貼ると、ここに指摘が出ます。［サンプル原稿］で試せます。</li>';
+      return;
+    }
+    if (!findings.length) {
+      list.innerHTML = '<li class="empty">表で見つかる指摘はありません。機械で見つけられない規則は［使い方］を見てください。</li>';
+      return;
+    }
+    list.innerHTML = sorted().map((f) => {
+      const r = f.rule;
+      const canApply = f.edits && r.kind !== 'check';
+      let word;
+      if (f.info) word = '<span class="word">' + esc(f.info) + '</span>';
+      else word = '<span class="word">「' + vis(f.text) + '」</span>';
+      const to = canApply ? '<span class="arrow">→</span><span class="to">' + (f.to === '' ? '（削除）' : '「' + vis(f.to) + '」') + '</span>' : '';
+      const area = AREA[f.area] ? '<span class="src">' + AREA[f.area] + '</span>' : '';
+      return '<li class="item k-' + r.kind + (f.key === activeKey ? ' act' : '') + '" data-k="' + esc(f.key) + '">' +
+        '<div class="row1"><span class="badge b-' + r.kind + '">' + KIND[r.kind] + '</span>' + word + to + area + '<span class="sp"></span>' +
+        (canApply ? '<button class="mini apply" type="button" data-act="apply">直す</button>' : '') +
+        '<button class="mini x" type="button" data-act="x" title="この指摘を消す" aria-label="この指摘を消す">×</button></div>' +
+        '<div class="why">' + esc(r.label) + '：' + esc(r.why) + '</div>' +
+        '<div class="src">' + esc(srcLine(r)) + '</div></li>';
+    }).join('');
+  }
+
+  // ---- 置き換え（元に戻せるように textarea への入力として行う） ----
+  function replaceRange(s, e, to) {
+    ta.focus();
+    ta.setSelectionRange(s, e);
+    let ok = false;
+    try { ok = to === '' ? document.execCommand('delete') : document.execCommand('insertText', false, to); } catch (err) { ok = false; }
+    if (!ok) ta.setRangeText(to, s, e, 'end');
+  }
+  function applyFinding(f) {
+    const edits = f.edits.slice().sort((a, b) => b.start - a.start || b.end - a.end);
+    for (const ed of edits) replaceRange(ed.start, ed.end, ed.to);
+    run();
+  }
+  function applyAll() {
+    const target = findings.filter((f) => f.edits && f.rule.kind !== 'check');
+    if (!target.length) return;
+    const out = eng.applyAll(ta.value, target);
+    const n = target.length;
+    replaceRange(0, ta.value.length, out);
+    run();
+    toast(n + '件を置き換えました（⌘＋Z／Ctrl＋Z で戻せます）');
+  }
+  function focusFinding(f) {
+    activeKey = f.key;
+    renderHL();
+    for (const el of list.querySelectorAll('.item')) el.classList.toggle('act', el.dataset.k === f.key);
+    ta.focus();
+    ta.setSelectionRange(f.start, f.end);
+    const span = hl.querySelector('[data-k="' + CSS.escape(f.key) + '"]');
+    if (span) ta.scrollTop = Math.max(0, span.offsetTop - ta.clientHeight / 3);
+    hl.scrollTop = ta.scrollTop;
+  }
+
+  list.addEventListener('click', (ev) => {
+    const li = ev.target.closest('.item');
+    if (!li) return;
+    const f = findings.find((x) => x.key === li.dataset.k);
+    if (!f) return;
+    const act = ev.target.closest('button') && ev.target.closest('button').dataset.act;
+    if (act === 'apply') applyFinding(f);
+    else if (act === 'x') { dismissed.add(f.key); run(); }
+    else focusFinding(f);
+  });
+
+  ta.addEventListener('input', () => { activeKey = null; schedule(); });
+  ta.addEventListener('scroll', () => { hl.scrollTop = ta.scrollTop; });
+  $('#apply-all').addEventListener('click', applyAll);
+  $('#sort').addEventListener('change', renderList);
+  $('#desk').addEventListener('change', (e) => {
+    level = e.target.checked ? 2 : 1;
+    try { localStorage.setItem('munakei-checker-desk', level === 2 ? '1' : '0'); } catch (err) { /* 使えなくても動く */ }
+    run();
+  });
+  $('#sample').addEventListener('click', () => {
+    if (ta.value.trim() && !confirm('いまの原稿をサンプル原稿に置き換えます。よろしいですか？')) return;
+    dismissed = new Set();
+    replaceRange(0, ta.value.length, SAMPLE);
+    ta.setSelectionRange(0, 0);
+    ta.scrollTop = 0;
+    run();
+  });
+  $('#copy').addEventListener('click', () => {
+    const done = () => toast('原稿をコピーしました');
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(ta.value).then(done, () => { ta.select(); document.execCommand('copy'); done(); });
+    } else { ta.select(); document.execCommand('copy'); done(); }
+  });
+  window.addEventListener('resize', renderHL);
+
+  // ---- タブ ----
+  for (const b of document.querySelectorAll('.tab')) {
+    b.addEventListener('click', () => {
+      for (const x of document.querySelectorAll('.tab')) {
+        x.setAttribute('aria-selected', x === b ? 'true' : 'false');
+        $('#' + x.dataset.tab).hidden = x !== b;
+      }
+      if (b.dataset.tab === 'p-dict') renderDict();
+    });
+  }
+
+  // ---- ルール辞典 ----
+  const chs = Array.from(new Set(RULES.map((r) => r.ch))).sort((a, b) => (a === 0) - (b === 0) || a - b);
+  $('#f-ch').innerHTML = '<option value="">章すべて</option>' + chs.map((c) => '<option value="' + c + '">' + chLabel(c) + '</option>').join('');
+  function renderDict() {
+    const q = $('#q').value.trim();
+    const ch = $('#f-ch').value;
+    const kind = $('#f-kind').value;
+    let rs = RULES.filter((r) => (!ch || String(r.ch) === ch) && (!kind || r.kind === kind) &&
+      (!q || (r.label + ' ' + r.why + ' ' + r.sec + ' ' + r.r).indexOf(q) >= 0));
+    if ($('#f-sort').value === 'n') rs = rs.slice().sort((a, b) => b.n - a.n || PRI[a.kind] - PRI[b.kind]);
+    else rs = rs.slice().sort((a, b) => (a.ch === 0) - (b.ch === 0) || a.ch - b.ch || PRI[a.kind] - PRI[b.kind]);
+    $('#d-count').textContent = rs.length + '件';
+    $('#dict').innerHTML = rs.map((r) => '<div class="dict-item"><div class="row1"><span class="badge b-' + r.kind + '">' + KIND[r.kind] +
+      '</span><span class="label">' + esc(r.label) + '</span></div><div class="why">' + esc(r.why) + '</div><div class="src">' + esc(srcLine(r)) + '</div></div>').join('');
+  }
+  for (const id of ['#q', '#f-ch', '#f-kind', '#f-sort']) $(id).addEventListener('input', renderDict);
+  $('#dl').addEventListener('click', () => {
+    const url = URL.createObjectURL(new Blob([RULES_MD], { type: 'text/markdown;charset=utf-8' }));
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = '表記ルール.md';
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    setTimeout(() => URL.revokeObjectURL(url), 1000);
+  });
+
+  run();
+})();
+</script>
+</body>
+</html>
