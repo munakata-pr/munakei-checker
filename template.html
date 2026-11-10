@@ -37,15 +37,15 @@
 }
 * { box-sizing: border-box; }
 html, body { margin: 0; height: 100%; }
-body { background: var(--bg); color: var(--text); font-family: var(--font); font-size: 14px; line-height: 1.6; }
+body { display: flex; flex-direction: column; background: var(--bg); color: var(--text); font-family: var(--font); font-size: 14px; line-height: 1.6; }
 button, select, input { font: inherit; color: inherit; }
 button { cursor: pointer; }
 select, input[type="search"] { background: var(--paper); border: 1px solid var(--line); border-radius: 6px; padding: 2px 6px; }
-header { display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap; padding: 10px 20px; border-bottom: 1px solid var(--line); background: var(--paper); }
+header { flex: none; display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap; padding: 10px 20px; border-bottom: 1px solid var(--line); background: var(--paper); }
 header h1 { font-size: 17px; margin: 0; letter-spacing: .02em; }
 header .lede { color: var(--muted); font-size: 13px; margin: 0; }
 header .meta { margin-left: auto; color: var(--muted); font-size: 12px; }
-main { display: grid; grid-template-columns: minmax(0, 55fr) minmax(0, 45fr); gap: 16px; padding: 14px 20px; height: calc(100vh - 52px); }
+main { display: grid; grid-template-columns: minmax(0, 55fr) minmax(0, 45fr); gap: 16px; padding: 14px 20px; flex: 1; min-height: 0; grid-template-rows: minmax(0, 1fr); }
 .pane { display: flex; flex-direction: column; min-height: 0; }
 
 /* 左：原稿 */
@@ -53,6 +53,9 @@ main { display: grid; grid-template-columns: minmax(0, 55fr) minmax(0, 45fr); ga
 .meter { font-size: 13px; color: var(--muted); }
 .meter b { color: var(--text); font-weight: 600; font-variant-numeric: tabular-nums; }
 .meter.over b { color: var(--fix); }
+.meter { border-radius: 4px; }
+.meter.flash { animation: flash 1.4s ease-out; }
+@keyframes flash { 0%, 55% { background: var(--check-bg); box-shadow: 0 0 0 3px var(--accent); } 100% { background: transparent; box-shadow: 0 0 0 3px transparent; } }
 .bar .tools { margin-left: auto; display: flex; gap: 6px; }
 .btn { border: 1px solid var(--line); background: var(--paper); border-radius: 6px; padding: 4px 10px; font-size: 13px; }
 .btn:hover { border-color: var(--accent); }
@@ -67,7 +70,8 @@ main { display: grid; grid-template-columns: minmax(0, 55fr) minmax(0, 45fr); ga
   overflow-y: auto; scrollbar-gutter: stable;
 }
 .editor .hl { color: transparent; pointer-events: none; overflow-y: hidden; z-index: 0; }
-.editor textarea { z-index: 1; background: transparent; color: var(--text); caret-color: var(--text); resize: none; outline: none; }
+.editor textarea { z-index: 1; background: transparent; color: var(--text); caret-color: var(--text); resize: none; }
+.editor textarea:focus-visible { outline: 2px solid var(--accent); outline-offset: -3px; }
 .hl span { border-radius: 2px; }
 .hl .m-fix { background: var(--fix-bg); }
 .hl .m-check { background: var(--check-bg); }
@@ -99,6 +103,15 @@ ul.items { list-style: none; margin: 0; padding: 0; }
 .item.k-check { border-left-color: var(--check); }
 .item.k-form { border-left-color: var(--form); }
 .item.act { box-shadow: 0 0 0 2px var(--accent); }
+.item:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.item.group > .row1 .word { font-weight: 600; }
+.cnt { font-size: 12px; color: var(--muted); font-variant-numeric: tabular-nums; }
+.chev { color: var(--muted); font-size: 12px; width: 1em; }
+ul.sub { list-style: none; margin: 8px 0 0; padding: 0 0 0 8px; border-top: 1px dashed var(--line); padding-top: 8px; }
+ul.sub .item { margin-bottom: 6px; background: var(--bg); }
+.tag { font-size: 11px; padding: 0 6px; border: 1px solid var(--line); border-radius: 4px; color: var(--muted); white-space: nowrap; }
+.dismissed { margin-top: 10px; font-size: 13px; color: var(--muted); display: flex; gap: 8px; align-items: center; }
+.dismissed[hidden] { display: none; }
 .row1 { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
 .badge { font-size: 11px; padding: 1px 6px; border-radius: 4px; color: var(--paper); font-weight: 600; white-space: nowrap; }
 .b-fix { background: var(--fix); } .b-check { background: var(--check); } .b-form { background: var(--form); }
@@ -124,7 +137,7 @@ ul.items { list-style: none; margin: 0; padding: 0; }
 @media (max-width: 900px) {
   header { padding: 10px 16px; }
   header .meta { margin-left: 0; }
-  main { grid-template-columns: minmax(0, 1fr); height: auto; padding: 12px 16px; }
+  main { grid-template-columns: minmax(0, 1fr); grid-template-rows: none; flex: none; padding: 12px 16px; }
   .editor { min-height: 60vh; flex: none; height: 60vh; }
   .panel { overflow: visible; }
 }
@@ -162,18 +175,19 @@ ul.items { list-style: none; margin: 0; padding: 0; }
     </div>
 
     <div class="panel" id="p-find" role="tabpanel">
-      <div class="summary">
+      <div class="summary" aria-live="polite" aria-atomic="true">
         <span class="chip fix"><i></i>直す <b id="c-fix">0</b></span>
         <span class="chip check"><i></i>確かめる <b id="c-check">0</b></span>
         <span class="chip form"><i></i>形 <b id="c-form">0</b></span>
       </div>
       <div class="controls">
         <label><input type="checkbox" id="desk"> 細かい点も表示（デスク向け）</label>
-        <label>並び <select id="sort"><option value="n">本部に直された回数の順</option><option value="pos">原稿の順</option></select></label>
+        <label>並び <select id="sort"><option value="pos" selected>原稿の順</option><option value="n">本部に直された回数の順</option></select></label>
         <span class="grow"></span>
         <button class="btn primary" id="apply-all" type="button">置き換えを全部反映</button>
       </div>
       <ul class="items" id="list"></ul>
+      <div class="dismissed" id="dismissed" hidden><span id="dismissed-n" aria-live="polite"></span><button class="btn" id="undismiss" type="button">元に戻す</button></div>
     </div>
 
     <div class="panel" id="p-dict" role="tabpanel" hidden>
@@ -202,7 +216,8 @@ ul.items { list-style: none; margin: 0; padding: 0; }
         <li>指摘をクリックすると、原稿の該当箇所が選ばれます。［×］でその指摘を消せます。</li>
         <li>［置き換えを全部反映］で「直す」と置き換えられる「形」をまとめて直します。直したあとは［原稿をコピー］で Word に戻してください。Ctrl＋Z（⌘＋Z）で元に戻せます。</li>
         <li>「細かい点も表示（デスク向け）」をオンにすると、本部の言い回しの好みなど、判断の要る指摘も出します。</li>
-        <li>「地の文だけ」の規則は、かぎかっこ「」の中（発言の引用）では光りません。</li>
+        <li>「地の文だけ」の規則は、かぎかっこ「」の中（発言の引用）では光りません。言い換えの規則は、かっこの中では［直す］を出さず「確かめる」に下げます。</li>
+        <li>同じ規則の指摘が3件以上あるときは1枚にまとめます。押すと1件ずつ開き、［まとめて直す］［まとめて消す］が使えます。［×］で消した指摘は、一覧の下の［元に戻す］で戻せます。</li>
       </ul>
       <h2>原稿はどこにも送りません</h2>
       <p>このページは外部と通信しない設定（Content-Security-Policy で通信先を0件に指定）になっています。原稿も保存しません。覚えるのは「細かい点も表示」のオン・オフだけです。</p>
@@ -243,13 +258,15 @@ const META = /*META*/{};
   let timer = null;
 
   const esc = (s) => s.replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
-  const vis = (s) => esc(s).replace(/　/g, '<span class="ws">□</span>').replace(/ /g, '<span class="ws">␣</span>').replace(/\t/g, '<span class="ws">⇥</span>');
+  const WS = { '　': '□', ' ': '␣', '\t': '⇥' };
+  const vis = (s) => esc(s).replace(/[　 \t]/g, (c) => '<span class="ws">' + WS[c] + '</span>');
   const chLabel = (ch) => (ch ? '第' + ch + '章' : '付録');
   function srcLine(r) {
     const parts = [chLabel(r.ch) + (r.sec ? ' ' + r.sec : '')];
     if (r.r) parts.push(r.r);
     if (r.stat) parts.push(r.stat);
-    if (r.ji) parts.push('地の文だけ');
+    if (r.ji === 1) parts.push('地の文だけ');
+    else if (r.ji === 2) parts.push('かっこの中は確かめる');
     if (r.level === 2) parts.push('デスク向け');
     return parts.join('・');
   }
@@ -264,8 +281,15 @@ const META = /*META*/{};
   $('#meta').textContent = '規則 ' + RULES.length + '件' + (META.built ? '（記者ガイド ' + META.built + ' 時点）' : '');
 
   // ---- 点検 ----
+  let pending = false; // 入力から250ms待っている間 true
+  let dismissedN = 0;
+  const openGroups = new Set();
   function run() {
+    clearTimeout(timer);
+    pending = false;
+    if (!ta.value.trim() && dismissed.size) dismissed = new Set(); // 原稿が空なら消した記録も空に
     const res = eng.check(ta.value, { level });
+    dismissedN = res.findings.filter((f) => dismissed.has(f.key)).length;
     findings = res.findings.filter((f) => !dismissed.has(f.key));
     renderBar(res.stats);
     renderHL();
@@ -273,8 +297,11 @@ const META = /*META*/{};
   }
   function schedule() {
     clearTimeout(timer);
+    pending = true;
     timer = setTimeout(run, 250);
   }
+  // 入力直後（250ms待ち）の操作は、先に点検をやり直してから位置を引き直す
+  function flush() { if (pending) run(); }
 
   function renderBar(st) {
     const set = (id, label, html, over) => {
@@ -288,6 +315,13 @@ const META = /*META*/{};
     const b = st.body;
     set('#m-body', 'リード＋本文', b ? b + '字（目安' + LIMIT.bodyMin + '〜' + LIMIT.bodyMax + '）' : '－', b && (b < LIMIT.bodyMin || b > LIMIT.bodyMax));
     $('#mode-note').textContent = ta.value.trim() && !st.hasMarks ? '▽印がないので、1行目をタイトル、次の段落をリード（最初の「。」まで）とみなしています。' : '';
+  }
+  function flash(area) {
+    const el = $({ title: '#m-title', lead: '#m-lead' }[area] || '#m-body');
+    el.classList.remove('flash');
+    void el.offsetWidth;
+    el.classList.add('flash');
+    setTimeout(() => el.classList.remove('flash'), 1500);
   }
 
   function renderHL() {
@@ -304,112 +338,323 @@ const META = /*META*/{};
       const cov = fs.filter((f) => f.start <= a && f.end >= b);
       if (!cov.length) { html += seg; continue; }
       const cls = new Set();
-      let key = '';
+      const keys = [];
       for (const f of cov) {
         cls.add((f.wide ? 'u-' : 'm-') + f.rule.kind);
         if (f.key === activeKey) cls.add('act');
-        if (!key || !f.wide) key = f.key;
+        keys.push(f.key);
       }
-      html += '<span class="' + Array.from(cls).join(' ') + '" data-k="' + esc(key) + '">' + seg + '</span>';
+      // data-k は空白区切りで重なった指摘の key をすべて持つ（key は空白を含まない）
+      html += '<span class="' + Array.from(cls).join(' ') + '" data-k="' + esc(keys.join(' ')) + '">' + seg + '</span>';
     }
     if (text.endsWith('\n') || !text) html += ' ';
     hl.innerHTML = html;
     hl.scrollTop = ta.scrollTop;
+  }
+  // 位置 pos の行の上端（hl の中身の座標）。hl の字送りは textarea と同じ
+  function posTop(pos) {
+    const w = document.createTreeWalker(hl, NodeFilter.SHOW_TEXT);
+    let n;
+    let acc = 0;
+    let last = null;
+    while ((n = w.nextNode())) {
+      const len = n.nodeValue.length;
+      if (len) last = { n, acc };
+      if (pos < acc + len) { last = { n, acc }; break; }
+      acc += len;
+    }
+    if (!last) return 0;
+    const off = Math.min(last.n.nodeValue.length - 1, Math.max(0, pos - last.acc));
+    const r = document.createRange();
+    r.setStart(last.n, off);
+    r.setEnd(last.n, off + 1);
+    const rc = r.getClientRects()[0] || r.getBoundingClientRect();
+    return rc.top - hl.getBoundingClientRect().top + hl.scrollTop;
   }
 
   function sorted() {
     const by = $('#sort').value;
     return findings.slice().sort((a, b) => (by === 'n' ? (b.rule.n - a.rule.n) || (PRI[a.rule.kind] - PRI[b.rule.kind]) : 0) || a.start - b.start);
   }
+  const gidOf = (f) => f.rule.id + '|' + f.rule.kind;
+  const canFix = (f) => !!f.edits && f.rule.kind !== 'check';
+
+  function itemHTML(f) {
+    const r = f.rule;
+    let word;
+    if (f.info) word = '<span class="word">' + esc(f.info) + '</span>';
+    else word = '<span class="word">「' + vis(f.text) + '」</span>';
+    let to = '';
+    if (canFix(f)) {
+      let label;
+      if (r.builtin === 'indent') {
+        const e0 = f.edits[0];
+        label = e0.start === e0.end ? '先頭に全角スペースを追加'
+          : f.text.indexOf('\t') >= 0 ? 'タブを全角スペース1つに'
+          : /^　+$/.test(f.text) ? '全角スペースを1つに'
+          : /^ +$/.test(f.text) ? '半角スペースを全角スペース1つに' : '空白を全角スペース1つに';
+      } else {
+        label = f.to === '' ? '（削除）' : '「' + vis(f.to) + '」';
+      }
+      to = '<span class="arrow">→</span><span class="to">' + label + '</span>';
+    }
+    const tag = f.down === 'name' ? '<span class="tag">かっこの中</span>' : f.down === 'utter' ? '<span class="tag">発言の中</span>' : '';
+    const area = AREA[f.area] ? '<span class="src">' + AREA[f.area] + '</span>' : '';
+    return '<li class="item k-' + r.kind + (f.key === activeKey ? ' act' : '') + '" data-k="' + esc(f.key) + '" tabindex="0">' +
+      '<div class="row1"><span class="badge b-' + r.kind + '">' + KIND[r.kind] + '</span>' + word + to + tag + area + '<span class="sp"></span>' +
+      (canFix(f) ? '<button class="mini apply" type="button" data-act="apply">直す</button>' : '') +
+      '<button class="mini x" type="button" data-act="x" title="この指摘を消す" aria-label="この指摘を消す">×</button></div>' +
+      '<div class="why">' + esc(r.label) + '：' + esc(r.why) + '</div>' +
+      '<div class="src">' + esc(srcLine(r)) + '</div></li>';
+  }
+  function groupHTML(gid, fs) {
+    const r = fs[0].rule;
+    const open = openGroups.has(gid);
+    const fixable = fs.every(canFix);
+    return '<li class="item group k-' + r.kind + '" data-g="' + esc(gid) + '" tabindex="0" aria-expanded="' + open + '">' +
+      '<div class="row1"><span class="chev" aria-hidden="true">' + (open ? '▼' : '▶') + '</span><span class="badge b-' + r.kind + '">' + KIND[r.kind] + '</span>' +
+      '<span class="word">' + esc(r.label) + '</span><span class="cnt">' + fs.length + '件</span><span class="sp"></span>' +
+      (fixable ? '<button class="mini apply" type="button" data-act="apply-group">まとめて直す</button>' : '') +
+      '<button class="mini x" type="button" data-act="x-group" title="この規則の指摘をまとめて消す">まとめて消す</button></div>' +
+      '<div class="why">' + esc(r.why) + '</div>' +
+      '<div class="src">' + esc(srcLine(r)) + '</div>' +
+      (open ? '<ul class="sub items">' + fs.map(itemHTML).join('') + '</ul>' : '') + '</li>';
+  }
 
   function renderList() {
+    const panel = $('#p-find');
+    const keep = panel.scrollTop;
     const c = { fix: 0, check: 0, form: 0 };
     for (const f of findings) c[f.rule.kind]++;
     $('#c-fix').textContent = c.fix;
     $('#c-check').textContent = c.check;
     $('#c-form').textContent = c.form;
-    const n = findings.filter((f) => f.edits && f.rule.kind !== 'check').length;
+    const n = findings.filter(canFix).length;
     const btn = $('#apply-all');
     btn.textContent = '置き換えを全部反映（' + n + '件）';
     btn.disabled = n === 0;
+    const dbar = $('#dismissed');
+    dbar.hidden = dismissedN === 0;
+    $('#dismissed-n').textContent = dismissedN ? '消した指摘 ' + dismissedN + '件' : '';
     if (!ta.value.trim()) {
       list.innerHTML = '<li class="empty">原稿を貼ると、ここに指摘が出ます。［サンプル原稿］で試せます。</li>';
       return;
     }
     if (!findings.length) {
-      list.innerHTML = '<li class="empty">表で見つかる指摘はありません。機械で見つけられない規則は［使い方］を見てください。</li>';
+      list.innerHTML = '<li class="empty">' + (dismissedN ? '表示中の指摘はありません（消した指摘が' + dismissedN + '件あります）。' : '表で見つかる指摘はありません。機械で見つけられない規則は［使い方］を見てください。') + '</li>';
       return;
     }
-    list.innerHTML = sorted().map((f) => {
-      const r = f.rule;
-      const canApply = f.edits && r.kind !== 'check';
-      let word;
-      if (f.info) word = '<span class="word">' + esc(f.info) + '</span>';
-      else word = '<span class="word">「' + vis(f.text) + '」</span>';
-      let to = '';
-      if (canApply) {
-        if (r.builtin === 'indent') {
-          to = '<span class="arrow">→</span><span class="to">先頭に「□」を追加</span>';
-        } else {
-          to = '<span class="arrow">→</span><span class="to">' + (f.to === '' ? '（削除）' : '「' + vis(f.to) + '」') + '</span>';
-        }
-      }
-      const area = AREA[f.area] ? '<span class="src">' + AREA[f.area] + '</span>' : '';
-      return '<li class="item k-' + r.kind + (f.key === activeKey ? ' act' : '') + '" data-k="' + esc(f.key) + '">' +
-        '<div class="row1"><span class="badge b-' + r.kind + '">' + KIND[r.kind] + '</span>' + word + to + area + '<span class="sp"></span>' +
-        (canApply ? '<button class="mini apply" type="button" data-act="apply">直す</button>' : '') +
-        '<button class="mini x" type="button" data-act="x" title="この指摘を消す" aria-label="この指摘を消す">×</button></div>' +
-        '<div class="why">' + esc(r.label) + '：' + esc(r.why) + '</div>' +
-        '<div class="src">' + esc(srcLine(r)) + '</div></li>';
-    }).join('');
+    const all = sorted();
+    const byG = new Map();
+    for (const f of all) {
+      const g = gidOf(f);
+      if (!byG.has(g)) byG.set(g, []);
+      byG.get(g).push(f);
+    }
+    const done = new Set();
+    let html = '';
+    for (const f of all) {
+      const g = gidOf(f);
+      const fs = byG.get(g);
+      if (fs.length < 3) { html += itemHTML(f); continue; }
+      if (done.has(g)) continue;
+      done.add(g);
+      html += groupHTML(g, fs);
+    }
+    list.innerHTML = html;
+    panel.scrollTop = keep;
   }
 
   // ---- 置き換え（元に戻せるように textarea への入力として行う） ----
   function replaceRange(s, e, to) {
-    ta.focus();
+    ta.focus({ preventScroll: true });
     ta.setSelectionRange(s, e);
     let ok = false;
     try { ok = to === '' ? document.execCommand('delete') : document.execCommand('insertText', false, to); } catch (err) { ok = false; }
     if (!ok) ta.setRangeText(to, s, e, 'end');
   }
-  function applyFinding(f) {
-    const edits = f.edits.slice().sort((a, b) => b.start - a.start || b.end - a.end);
-    for (const ed of edits) replaceRange(ed.start, ed.end, ed.to);
+  // 新しい全文に、前後の同じ部分を除いた真ん中だけを入れ替える（⌘＋Z 1回で戻る・スクロールとキャレットを保つ）
+  // caret を渡すとキャレットをその位置（新しい文字列の位置）に置く。渡さなければ mapPos（元の位置→新しい位置）で、
+  // それも無ければ「変更範囲より後ろは増減を足す・範囲の中は範囲の終わり」で戻す
+  function commit(newText, caret, mapPos) {
+    const old = ta.value;
+    if (old === newText) return;
+    const min = Math.min(old.length, newText.length);
+    let pre = 0;
+    while (pre < min && old.charCodeAt(pre) === newText.charCodeAt(pre)) pre++;
+    let suf = 0;
+    while (suf < min - pre && old.charCodeAt(old.length - 1 - suf) === newText.charCodeAt(newText.length - 1 - suf)) suf++;
+    if (pre > 0 && (old.charCodeAt(pre - 1) & 0xfc00) === 0xd800) pre--;
+    if (suf > 0 && (old.charCodeAt(old.length - suf) & 0xfc00) === 0xdc00) suf--;
+    const st = ta.scrollTop;
+    const s0 = ta.selectionStart;
+    const e0 = ta.selectionEnd;
+    const oldEnd = old.length - suf;
+    const newEnd = newText.length - suf;
+    const delta = newText.length - old.length;
+    const map = mapPos || ((p) => (p <= pre ? p : p >= oldEnd ? p + delta : newEnd));
+    replaceRange(pre, oldEnd, newText.slice(pre, newEnd));
+    clearTimeout(timer);
+    pending = false;
+    if (caret === undefined) ta.setSelectionRange(map(s0), map(e0));
+    else ta.setSelectionRange(caret, caret);
+    ta.scrollTop = st;
+    hl.scrollTop = st;
+  }
+  // 直した箇所が入力欄の見える範囲に入っていなければ、その行を画面の上から1/3に
+  function keepVisible(pos) {
+    const top = posTop(pos);
+    const lh = parseFloat(getComputedStyle(ta).lineHeight) || 28;
+    if (top < ta.scrollTop || top + lh > ta.scrollTop + ta.clientHeight) {
+      ta.scrollTop = Math.max(0, top - ta.clientHeight / 3);
+      hl.scrollTop = ta.scrollTop;
+    }
+  }
+  // 置き換えの一覧を通して位置を写す（置き換えの後ろは増減を足す・置き換えの中は置き換えた語の終わり）
+  function mapThrough(edits) {
+    const asc = edits.slice().sort((a, b) => a.start - b.start || a.end - b.end);
+    return (p) => {
+      let shift = 0;
+      for (const ed of asc) {
+        if (ed.end <= p && ed.start < p) shift += ed.to.length - (ed.end - ed.start);
+        else if (ed.start < p) return ed.start + shift + ed.to.length;
+      }
+      return p + shift;
+    };
+  }
+  function applyEditsKeepingCaret(edits, keepCaret) {
+    const out = eng.applyEdits(ta.value, edits.map((e) => ({ start: e.start, end: e.end, to: e.to })));
+    // 直した語の直後（いちばん後ろの置き換えの終わり）
+    const asc = edits.slice().sort((a, b) => a.start - b.start || a.end - b.end);
+    let shift = 0;
+    let caret = 0;
+    for (const ed of asc) {
+      caret = ed.start + shift + ed.to.length;
+      shift += ed.to.length - (ed.end - ed.start);
+    }
+    if (keepCaret) commit(out, undefined, mapThrough(edits));
+    else commit(out, caret);
     run();
+    if (!keepCaret) keepVisible(caret);
+  }
+  function applyFinding(f) {
+    applyEditsKeepingCaret(f.edits);
+  }
+  function applyGroup(gid) {
+    const fs = findings.filter((f) => gidOf(f) === gid && canFix(f));
+    if (!fs.length) return;
+    const edits = [];
+    for (const f of fs) edits.push(...f.edits);
+    applyEditsKeepingCaret(edits, true);
+    toast(fs.length + '件を置き換えました（⌘＋Z／Ctrl＋Z で戻せます）');
   }
   function applyAll() {
-    const target = findings.filter((f) => f.edits && f.rule.kind !== 'check');
+    flush();
+    const target = findings.filter(canFix);
     if (!target.length) return;
-    const out = eng.applyAll(ta.value, target);
+    const old = ta.value;
+    const out = eng.applyAll(old, target, { level });
     const n = target.length;
-    replaceRange(0, ta.value.length, out);
+    // キャレットは、その手前までの文を同じ手順で直した長さに置く（食い違えば変更範囲の終わりに）
+    const s0 = ta.selectionStart;
+    const e0 = ta.selectionEnd;
+    const mapped = (p) => {
+      const head = old.slice(0, p);
+      const h = eng.applyAll(head, eng.check(head, { level }).findings, { level });
+      return out.startsWith(h) ? h.length : -1;
+    };
+    const ns = mapped(s0);
+    const ne = s0 === e0 ? ns : mapped(e0);
+    commit(out, undefined, ns >= 0 && ne >= 0 ? (p) => (p === s0 ? ns : ne) : undefined);
     run();
     toast(n + '件を置き換えました（⌘＋Z／Ctrl＋Z で戻せます）');
+  }
+  function markAct(key) {
+    activeKey = key;
+    for (const el of list.querySelectorAll('.item[data-k]')) el.classList.toggle('act', el.dataset.k === key);
   }
   function focusFinding(f) {
     activeKey = f.key;
     renderHL();
-    for (const el of list.querySelectorAll('.item')) el.classList.toggle('act', el.dataset.k === f.key);
+    markAct(f.key);
     ta.focus();
     ta.setSelectionRange(f.start, f.end);
-    const span = hl.querySelector('[data-k="' + CSS.escape(f.key) + '"]');
-    if (span) ta.scrollTop = Math.max(0, span.offsetTop - ta.clientHeight / 3);
+    ta.scrollTop = Math.max(0, posTop(f.start) - ta.clientHeight / 3);
     hl.scrollTop = ta.scrollTop;
+    if (f.end === f.start) flash(f.area); // 長さ0の指摘（字数）は欄の先頭へ動いて判定バーを光らせる
+  }
+  // 右の一覧の中だけを動かす（ページ全体は動かさない）
+  function reveal(el) {
+    const panel = $('#p-find');
+    if (!el || panel.scrollHeight <= panel.clientHeight + 1) return;
+    const pr = panel.getBoundingClientRect();
+    const r = el.getBoundingClientRect();
+    if (r.top < pr.top) panel.scrollTop -= pr.top - r.top;
+    else if (r.bottom > pr.bottom) panel.scrollTop += r.bottom - pr.bottom;
+  }
+  // 入力欄のキャレットがある指摘を右のカードで強調する（入力欄のフォーカスは奪わない）
+  function syncCaret() {
+    if (document.activeElement !== ta || ta.selectionStart !== ta.selectionEnd) return;
+    flush();
+    const p = ta.selectionStart;
+    let cand = findings.filter((f) => f.start <= p && p < f.end);
+    if (!cand.length) cand = findings.filter((f) => f.end > f.start && f.end === p);
+    cand.sort((a, b) => (a.wide - b.wide) || ((a.end - a.start) - (b.end - b.start)));
+    const f = cand[0];
+    if (!f) { if (activeKey) { activeKey = null; renderHL(); markAct(null); } return; }
+    if (f.key !== activeKey) { activeKey = f.key; renderHL(); }
+    const g = gidOf(f);
+    if (findings.filter((x) => gidOf(x) === g).length >= 3 && !openGroups.has(g)) { openGroups.add(g); renderList(); }
+    markAct(f.key);
+    reveal(list.querySelector('.item[data-k="' + CSS.escape(f.key) + '"]'));
   }
 
-  list.addEventListener('click', (ev) => {
-    const li = ev.target.closest('.item');
-    if (!li) return;
-    const f = findings.find((x) => x.key === li.dataset.k);
-    if (!f) return;
-    const act = ev.target.closest('button') && ev.target.closest('button').dataset.act;
+  function itemAction(g, k, act) {
+    if (g) {
+      if (act === 'apply-group') applyGroup(g);
+      else if (act === 'x-group') {
+        for (const f of findings) if (gidOf(f) === g) dismissed.add(f.key);
+        run();
+      } else {
+        if (openGroups.has(g)) openGroups.delete(g); else openGroups.add(g);
+        renderList();
+        const again = list.querySelector('.item[data-g="' + CSS.escape(g) + '"]');
+        if (again) again.focus();
+      }
+      return;
+    }
+    const f = findings.find((x) => x.key === k);
+    if (!f) { toast('原稿が変わったため、この指摘は見つかりませんでした'); return; }
     if (act === 'apply') applyFinding(f);
     else if (act === 'x') { dismissed.add(f.key); run(); }
     else focusFinding(f);
+  }
+  list.addEventListener('click', (ev) => {
+    const li = ev.target.closest('.item');
+    if (!li) return;
+    const btn = ev.target.closest('button');
+    const g = li.dataset.g;
+    const k = li.dataset.k;
+    flush(); // 入力直後でも、先に点検をやり直してから key で指摘を引き直す
+    itemAction(g, k, btn ? btn.dataset.act : null);
   });
+  list.addEventListener('keydown', (ev) => {
+    const t = ev.target;
+    if ((ev.key !== 'Enter' && ev.key !== ' ') || !t.classList || !t.classList.contains('item')) return;
+    ev.preventDefault();
+    const g = t.dataset.g;
+    const k = t.dataset.k;
+    flush();
+    itemAction(g, k, null);
+  });
+  $('#undismiss').addEventListener('click', () => { dismissed = new Set(); run(); toast('消した指摘を元に戻しました'); });
 
   ta.addEventListener('input', () => { activeKey = null; schedule(); });
   ta.addEventListener('scroll', () => { hl.scrollTop = ta.scrollTop; });
+  ta.addEventListener('click', syncCaret);
+  ta.addEventListener('keyup', (ev) => {
+    if (['ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown', 'Home', 'End', 'PageUp', 'PageDown'].indexOf(ev.key) >= 0) syncCaret();
+  });
   $('#apply-all').addEventListener('click', applyAll);
   $('#sort').addEventListener('change', renderList);
   $('#desk').addEventListener('change', (e) => {
@@ -420,6 +665,7 @@ const META = /*META*/{};
   $('#sample').addEventListener('click', () => {
     if (ta.value.trim() && !confirm('いまの原稿をサンプル原稿に置き換えます。よろしいですか？')) return;
     dismissed = new Set();
+    openGroups.clear();
     replaceRange(0, ta.value.length, SAMPLE);
     ta.setSelectionRange(0, 0);
     ta.scrollTop = 0;
