@@ -345,14 +345,14 @@ def table_rules(ov):
                 # 直した後が複数で決まらない → 確かめる
                 src = "|".join(sorted((js_escape(p) for p in ng_parts), key=len, reverse=True))
                 opts = "、".join(f"「{p}」" for p in ok_parts)
-                rules.append(make_rule(kind="check", re=src,
+                rules.append(make_rule(kind="check", ji=1, re=src,
                                        why=f"{opts}のどれかに言い換える" + (f"（{why}）" if why else ""),
                                        **common))
                 continue
             for a, b in zip(ng_parts, ok_parts):
                 src, to = fix_regex(a, b)
                 c2 = dict(common, label=f"{a}→{b}")
-                rules.append(make_rule(kind="fix", re=src, to=to, why=why, **c2))
+                rules.append(make_rule(kind="fix", ji=1, re=src, to=to, why=why, **c2))
     for k in ov:
         if k not in used:
             warn(f"overrides の行が表に見つからない: {k[0]} {k[1]}")

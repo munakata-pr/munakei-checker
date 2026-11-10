@@ -75,7 +75,7 @@ ch07_expression.md	プレゼントされる	check	1	body	1	プレゼントされ
 ch07_expression.md	購入できる	check	1	body	1	購入でき|買うことができ		事業者目線で「販売する」	
 ch07_expression.md	行われる	check	1	body	1	行われ		受動態は使わない（→「行う」）	
 ch07_expression.md	食べられる	check	1	body	1	食べられ|食べることができ		→「食べる」。事業者目線なら「提供する」	
-ch07_expression.md	○○が開催された／行われた（本文）	check	2	body	1	開催され		→「○○を開いた／行った」	
+ch07_expression.md	○○が開催された／行われた（本文）	check	1	body	1	開催され		→「○○を開いた／行った」	
 ch07_expression.md	意気込む	check	1	text	1	意気込(?=[むんみまめ])		引用の動詞は「話す」（締めの一文は除く）	
 ch07_expression.md	呼びかける	check	1	text	1	呼び[掛か]け		「呼びかける」は記事末尾の締めだけ。中盤は「話す」	
 ch07_expression.md	期待を寄せる	check	1	text	1	期待を寄せ		引用の動詞は「話す」	
@@ -85,7 +85,7 @@ ch07_expression.md	期待を込める	fix	1	text	1	期待を込め	期待を寄�
 ch07_expression.md	意気込みを見せる	check	1	text	1	意気込みを見せ		→「意気込む」または「話す」	
 ch07_expression.md	語る／語った	fix	1	text	1	(?<!物)語る	話す	引用の動詞は「話す」	
 ch07_expression.md	語る／語った	fix	1	text	1	(?<!物)語っ(?=[たて])	話し	引用の動詞は「話す」	
-ch07_expression.md	○○を開催する／開催した／開催され	check	2	all	0	開催(?=する|した|して|しま|し、)		動詞の「開催」は「開く」「行う」に（「開催日」など名詞は可）	
+ch07_expression.md	○○を開催する／開催した／開催され	check	1	all	0	開催(?=する|した|して|しま|し、)		動詞の「開催」は「開く」「行う」に（「開催日」など名詞は可）	
 ch07_expression.md	実施する／実施した	fix	1	all	0	実施する	行う		
 ch07_expression.md	実施する／実施した	fix	1	all	0	実施し(?=[たて])	行っ		
 ch07_expression.md	実施する／実施した	fix	1	all	0	実施し(?=[、ま])	行い		
@@ -159,3 +159,4 @@ ch08_notation.md	よびかける	fix	1	all	0	よび(?=かけ|掛け)	呼び	「�
 ch08_notation.md	参加店舗／〇店舗	check	1	all	0	(?<=[0-9０-９]|参加|加盟|協力|出店|飲食|各|全)店舗		「参加店」「〇店」で足りることが多い（本部が直したのは半数）	
 ch08_notation.md	方／方々	check	2	all	0	(?<=[のな])方(?=[がはをにもと、。」])		かぎかっこの中でも、人を指す「方」は本部が「人」に直すことが多い	
 ch08_notation.md	コミュニティ	fix	1	all	0	コミュニティ(?!ー)(?![・･]?センター)	コミュニティー	語末の「ティ」は「ティー」（施設名の「コミュニティ・センター」はそのまま）	
+ch08_notation.md	すべて	skip							記者ハン準拠で副詞「すべて」は平仮名が正則のため除外	
