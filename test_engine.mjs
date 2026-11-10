@@ -21,7 +21,7 @@ console.log('(1) サンプル原稿');
 const sample = readFileSync(join(HERE, 'sample.txt'), 'utf8');
 for (const level of [1, 2]) {
   const r1 = eng.check(sample, { level });
-  const fixed = eng.applyAll(sample, r1.findings);
+  const fixed = eng.applyAll(sample, r1.findings, { level });
   const r2 = eng.check(fixed, { level });
   const f2 = r2.findings.filter((f) => f.rule.kind === 'fix');
   const fm2 = r2.findings.filter((f) => f.rule.kind === 'form' && f.edits);
@@ -38,6 +38,94 @@ for (const level of [1, 2]) {
     if (detail) for (const f of r1.findings) console.log(`    ${f.rule.kind} ${f.area} 「${f.text}」→${f.to === null ? '-' : '「' + f.to + '」'} ${f.rule.label}${f.info ? ' / ' + f.info : ''}`);
     console.log('  反映後の原稿（先頭120字）: ' + JSON.stringify(fixed.slice(0, 120)));
   }
+}
+
+// (1b) 決まった例文（自作）で、かっこ・体言止め・足した規則・全部反映・key を確かめる
+console.log('(1b) 決まった例文');
+{
+  const body = (t) => '▽本文\n　' + t;
+  const fs = (t, level = 1) => eng.check(t, { level }).findings;
+  const byLabel = (list, label) => list.filter((f) => (f.rule.builtin || f.rule.label) === label);
+  const expect = (cond, msg) => { if (!cond) fail(msg); };
+  let n = 0;
+  const ok = (cond, msg) => { n++; expect(cond, msg); };
+
+  // かっこ：発言の中は直す・名前のかっこの中は確かめる（edits なし）・ji=1 は黙る・ji=2 は発言の中で確かめる
+  const q = body('店主は「味噌を使ったスープです。体験を実施する」と話す。店では「味噌ラーメン」を出す。会場は「市民ホールにて」に決めた。');
+  const qf = fs(q);
+  const miso = byLabel(qf, '味噌→みそ');
+  ok(miso.length === 2, `かっこ：味噌の指摘が2件でない（${miso.length}件）`);
+  const mUtter = miso.find((f) => q.slice(f.start - 1, f.start) === '「' && q.slice(f.end, f.end + 3) === 'を使っ');
+  const mName = miso.find((f) => q.slice(f.end, f.end + 4) === 'ラーメン');
+  ok(mUtter && mUtter.rule.kind === 'fix' && mUtter.edits && !mUtter.down, 'かっこ：発言の中の表記が「直す」で出ない');
+  ok(mName && mName.rule.kind === 'check' && !mName.edits && mName.to === null && mName.down === 'name', 'かっこ：名前のかっこの中が「確かめる」（edits なし・down=name）に下がらない');
+  ok(mName && mName.rule.why.startsWith('店名・商品名などのかっこの中です。'), 'かっこ：名前の理由の頭が違う');
+  ok(rules.find((r) => r.label === '味噌→みそ').kind === 'fix', 'かっこ：元の規則オブジェクトが書き換わった');
+  const jisshi = qf.find((f) => f.text === '実施する');
+  ok(jisshi && jisshi.rule.kind === 'check' && jisshi.down === 'utter' && !jisshi.edits && jisshi.rule.why.startsWith('発言の中です。'), 'かっこ：ji=2（言い換え）が発言の中で「確かめる」に下がらない');
+  ok(!qf.some((f) => f.text === 'にて'), 'かっこ：ji=1（地の文だけ）がかっこの中で光る');
+  ok(fs(body('会場にて行う。')).some((f) => f.text === 'にて' && f.rule.kind === 'fix'), 'かっこ：ji=1 が地の文で光らない');
+  const qa = eng.applyAll(q, qf, { level: 1 });
+  ok(qa.includes('「味噌ラーメン」') && qa.includes('「みそを使った'), 'かっこ：全部反映で名前のかっこの中が変わる、または発言の中が直らない');
+  // 閉じ忘れ
+  const qb = byLabel(fs(body('店主は「おいしいと話す。')), 'quote_balance');
+  ok(qb.length === 1 && qb[0].text === '「' && !qb[0].edits && qb[0].rule.kind === 'form', 'かっこ：閉じ忘れが quote_balance で出ない');
+  ok(!byLabel(fs(body('店主は「おいしい」と話す。（写真左）')), 'quote_balance').length, 'かっこ：閉じているのに quote_balance が出る');
+
+  // 体言止め
+  const taigen = (t) => byLabel(fs(body(t)), '体言止め');
+  for (const [t, w] of [['新しい分野に挑戦。', '挑戦'], ['地元の工場で製造。', '製造'], ['価格は1,000円。', '1,000円'], ['ランチの定食（1,100円）。', '（1,100円）'], ['話すのは店主の見本さん。', '見本さん'], ['看板は新メニュー。', '新メニュー']]) {
+    const hit = taigen(t);
+    ok(hit.length === 1 && hit[0].text === w, `体言止め：「${t}」で「${w}」が出ない（${hit.map((f) => f.text).join('・') || 'なし'}）`);
+  }
+  for (const t of ['木曜定休。', '営業時間は21時～翌2時（状況により変動あり）。', '今年オープンした同店。', '所在地は赤間1丁目。', '先着順で進呈する（なくなり次第終了）。', '入場無料。']) {
+    const hit = taigen(t);
+    ok(!hit.length, `体言止め：「${t}」で出る（${hit.map((f) => f.text).join('・')}）`);
+  }
+
+  // タイトルの半角スペース
+  const th = byLabel(fs('▽タイトル\n宗像・赤間に新店 地元の小麦でパン\n▽本文\n　パンを売る。'), 'title_halfspace');
+  ok(th.length === 1 && th[0].edits && th[0].edits[0].to === '　', 'タイトルの半角スペースが出ない、または全角に置き換えない');
+  ok(!byLabel(fs('▽タイトル\n宗像に「Cafe Bar」　開店\n▽本文\n　パンを売る。'), 'title_halfspace').length, 'タイトルの英字の間の半角スペースが光る');
+  // のもと→の下
+  const nm = byLabel(fs(body('専門家の指導のもと、作った。')), 'のもと→の下');
+  ok(nm.length === 1 && nm[0].to === 'の下', 'のもと→の下 が出ない');
+  ok(!byLabel(fs(body('親のもとを離れた。')), 'のもと→の下').length, '「親のもと」に のもと→の下 が出る');
+  // すべて→全て（確かめる・「すべての」は対象外）
+  const sb = byLabel(fs(body('商品はすべて手作りする。')), 'すべて→全て');
+  ok(sb.length === 1 && sb[0].rule.kind === 'check' && sb[0].rule.level === 1, 'すべて→全て が記者向けの「確かめる」で出ない');
+  ok(!byLabel(fs(body('すべての商品を手作りする。')), 'すべて→全て').length, '「すべての」に すべて→全て が出る');
+  // 時→とき（デスク向け）
+  ok(fs(body('店を開いた時から通う。'), 2).filter((f) => f.rule.label.startsWith('時→とき')).length === 1, '時→とき がデスク向けで出ない');
+  ok(!fs(body('店を開いた時から通う。'), 1).filter((f) => f.rule.label.startsWith('時→とき')).length, '時→とき が記者向けで出る');
+  ok(!fs(body('開店の時間から通う。'), 2).filter((f) => f.rule.label.startsWith('時→とき')).length, '「時間」に 時→とき が出る');
+  // 名→人の除外・N対N・ぜひとも
+  const nin = (t) => byLabel(fs(body(t)), '人数は「人」');
+  ok(!nin('100名山を巡る。').length && !nin('3名様まで受け付ける。').length, '名→人 が「100名山」「3名様」に出る');
+  ok(nin('定員は10名。').length === 1, '名→人 が「10名」に出ない');
+  const tai = byLabel(fs(body('1対1で教える。')), 'スコアはハイフン');
+  ok(tai.length === 1 && tai[0].rule.kind === 'check' && !tai[0].edits, 'N対N が「確かめる」でない');
+  const zehi = (t) => fs(body(t)).filter((f) => /ぜひ\|是非/.test(f.rule.re || ''));
+  ok(!zehi('ぜひとも来てほしい。').length, '「ぜひとも」に ぜひ の規則が出る');
+  ok(zehi('ぜひ来てほしい。').length === 1, '「ぜひ」に ぜひ の規則が出ない');
+
+  // 全部反映が収束する
+  const cv = body('価格は１０００円、定員は１０名。');
+  const cvOut = eng.applyAll(cv, fs(cv), { level: 1 });
+  const cvLeft = fs(cvOut).filter((f) => f.edits && (f.rule.kind === 'fix' || f.rule.kind === 'form'));
+  ok(cvOut.includes('1,000円') && cvOut.includes('10人') && !cvLeft.length, `全部反映が1回で収束しない: ${JSON.stringify(cvOut)}／残り${cvLeft.length}件`);
+  ok(eng.applyAll(cv, fs(cv)).includes('1000円'), '第3引数なしの applyAll が1回分だけ動かない');
+
+  // key：同じ語が3か所ある文で1か所目を直しても、残り2か所の key が変わらない
+  const kt = body('最初に味噌を使う。そのあと鍋で煮てから味噌を混ぜる。最後に仕上げとして味噌を足す。');
+  const k1 = byLabel(fs(kt), '味噌→みそ');
+  const kt2 = eng.applyOne(kt, k1[0]);
+  const k2 = byLabel(fs(kt2), '味噌→みそ');
+  ok(k1.length === 3 && k2.length === 2 && k2[0].key === k1[1].key && k2[1].key === k1[2].key, 'key：1か所目を直すと残りの key が変わる');
+  ok(fs(sample, 2).every((f) => !/\s/.test(f.key)), 'key に空白が入っている');
+  const dup = fs(body('味噌。味噌。味噌。味噌。'), 1).filter((f) => f.rule.label === '味噌→みそ').map((f) => f.key);
+  ok(new Set(dup).size === dup.length, 'key が重複している');
+  console.log(`  ${n}項目`);
 }
 
 // (2) 規則ごとの例文：ラベルの「直す前」に当てて置き換え、直した後に同じ規則が当たらない
@@ -123,6 +211,21 @@ for (const [name, docs] of files) {
   }
 }
 if (files.length > 1) console.log(`  合計（level2）: 本部の直し ${total.edits}・拾えた ${total.caught}（直す・形だけで ${total.caughtFix}）・光った ${total.findings}・余計な指摘 ${total.extra}`);
+
+// (4) 実原稿（_test/real/*.json。{title, orig:[段落], desk:[段落]}。公開しないので手元にあるときだけ）
+console.log('(4) 実原稿');
+const realDir = join(testDir, 'real');
+const reals = existsSync(realDir) ? readdirSync(realDir).filter((f) => f.endsWith('.json')) : [];
+if (!reals.length) console.log('  _test/real/*.json がない（飛ばす）');
+for (const f of reals) {
+  const d = JSON.parse(readFileSync(join(realDir, f), 'utf8'));
+  const text = d.orig.join('\n');
+  for (const level of [1, 2]) {
+    const list = eng.check(text, { level }).findings;
+    console.log(`  ${d.title} level${level}: ${list.length}件（直す${count(list, 'fix')}・確かめる${count(list, 'check')}・形${count(list, 'form')}）`);
+    console.log('    ' + list.map((x) => `${x.rule.kind}${x.down ? '(' + x.down + ')' : ''} ${x.rule.builtin || x.rule.label}「${x.text.slice(0, 12)}」`).join('、'));
+  }
+}
 
 console.log(failures ? `失敗 ${failures}件` : '失敗 0件');
 process.exit(failures ? 1 : 0);

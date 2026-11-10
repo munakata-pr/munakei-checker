@@ -69,6 +69,12 @@ BUILTIN = [
     dict(builtin="nested_quote", kind="fix", level=1, area="all",
          label="「」の中の「」は『』", why="かぎかっこの中でさらに引用するときは二重かぎかっこにする",
          ch=8, sec="8-5 その他の表記ルール", r="", stat="本部修正13本", n=13),
+    dict(builtin="title_halfspace", kind="form", level=1, area="title",
+         label="タイトルの区切りは全角スペース", why="タイトルの和文と和文の間のスペースは全角にする（半角は不可）",
+         ch=3, sec="3-1 タイトルの基本", r="", stat="", n=0),
+    dict(builtin="quote_balance", kind="form", level=1, area="all",
+         label="かぎかっこの閉じ忘れ", why="段落の中で「」『』（）の開きと閉じの数をそろえる（余ったかっこを光らせる）",
+         ch=8, sec="8-5 その他の表記ルール", r="", stat="", n=0),
 ]
 
 warnings = []
@@ -345,14 +351,14 @@ def table_rules(ov):
                 # 直した後が複数で決まらない → 確かめる
                 src = "|".join(sorted((js_escape(p) for p in ng_parts), key=len, reverse=True))
                 opts = "、".join(f"「{p}」" for p in ok_parts)
-                rules.append(make_rule(kind="check", ji=1, re=src,
+                rules.append(make_rule(kind="check", re=src,
                                        why=f"{opts}のどれかに言い換える" + (f"（{why}）" if why else ""),
                                        **common))
                 continue
             for a, b in zip(ng_parts, ok_parts):
                 src, to = fix_regex(a, b)
                 c2 = dict(common, label=f"{a}→{b}")
-                rules.append(make_rule(kind="fix", ji=1, re=src, to=to, why=why, **c2))
+                rules.append(make_rule(kind="fix", re=src, to=to, why=why, **c2))
     for k in ov:
         if k not in used:
             warn(f"overrides の行が表に見つからない: {k[0]} {k[1]}")
@@ -434,7 +440,11 @@ def build_md(rules):
         "- 直す：直す前→直した後。答えが一つに決まる",
         "- 確かめる：文脈で答えが変わる。理由を読んで判断する",
         "- 形：タイトル・リードの字数、全角数字、記号など",
-        "- 地の文だけ：かぎかっこ「」の中（発言の引用）は対象外",
+        "- かぎかっこ「」『』の中の扱い：",
+        "  - 注記なしの「直す」：発言の中も直す。店名・商品名などの短いかっこの中は「確かめる」に下げる",
+        "  - ［地の文だけ］：かっこの中は対象外",
+        "  - ［かっこの中は確かめる］：言い換えの規則。発言の中・名前のかっこの中は「確かめる」に下げる",
+        "  - 発言のかっこ＝中に「。、！？」がある、15字を超える、直後が「と」「って」。それ以外は名前のかっこ",
         "",
     ]
     for kind, title in kinds:
@@ -447,8 +457,10 @@ def build_md(rules):
             out.append("")
             for r in sorted((r for r in rs if r["ch"] == ch), key=lambda r: -r["n"]):
                 notes = []
-                if r["ji"]:
+                if r["ji"] == 1:
                     notes.append("地の文だけ")
+                elif r["ji"] == 2:
+                    notes.append("かっこの中は確かめる")
                 if r["area"] not in ("all",):
                     notes.append({"text": "リード・本文", "body": "本文", "title": "タイトル",
                                   "lead": "リード", "caption": "写真キャプション"}.get(r["area"], r["area"]))

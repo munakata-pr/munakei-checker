@@ -1,5 +1,5 @@
 /* 宗像経済新聞 表記チェッカー 点検エンジン（ブラウザと Node の両方で動く）
- * createEngine(rules) → { check(text, {level}), applyAll(text, findings), applyOne(text, finding), parseSections(text) }
+ * createEngine(rules) → { check(text, {level}), applyAll(text, findings[, {level}]), applyOne(text, finding), parseSections(text) }
  * 原稿はどこにも送らない。正規表現と組み込みの形の点検だけで光らせる（AI は使わない）。
  */
 (function (root, factory) {
@@ -121,22 +121,39 @@
     paras.forEach((p, k) => {
       for (let i = p.start; i < p.end; i++) paraIdx[i] = k;
     });
+    // inQuote：0＝地の文、1＝発言のかっこの中、2＝名前（店名・商品名など）のかっこの中
+    // 同じ行の一番外側の「」『』ごとに種類を決める（改行で深さを0に戻す）
     const inQuote = new Uint8Array(text.length + 1);
     let depth = 0;
+    let open = -1;
+    const mark = (s, e, closed) => {
+      // s＝開きかっこの位置、e＝閉じかっこの次（閉じていなければ行末）
+      const inner = text.slice(s + 1, closed ? e - 1 : e);
+      const after = text.slice(e, e + 2);
+      const utter = /[。、！？!?]/.test(inner) || cpLen(inner) > 15 ||
+        (after.charAt(0) === 'と' && after.charAt(1) !== '「') || after === 'って';
+      inQuote.fill(utter ? 1 : 2, s, e);
+    };
     for (let i = 0; i < text.length; i++) {
       const c = text[i];
       if (c === '\n') {
+        if (depth > 0 && open >= 0) mark(open, i, false);
         depth = 0;
+        open = -1;
         continue;
       }
       if (c === '「' || c === '『') {
+        if (depth === 0) open = i;
         depth++;
-        inQuote[i] = 1;
-      } else if (c === '」' || c === '』') {
-        inQuote[i] = depth > 0 ? 1 : 0;
-        depth = Math.max(0, depth - 1);
-      } else inQuote[i] = depth > 0 ? 1 : 0;
+      } else if ((c === '」' || c === '』') && depth > 0) {
+        depth--;
+        if (depth === 0) {
+          mark(open, i + 1, true);
+          open = -1;
+        }
+      }
     }
+    if (depth > 0 && open >= 0) mark(open, text.length, false);
     // 字数
     const stats = { title: [], lead: null, body: 0, hasMarks };
     let leadLen = 0;
@@ -199,6 +216,15 @@
       if (name === 'title_space' && p.area === 'title' && seg && !/[ 　]/.test(seg)) {
         add({ start: s, end: e, text: seg, info: 'タイトルにスペースがない', wide: true, area: 'title' });
       }
+      if (name === 'title_halfspace' && p.area === 'title') {
+        const rx = /(?<=[^\x00-\x7F\s　]) (?=[^\x00-\x7F\s　])/g;
+        let m;
+        while ((m = rx.exec(seg)) !== null) {
+          const at = s + m.index;
+          add({ start: at, end: at + 1, text: ' ', to: '　', info: 'タイトルの区切りが半角スペース',
+            edits: [{ start: at, end: at + 1, to: '　' }], area: 'title' });
+        }
+      }
       if (name === 'indent' && p.lineStart && (p.area === 'lead' || p.area === 'body')) {
         const line = text.slice(p.start, p.end);
         const ws = /^[ \t　]*/.exec(line)[0];
@@ -251,6 +277,39 @@
         }
       }
     }
+    if (name === 'quote_balance') {
+      // 行ごとに「」『』（）の開きと閉じを数え、余った最初のかっこ1字を光らせる（置き換えなし）
+      const PAIRS = { '「': '」', '『': '』', '（': '）' };
+      const CLOSE = { '」': '「', '』': '『', '）': '（' };
+      const NAME = { '「': 'かぎかっこ', '『': '二重かぎかっこ', '（': 'かっこ' };
+      let pos = 0;
+      for (const line of text.split('\n')) {
+        const opens = { '「': [], '『': [], '（': [] };
+        let first = null;
+        const note = (i, info) => {
+          if (first === null || i < first.i) first = { i, info };
+        };
+        for (let i = 0; i < line.length; i++) {
+          // 半角の ( ) は全角と同じ組として数える（半角そのものは別の規則が光らせる）
+          const c = line[i] === '(' ? '（' : line[i] === ')' ? '）' : line[i];
+          if (PAIRS[c]) opens[c].push(i);
+          else if (CLOSE[c]) {
+            const o = CLOSE[c];
+            if (opens[o].length) opens[o].pop();
+            else note(i, `閉じの「${line[i]}」に対応する開きの「${o}」がありません`);
+          }
+        }
+        for (const o of Object.keys(opens)) {
+          if (opens[o].length) note(opens[o][0], `${NAME[o]}が閉じていません（「${o}」に対応する「${PAIRS[o]}」がない）`);
+        }
+        if (first !== null) {
+          const at = pos + first.i;
+          const k = sec.paraIdx[at];
+          if (k >= 0) add({ start: at, end: at + 1, text: text[at], info: first.info, area: sec.paras[k].area });
+        }
+        pos += line.length + 1;
+      }
+    }
     if (name === 'nested_quote') {
       const lines = text.split('\n');
       let pos = 0;
@@ -275,6 +334,16 @@
       }
     }
     return out;
+  }
+
+  // FNV-1a（32bit）を36進の文字列に（key 用。英数字だけ）
+  function hash36(str) {
+    let h = 0x811c9dc5;
+    for (let i = 0; i < str.length; i++) {
+      h ^= str.charCodeAt(i);
+      h = Math.imul(h, 0x01000193) >>> 0;
+    }
+    return h.toString(36);
   }
 
   function overlaps(a, b) {
@@ -308,11 +377,13 @@
           const e = s + m[0].length;
           const k = sec.paraIdx[s];
           if (k < 0 || sec.paraIdx[e - 1] !== k || allowed.indexOf(sec.paras[k].area) < 0) continue;
-          if (r.ji) {
-            let q = false;
-            for (let i = s; i < e; i++) if (sec.inQuote[i]) { q = true; break; }
-            if (q) continue;
+          // かっこの中か（1字でも発言の中なら発言、そうでなく名前のかっこの中なら名前）
+          let q = 0;
+          for (let i = s; i < e; i++) {
+            if (sec.inQuote[i] === 1) { q = 1; break; }
+            if (sec.inQuote[i] === 2) q = 2;
           }
+          if (q && r.ji === 1) continue; // 地の文だけ
           let to = null;
           let edits = null;
           if (r.kind !== 'check' && r.to !== null && r.to !== undefined) {
@@ -320,7 +391,18 @@
             if (to === null || to === m[0]) continue;
             edits = [{ start: s, end: e, to }];
           }
-          tokens.push({ rule: r, order, start: s, end: e, text: m[0], to, edits, area: sec.paras[k].area, wide: false });
+          // 直す規則：ji=0（表記）は名前のかっこの中だけ、ji=2（言い換え）はかっこの中ならどちらでも「確かめる」に下げる
+          let rule = r;
+          let down = null;
+          if (r.kind === 'fix' && q && (q === 2 || r.ji === 2)) {
+            down = q === 2 ? 'name' : 'utter';
+            rule = downRule(r, down);
+            to = null;
+            edits = null;
+          }
+          const f = { rule, order, start: s, end: e, text: m[0], to, edits, area: sec.paras[k].area, wide: false };
+          if (down) f.down = down;
+          tokens.push(f);
         }
       }
       for (const { r, order } of builtins) {
@@ -338,13 +420,27 @@
         kept.push(f);
       }
       const findings = kept.concat(wides).sort((a, b) => a.start - b.start || a.end - b.end || a.order - b.order);
+      // key：規則id ＋（語・前6字・後6字）の短いハッシュ。同じ key が複数あるときだけ #2 #3 を足す
+      // （語の出現回数で数えないので、ほかの箇所を直しても key が変わらない）
       const seen = {};
       for (const f of findings) {
-        const base = f.rule.id + ':' + f.text;
+        const ctx = f.text + '\u0001' + text.slice(Math.max(0, f.start - 6), f.start) + '\u0001' + text.slice(f.end, f.end + 6);
+        const base = f.rule.id + ':' + hash36(ctx);
         seen[base] = (seen[base] || 0) + 1;
-        f.key = base + ':' + seen[base];
+        f.key = seen[base] === 1 ? base : base + '#' + seen[base];
       }
       return { findings, stats: sec.stats, paras: sec.paras };
+    }
+
+    // 「確かめる」に下げた写し（元の規則オブジェクトは書き換えない）。規則ごと・種類ごとに1つだけ作る
+    const downCache = new Map();
+    function downRule(r, down) {
+      const k = r.id + ':' + down;
+      if (!downCache.has(k)) {
+        const head = down === 'name' ? '店名・商品名などのかっこの中です。' : '発言の中です。';
+        downCache.set(k, Object.assign({}, r, { kind: 'check', to: null, why: head + (r.why || '') }));
+      }
+      return downCache.get(k);
     }
 
     function applyEdits(text, edits) {
@@ -358,12 +454,25 @@
       }
       return out;
     }
-    function applyAll(text, findings) {
+    function editsOf(findings) {
       const edits = [];
       for (const f of findings) {
         if (f.edits && (f.rule.kind === 'fix' || f.rule.kind === 'form')) edits.push(...f.edits);
       }
-      return applyEdits(text, edits);
+      return edits;
+    }
+    // 置き換えを全部反映。opts（{level}）を渡すと、置換→再点検を最大3回まで繰り返す
+    // （１０００円→1000円→1,000円 のように、置き換えた結果に別の規則が当たる場合）
+    // 2回目以降は、再点検で出た「直す」と置き換えられる「形」が対象
+    function applyAll(text, findings, opts) {
+      let out = applyEdits(text, editsOf(findings));
+      if (!opts) return out;
+      for (let round = 1; round < 3; round++) {
+        const edits = editsOf(check(out, opts).findings);
+        if (!edits.length) break;
+        out = applyEdits(out, edits);
+      }
+      return out;
     }
     function applyOne(text, f) {
       return f.edits ? applyEdits(text, f.edits.slice()) : text;

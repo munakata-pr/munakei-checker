@@ -344,7 +344,7 @@
   "kind": "fix",
   "level": 1,
   "area": "all",
-  "ji": 1,
+  "ji": 2,
   "re": "実施する",
   "to": "行う",
   "label": "実施する／実施した→行う／行った",
@@ -361,7 +361,7 @@
   "kind": "fix",
   "level": 1,
   "area": "all",
-  "ji": 1,
+  "ji": 2,
   "re": "実施し(?=[たて])",
   "to": "行っ",
   "label": "実施する／実施した→行う／行った",
@@ -378,7 +378,7 @@
   "kind": "fix",
   "level": 1,
   "area": "all",
-  "ji": 1,
+  "ji": 2,
   "re": "実施し(?=[、ま])",
   "to": "行い",
   "label": "実施する／実施した→行う／行った",
@@ -395,7 +395,7 @@
   "kind": "fix",
   "level": 1,
   "area": "all",
-  "ji": 1,
+  "ji": 2,
   "re": "使用する|用いる",
   "to": "使う",
   "label": "使用する／使用した／用いる→使う／使った",
@@ -412,7 +412,7 @@
   "kind": "fix",
   "level": 1,
   "area": "all",
-  "ji": 1,
+  "ji": 2,
   "re": "(?:使用し|用い)(?=[たて])",
   "to": "使っ",
   "label": "使用する／使用した／用いる→使う／使った",
@@ -429,7 +429,7 @@
   "kind": "fix",
   "level": 1,
   "area": "all",
-  "ji": 1,
+  "ji": 2,
   "re": "使用し(?=[、ま])",
   "to": "使い",
   "label": "使用する／使用した／用いる→使う／使った",
@@ -446,7 +446,7 @@
   "kind": "fix",
   "level": 1,
   "area": "all",
-  "ji": 1,
+  "ji": 2,
   "re": "開始する",
   "to": "始める",
   "label": "開始する→始める",
@@ -463,7 +463,7 @@
   "kind": "fix",
   "level": 1,
   "area": "all",
-  "ji": 1,
+  "ji": 2,
   "re": "開始し(?=[たて、ま])",
   "to": "始め",
   "label": "開始する→始める",
@@ -480,7 +480,7 @@
   "kind": "fix",
   "level": 1,
   "area": "all",
-  "ji": 1,
+  "ji": 2,
   "re": "販売を行う",
   "to": "販売する",
   "label": "販売を行う→販売する",
@@ -497,7 +497,7 @@
   "kind": "fix",
   "level": 1,
   "area": "all",
-  "ji": 1,
+  "ji": 2,
   "re": "販売を行(?:っ(?=[たて])|い)",
   "to": "販売し",
   "label": "販売を行う→販売する",
@@ -514,7 +514,7 @@
   "kind": "fix",
   "level": 1,
   "area": "all",
-  "ji": 1,
+  "ji": 2,
   "re": "体験を行う",
   "to": "体験する",
   "label": "体験を行う→体験する",
@@ -531,7 +531,7 @@
   "kind": "fix",
   "level": 1,
   "area": "all",
-  "ji": 1,
+  "ji": 2,
   "re": "体験を行(?:っ(?=[たて])|い)",
   "to": "体験し",
   "label": "体験を行う→体験する",
@@ -770,7 +770,7 @@
   "level": 1,
   "area": "all",
   "ji": 0,
-  "re": "(?:ぜひ|是非)、?",
+  "re": "(?:ぜひ|是非)(?!とも)、?",
   "to": "",
   "label": "ぜひ",
   "why": "本文・引用とも削る",
@@ -1534,7 +1534,7 @@
   "kind": "fix",
   "level": 1,
   "area": "all",
-  "ji": 1,
+  "ji": 0,
   "re": "色々",
   "to": "いろいろ",
   "label": "色々→いろいろ",
@@ -1551,7 +1551,7 @@
   "kind": "fix",
   "level": 1,
   "area": "all",
-  "ji": 1,
+  "ji": 0,
   "re": "各々",
   "to": "それぞれ",
   "label": "各々→それぞれ",
@@ -1568,7 +1568,7 @@
   "kind": "fix",
   "level": 1,
   "area": "all",
-  "ji": 1,
+  "ji": 0,
   "re": "様々",
   "to": "さまざま",
   "label": "様々→さまざま",
@@ -1585,7 +1585,7 @@
   "kind": "fix",
   "level": 1,
   "area": "all",
-  "ji": 1,
+  "ji": 0,
   "re": "嬉(?=し)",
   "to": "うれ",
   "label": "嬉しい→うれしい",
@@ -1602,7 +1602,7 @@
   "kind": "fix",
   "level": 1,
   "area": "all",
-  "ji": 1,
+  "ji": 0,
   "re": "美味(?=し)",
   "to": "おい",
   "label": "美味しい→おいしい",
@@ -1619,7 +1619,7 @@
   "kind": "fix",
   "level": 1,
   "area": "all",
-  "ji": 1,
+  "ji": 0,
   "re": "綺麗",
   "to": "きれい",
   "label": "綺麗→きれい",
@@ -1636,7 +1636,7 @@
   "kind": "fix",
   "level": 1,
   "area": "all",
-  "ji": 1,
+  "ji": 0,
   "re": "賑(?=[ぁ-ゖ])",
   "to": "にぎ",
   "label": "賑やか→にぎやか",
@@ -1670,7 +1670,7 @@
   "kind": "fix",
   "level": 1,
   "area": "all",
-  "ji": 1,
+  "ji": 0,
   "re": "揃(?=[ぁ-ゖ])",
   "to": "そろ",
   "label": "揃う→そろう",
@@ -1687,7 +1687,7 @@
   "kind": "fix",
   "level": 1,
   "area": "all",
-  "ji": 1,
+  "ji": 0,
   "re": "繋(?=[ぁ-ゖ])",
   "to": "つな",
   "label": "繋がる→つながる",
@@ -1704,7 +1704,7 @@
   "kind": "fix",
   "level": 1,
   "area": "all",
-  "ji": 1,
+  "ji": 0,
   "re": "伺(?=[ぁ-ゖ])",
   "to": "うかが",
   "label": "伺う→うかがう",
@@ -1721,7 +1721,7 @@
   "kind": "fix",
   "level": 1,
   "area": "all",
-  "ji": 1,
+  "ji": 0,
   "re": "捌(?=[ぁ-ゖ])",
   "to": "さば",
   "label": "捌く→さばく",
@@ -1738,7 +1738,7 @@
   "kind": "fix",
   "level": 1,
   "area": "all",
-  "ji": 1,
+  "ji": 0,
   "re": "出来(?=[ぁ-ゖ])",
   "to": "でき",
   "label": "出来る→できる",
@@ -1755,7 +1755,7 @@
   "kind": "fix",
   "level": 1,
   "area": "all",
-  "ji": 1,
+  "ji": 0,
   "re": "茹(?=[ぁ-ゖ])",
   "to": "ゆ",
   "label": "茹でる→ゆでる",
@@ -1806,7 +1806,7 @@
   "kind": "fix",
   "level": 1,
   "area": "all",
-  "ji": 1,
+  "ji": 0,
   "re": "溢(?=[ぁ-ゖ])",
   "to": "あふ",
   "label": "溢れる→あふれる",
@@ -1823,7 +1823,7 @@
   "kind": "fix",
   "level": 1,
   "area": "all",
-  "ji": 1,
+  "ji": 0,
   "re": "挨拶",
   "to": "あいさつ",
   "label": "挨拶→あいさつ",
@@ -1840,7 +1840,7 @@
   "kind": "fix",
   "level": 1,
   "area": "all",
-  "ji": 1,
+  "ji": 0,
   "re": "子供",
   "to": "子ども",
   "label": "子供→子ども",
@@ -1857,7 +1857,7 @@
   "kind": "fix",
   "level": 1,
   "area": "all",
-  "ji": 1,
+  "ji": 0,
   "re": "お腹",
   "to": "おなか",
   "label": "お腹→おなか",
@@ -1874,7 +1874,7 @@
   "kind": "fix",
   "level": 1,
   "area": "all",
-  "ji": 1,
+  "ji": 0,
   "re": "勿論",
   "to": "もちろん",
   "label": "勿論→もちろん",
@@ -1891,7 +1891,7 @@
   "kind": "fix",
   "level": 1,
   "area": "all",
-  "ji": 1,
+  "ji": 0,
   "re": "急遽",
   "to": "急きょ",
   "label": "急遽→急きょ",
@@ -1925,7 +1925,7 @@
   "kind": "fix",
   "level": 1,
   "area": "all",
-  "ji": 1,
+  "ji": 0,
   "re": "無(?=[いくかけさ])",
   "to": "な",
   "label": "無い→ない",
@@ -1993,7 +1993,7 @@
   "kind": "fix",
   "level": 1,
   "area": "all",
-  "ji": 1,
+  "ji": 0,
   "re": "ケガ",
   "to": "けが",
   "label": "ケガ→けが",
@@ -2010,7 +2010,7 @@
   "kind": "fix",
   "level": 1,
   "area": "all",
-  "ji": 1,
+  "ji": 0,
   "re": "怪我",
   "to": "けが",
   "label": "怪我→けが",
@@ -2044,7 +2044,7 @@
   "kind": "fix",
   "level": 1,
   "area": "all",
-  "ji": 1,
+  "ji": 0,
   "re": "噂",
   "to": "うわさ",
   "label": "噂→うわさ",
@@ -2061,7 +2061,7 @@
   "kind": "fix",
   "level": 1,
   "area": "all",
-  "ji": 1,
+  "ji": 0,
   "re": "漕ぎ着(?=[ぁ-ゖ])",
   "to": "こぎ着",
   "label": "漕ぎ着ける→こぎ着ける",
@@ -2112,7 +2112,7 @@
   "kind": "fix",
   "level": 1,
   "area": "all",
-  "ji": 1,
+  "ji": 0,
   "re": "うま味",
   "to": "うまみ",
   "label": "うま味→うまみ",
@@ -2129,7 +2129,7 @@
   "kind": "fix",
   "level": 1,
   "area": "all",
-  "ji": 1,
+  "ji": 0,
   "re": "心掛(?=[ぁ-ゖ])",
   "to": "心が",
   "label": "心掛ける→心がける",
@@ -2163,7 +2163,7 @@
   "kind": "fix",
   "level": 1,
   "area": "all",
-  "ji": 1,
+  "ji": 0,
   "re": "醤油",
   "to": "しょうゆ",
   "label": "醤油→しょうゆ",
@@ -2180,7 +2180,7 @@
   "kind": "fix",
   "level": 1,
   "area": "all",
-  "ji": 1,
+  "ji": 0,
   "re": "糊",
   "to": "のり",
   "label": "糊→のり",
@@ -2197,7 +2197,7 @@
   "kind": "fix",
   "level": 1,
   "area": "all",
-  "ji": 1,
+  "ji": 0,
   "re": "鋏",
   "to": "はさみ",
   "label": "鋏→はさみ",
@@ -2214,7 +2214,7 @@
   "kind": "fix",
   "level": 1,
   "area": "all",
-  "ji": 1,
+  "ji": 0,
   "re": "柑橘",
   "to": "かんきつ",
   "label": "柑橘→かんきつ",
@@ -2231,7 +2231,7 @@
   "kind": "fix",
   "level": 1,
   "area": "all",
-  "ji": 1,
+  "ji": 0,
   "re": "オシャレ",
   "to": "おしゃれ",
   "label": "オシャレ→おしゃれ",
@@ -2245,6 +2245,23 @@
  },
  {
   "id": "k133",
+  "kind": "check",
+  "level": 2,
+  "area": "all",
+  "ji": 0,
+  "re": "(?<=[のたるいな])時(?=[からにはもの、])",
+  "to": null,
+  "label": "時→とき（時刻でないもの。「時間」「時期」などはそのまま）",
+  "why": "「〜した時」「その時」など時刻でない「時」はひらがなの「とき」（時間・時刻・時期・時代・時点などはそのまま）",
+  "ch": 8,
+  "sec": "8-1 ひらがな・漢字の使い分け（用字）",
+  "r": "",
+  "stat": "",
+  "n": 0,
+  "src": "guide"
+ },
+ {
+  "id": "k134",
   "kind": "fix",
   "level": 1,
   "area": "all",
@@ -2261,7 +2278,7 @@
   "src": "guide"
  },
  {
-  "id": "k134",
+  "id": "k135",
   "kind": "fix",
   "level": 1,
   "area": "all",
@@ -2278,7 +2295,7 @@
   "src": "guide"
  },
  {
-  "id": "k135",
+  "id": "k136",
   "kind": "check",
   "level": 1,
   "area": "all",
@@ -2295,7 +2312,7 @@
   "src": "guide"
  },
  {
-  "id": "k136",
+  "id": "k137",
   "kind": "fix",
   "level": 1,
   "area": "all",
@@ -2312,7 +2329,7 @@
   "src": "guide"
  },
  {
-  "id": "k137",
+  "id": "k138",
   "kind": "fix",
   "level": 1,
   "area": "all",
@@ -2329,7 +2346,7 @@
   "src": "guide"
  },
  {
-  "id": "k138",
+  "id": "k139",
   "kind": "fix",
   "level": 1,
   "area": "all",
@@ -2346,7 +2363,7 @@
   "src": "guide"
  },
  {
-  "id": "k139",
+  "id": "k140",
   "kind": "fix",
   "level": 1,
   "area": "all",
@@ -2363,7 +2380,7 @@
   "src": "guide"
  },
  {
-  "id": "k140",
+  "id": "k141",
   "kind": "fix",
   "level": 1,
   "area": "all",
@@ -2380,7 +2397,7 @@
   "src": "guide"
  },
  {
-  "id": "k141",
+  "id": "k142",
   "kind": "fix",
   "level": 1,
   "area": "all",
@@ -2397,7 +2414,7 @@
   "src": "guide"
  },
  {
-  "id": "k142",
+  "id": "k143",
   "kind": "fix",
   "level": 1,
   "area": "all",
@@ -2414,7 +2431,7 @@
   "src": "guide"
  },
  {
-  "id": "k143",
+  "id": "k144",
   "kind": "fix",
   "level": 1,
   "area": "all",
@@ -2431,7 +2448,7 @@
   "src": "guide"
  },
  {
-  "id": "k144",
+  "id": "k145",
   "kind": "check",
   "level": 1,
   "area": "all",
@@ -2448,7 +2465,7 @@
   "src": "guide"
  },
  {
-  "id": "k145",
+  "id": "k146",
   "kind": "check",
   "level": 1,
   "area": "all",
@@ -2465,7 +2482,7 @@
   "src": "guide"
  },
  {
-  "id": "k146",
+  "id": "k147",
   "kind": "check",
   "level": 1,
   "area": "all",
@@ -2482,11 +2499,11 @@
   "src": "guide"
  },
  {
-  "id": "k147",
+  "id": "k148",
   "kind": "fix",
   "level": 1,
   "area": "all",
-  "ji": 1,
+  "ji": 0,
   "re": "気づ(?=[ぁ-ゖ])",
   "to": "気付",
   "label": "気づき→気付き",
@@ -2499,7 +2516,7 @@
   "src": "guide"
  },
  {
-  "id": "k148",
+  "id": "k149",
   "kind": "check",
   "level": 2,
   "area": "all",
@@ -2516,11 +2533,11 @@
   "src": "guide"
  },
  {
-  "id": "k149",
+  "id": "k150",
   "kind": "fix",
   "level": 1,
   "area": "all",
-  "ji": 1,
+  "ji": 0,
   "re": "なにか",
   "to": "何か",
   "label": "なにか→何か",
@@ -2533,7 +2550,7 @@
   "src": "guide"
  },
  {
-  "id": "k150",
+  "id": "k151",
   "kind": "check",
   "level": 2,
   "area": "all",
@@ -2550,11 +2567,11 @@
   "src": "guide"
  },
  {
-  "id": "k151",
+  "id": "k152",
   "kind": "fix",
   "level": 1,
   "area": "all",
-  "ji": 1,
+  "ji": 0,
   "re": "みなさん",
   "to": "皆さん",
   "label": "みなさん→皆さん",
@@ -2567,7 +2584,7 @@
   "src": "guide"
  },
  {
-  "id": "k152",
+  "id": "k153",
   "kind": "check",
   "level": 2,
   "area": "all",
@@ -2584,11 +2601,45 @@
   "src": "guide"
  },
  {
-  "id": "k153",
+  "id": "k154",
+  "kind": "check",
+  "level": 1,
+  "area": "all",
+  "ji": 0,
+  "re": "すべて(?!の)",
+  "to": null,
+  "label": "すべて→全て",
+  "why": "副詞の「すべて」は「全て」と書く（「すべての」は全称表現の規則で確かめる。本部は1年分で8か所中5か所を直した）",
+  "ch": 8,
+  "sec": "8-1 ひらがな・漢字の使い分け（用字）",
+  "r": "R27",
+  "stat": "",
+  "n": 0,
+  "src": "guide"
+ },
+ {
+  "id": "k155",
   "kind": "fix",
   "level": 1,
   "area": "all",
-  "ji": 1,
+  "ji": 0,
+  "re": "(?<=協力|指導|監修|管理|主導|支援|方針|テーマ|名)のもと",
+  "to": "の下",
+  "label": "のもと→の下",
+  "why": "「指導のもと」「監修のもと」など（協力・指導・監修・管理・主導・支援・方針・テーマ・名の後）。「親の元」などは別",
+  "ch": 8,
+  "sec": "8-1 ひらがな・漢字の使い分け（用字）",
+  "r": "R27",
+  "stat": "",
+  "n": 0,
+  "src": "guide"
+ },
+ {
+  "id": "k156",
+  "kind": "fix",
+  "level": 1,
+  "area": "all",
+  "ji": 0,
   "re": "関り",
   "to": "関わり",
   "label": "関り→関わり",
@@ -2601,7 +2652,7 @@
   "src": "guide"
  },
  {
-  "id": "k154",
+  "id": "k157",
   "kind": "fix",
   "level": 1,
   "area": "all",
@@ -2618,7 +2669,7 @@
   "src": "guide"
  },
  {
-  "id": "k155",
+  "id": "k158",
   "kind": "fix",
   "level": 1,
   "area": "all",
@@ -2635,11 +2686,11 @@
   "src": "guide"
  },
  {
-  "id": "k156",
+  "id": "k159",
   "kind": "fix",
   "level": 1,
   "area": "all",
-  "ji": 1,
+  "ji": 0,
   "re": "入口",
   "to": "入り口",
   "label": "入口→入り口",
@@ -2652,7 +2703,7 @@
   "src": "guide"
  },
  {
-  "id": "k157",
+  "id": "k160",
   "kind": "check",
   "level": 1,
   "area": "all",
@@ -2669,7 +2720,7 @@
   "src": "guide"
  },
  {
-  "id": "k158",
+  "id": "k161",
   "kind": "check",
   "level": 2,
   "area": "all",
@@ -2686,7 +2737,7 @@
   "src": "guide"
  },
  {
-  "id": "k159",
+  "id": "k162",
   "kind": "check",
   "level": 1,
   "area": "all",
@@ -2703,7 +2754,7 @@
   "src": "guide"
  },
  {
-  "id": "k160",
+  "id": "k163",
   "kind": "fix",
   "level": 1,
   "area": "all",
@@ -2720,7 +2771,7 @@
   "src": "guide"
  },
  {
-  "id": "k161",
+  "id": "k164",
   "kind": "fix",
   "level": 1,
   "area": "all",
@@ -2737,7 +2788,7 @@
   "src": "guide"
  },
  {
-  "id": "k162",
+  "id": "k165",
   "kind": "check",
   "level": 1,
   "area": "all",
@@ -2754,7 +2805,7 @@
   "src": "guide"
  },
  {
-  "id": "k163",
+  "id": "k166",
   "kind": "fix",
   "level": 1,
   "area": "all",
@@ -2771,11 +2822,11 @@
   "src": "guide"
  },
  {
-  "id": "k164",
+  "id": "k167",
   "kind": "fix",
   "level": 1,
   "area": "all",
-  "ji": 1,
+  "ji": 0,
   "re": "県下",
   "to": "県内",
   "label": "県下→県内",
@@ -2788,7 +2839,7 @@
   "src": "guide"
  },
  {
-  "id": "k165",
+  "id": "k168",
   "kind": "fix",
   "level": 1,
   "area": "all",
@@ -2805,7 +2856,7 @@
   "src": "guide"
  },
  {
-  "id": "k166",
+  "id": "k169",
   "kind": "fix",
   "level": 1,
   "area": "all",
@@ -2822,7 +2873,7 @@
   "src": "guide"
  },
  {
-  "id": "k167",
+  "id": "k170",
   "kind": "fix",
   "level": 1,
   "area": "all",
@@ -2839,7 +2890,7 @@
   "src": "guide"
  },
  {
-  "id": "k168",
+  "id": "k171",
   "kind": "check",
   "level": 1,
   "area": "all",
@@ -2856,7 +2907,7 @@
   "src": "guide"
  },
  {
-  "id": "k169",
+  "id": "k172",
   "kind": "fix",
   "level": 1,
   "area": "all",
@@ -2873,7 +2924,7 @@
   "src": "guide"
  },
  {
-  "id": "k170",
+  "id": "k173",
   "kind": "fix",
   "level": 1,
   "area": "all",
@@ -2890,7 +2941,7 @@
   "src": "guide"
  },
  {
-  "id": "k171",
+  "id": "k174",
   "kind": "check",
   "level": 2,
   "area": "all",
@@ -2907,11 +2958,11 @@
   "src": "guide"
  },
  {
-  "id": "k172",
+  "id": "k175",
   "kind": "fix",
   "level": 1,
   "area": "all",
-  "ji": 1,
+  "ji": 0,
   "re": "校庭",
   "to": "グラウンド",
   "label": "校庭→グラウンド",
@@ -2924,7 +2975,7 @@
   "src": "guide"
  },
  {
-  "id": "k173",
+  "id": "k176",
   "kind": "check",
   "level": 1,
   "area": "all",
@@ -2941,7 +2992,7 @@
   "src": "guide"
  },
  {
-  "id": "k174",
+  "id": "k177",
   "kind": "check",
   "level": 2,
   "area": "all",
@@ -2958,7 +3009,7 @@
   "src": "guide"
  },
  {
-  "id": "k175",
+  "id": "k178",
   "kind": "fix",
   "level": 1,
   "area": "all",
@@ -2975,7 +3026,7 @@
   "src": "guide"
  },
  {
-  "id": "k176",
+  "id": "k179",
   "kind": "check",
   "level": 2,
   "area": "all",
@@ -2992,7 +3043,7 @@
   "src": "guide"
  },
  {
-  "id": "k177",
+  "id": "k180",
   "kind": "check",
   "level": 2,
   "area": "all",
@@ -3009,7 +3060,7 @@
   "src": "guide"
  },
  {
-  "id": "k178",
+  "id": "k181",
   "kind": "check",
   "level": 2,
   "area": "all",
@@ -3026,7 +3077,7 @@
   "src": "guide"
  },
  {
-  "id": "k179",
+  "id": "k182",
   "kind": "check",
   "level": 1,
   "area": "all",
@@ -3043,7 +3094,7 @@
   "src": "guide"
  },
  {
-  "id": "k180",
+  "id": "k183",
   "kind": "check",
   "level": 2,
   "area": "all",
@@ -3060,7 +3111,7 @@
   "src": "guide"
  },
  {
-  "id": "k181",
+  "id": "k184",
   "kind": "fix",
   "level": 1,
   "area": "all",
@@ -3077,65 +3128,14 @@
   "src": "guide"
  },
  {
-  "id": "k182",
-  "kind": "fix",
-  "level": 1,
-  "area": "all",
-  "ji": 1,
-  "re": "ハンドメイド",
-  "to": "ハンドメード",
-  "label": "ハンドメイド→ハンドメード",
-  "why": "外来語の表記（記者ハン準拠）",
-  "ch": 8,
-  "sec": "8-3 カタカナ表記",
-  "r": "",
-  "stat": "",
-  "n": 0,
-  "src": "guide"
- },
- {
-  "id": "k183",
-  "kind": "fix",
-  "level": 1,
-  "area": "all",
-  "ji": 1,
-  "re": "マネージャー",
-  "to": "マネジャー",
-  "label": "マネージャー→マネジャー",
-  "why": "外来語の表記（記者ハン準拠）",
-  "ch": 8,
-  "sec": "8-3 カタカナ表記",
-  "r": "",
-  "stat": "",
-  "n": 0,
-  "src": "guide"
- },
- {
-  "id": "k184",
-  "kind": "fix",
-  "level": 1,
-  "area": "all",
-  "ji": 1,
-  "re": "ウォーキング",
-  "to": "ウオーキング",
-  "label": "ウォーキング→ウオーキング",
-  "why": "外来語の表記（記者ハン準拠）",
-  "ch": 8,
-  "sec": "8-3 カタカナ表記",
-  "r": "",
-  "stat": "",
-  "n": 0,
-  "src": "guide"
- },
- {
   "id": "k185",
   "kind": "fix",
   "level": 1,
   "area": "all",
-  "ji": 1,
-  "re": "ウォッチング",
-  "to": "ウオッチング",
-  "label": "ウォッチング→ウオッチング",
+  "ji": 0,
+  "re": "ハンドメイド",
+  "to": "ハンドメード",
+  "label": "ハンドメイド→ハンドメード",
   "why": "外来語の表記（記者ハン準拠）",
   "ch": 8,
   "sec": "8-3 カタカナ表記",
@@ -3149,7 +3149,58 @@
   "kind": "fix",
   "level": 1,
   "area": "all",
-  "ji": 1,
+  "ji": 0,
+  "re": "マネージャー",
+  "to": "マネジャー",
+  "label": "マネージャー→マネジャー",
+  "why": "外来語の表記（記者ハン準拠）",
+  "ch": 8,
+  "sec": "8-3 カタカナ表記",
+  "r": "",
+  "stat": "",
+  "n": 0,
+  "src": "guide"
+ },
+ {
+  "id": "k187",
+  "kind": "fix",
+  "level": 1,
+  "area": "all",
+  "ji": 0,
+  "re": "ウォーキング",
+  "to": "ウオーキング",
+  "label": "ウォーキング→ウオーキング",
+  "why": "外来語の表記（記者ハン準拠）",
+  "ch": 8,
+  "sec": "8-3 カタカナ表記",
+  "r": "",
+  "stat": "",
+  "n": 0,
+  "src": "guide"
+ },
+ {
+  "id": "k188",
+  "kind": "fix",
+  "level": 1,
+  "area": "all",
+  "ji": 0,
+  "re": "ウォッチング",
+  "to": "ウオッチング",
+  "label": "ウォッチング→ウオッチング",
+  "why": "外来語の表記（記者ハン準拠）",
+  "ch": 8,
+  "sec": "8-3 カタカナ表記",
+  "r": "",
+  "stat": "",
+  "n": 0,
+  "src": "guide"
+ },
+ {
+  "id": "k189",
+  "kind": "fix",
+  "level": 1,
+  "area": "all",
+  "ji": 0,
   "re": "メイク",
   "to": "メーク",
   "label": "メイク→メーク",
@@ -3162,7 +3213,7 @@
   "src": "guide"
  },
  {
-  "id": "k187",
+  "id": "k190",
   "kind": "fix",
   "level": 1,
   "area": "all",
@@ -3179,65 +3230,14 @@
   "src": "guide"
  },
  {
-  "id": "k188",
-  "kind": "fix",
-  "level": 1,
-  "area": "all",
-  "ji": 1,
-  "re": "ラインナップ",
-  "to": "ラインアップ",
-  "label": "ラインナップ→ラインアップ",
-  "why": "外来語の表記（記者ハン準拠）",
-  "ch": 8,
-  "sec": "8-3 カタカナ表記",
-  "r": "",
-  "stat": "",
-  "n": 0,
-  "src": "guide"
- },
- {
-  "id": "k189",
-  "kind": "fix",
-  "level": 1,
-  "area": "all",
-  "ji": 1,
-  "re": "プロフィール",
-  "to": "プロフィル",
-  "label": "プロフィール→プロフィル",
-  "why": "外来語の表記（記者ハン準拠）",
-  "ch": 8,
-  "sec": "8-3 カタカナ表記",
-  "r": "",
-  "stat": "",
-  "n": 0,
-  "src": "guide"
- },
- {
-  "id": "k190",
-  "kind": "fix",
-  "level": 1,
-  "area": "all",
-  "ji": 1,
-  "re": "ハロウィン",
-  "to": "ハロウィーン",
-  "label": "ハロウィン→ハロウィーン",
-  "why": "外来語の表記（記者ハン準拠）",
-  "ch": 8,
-  "sec": "8-3 カタカナ表記",
-  "r": "",
-  "stat": "",
-  "n": 0,
-  "src": "guide"
- },
- {
   "id": "k191",
   "kind": "fix",
   "level": 1,
   "area": "all",
-  "ji": 1,
-  "re": "スペシャリティ",
-  "to": "スペシャルティ",
-  "label": "スペシャリティ→スペシャルティ",
+  "ji": 0,
+  "re": "ラインナップ",
+  "to": "ラインアップ",
+  "label": "ラインナップ→ラインアップ",
   "why": "外来語の表記（記者ハン準拠）",
   "ch": 8,
   "sec": "8-3 カタカナ表記",
@@ -3251,10 +3251,10 @@
   "kind": "fix",
   "level": 1,
   "area": "all",
-  "ji": 1,
-  "re": "レポート",
-  "to": "リポート",
-  "label": "レポート→リポート",
+  "ji": 0,
+  "re": "プロフィール",
+  "to": "プロフィル",
+  "label": "プロフィール→プロフィル",
   "why": "外来語の表記（記者ハン準拠）",
   "ch": 8,
   "sec": "8-3 カタカナ表記",
@@ -3268,10 +3268,10 @@
   "kind": "fix",
   "level": 1,
   "area": "all",
-  "ji": 1,
-  "re": "エンターテイメント",
-  "to": "エンターテインメント",
-  "label": "エンターテイメント→エンターテインメント",
+  "ji": 0,
+  "re": "ハロウィン",
+  "to": "ハロウィーン",
+  "label": "ハロウィン→ハロウィーン",
   "why": "外来語の表記（記者ハン準拠）",
   "ch": 8,
   "sec": "8-3 カタカナ表記",
@@ -3285,7 +3285,58 @@
   "kind": "fix",
   "level": 1,
   "area": "all",
-  "ji": 1,
+  "ji": 0,
+  "re": "スペシャリティ",
+  "to": "スペシャルティ",
+  "label": "スペシャリティ→スペシャルティ",
+  "why": "外来語の表記（記者ハン準拠）",
+  "ch": 8,
+  "sec": "8-3 カタカナ表記",
+  "r": "",
+  "stat": "",
+  "n": 0,
+  "src": "guide"
+ },
+ {
+  "id": "k195",
+  "kind": "fix",
+  "level": 1,
+  "area": "all",
+  "ji": 0,
+  "re": "レポート",
+  "to": "リポート",
+  "label": "レポート→リポート",
+  "why": "外来語の表記（記者ハン準拠）",
+  "ch": 8,
+  "sec": "8-3 カタカナ表記",
+  "r": "",
+  "stat": "",
+  "n": 0,
+  "src": "guide"
+ },
+ {
+  "id": "k196",
+  "kind": "fix",
+  "level": 1,
+  "area": "all",
+  "ji": 0,
+  "re": "エンターテイメント",
+  "to": "エンターテインメント",
+  "label": "エンターテイメント→エンターテインメント",
+  "why": "外来語の表記（記者ハン準拠）",
+  "ch": 8,
+  "sec": "8-3 カタカナ表記",
+  "r": "",
+  "stat": "",
+  "n": 0,
+  "src": "guide"
+ },
+ {
+  "id": "k197",
+  "kind": "fix",
+  "level": 1,
+  "area": "all",
+  "ji": 0,
   "re": "マタニティ(?!ー)",
   "to": "マタニティー",
   "label": "マタニティ→マタニティー",
@@ -3298,7 +3349,7 @@
   "src": "guide"
  },
  {
-  "id": "k195",
+  "id": "k198",
   "kind": "fix",
   "level": 1,
   "area": "all",
@@ -3315,11 +3366,11 @@
   "src": "guide"
  },
  {
-  "id": "k196",
+  "id": "k199",
   "kind": "fix",
   "level": 1,
   "area": "all",
-  "ji": 1,
+  "ji": 0,
   "re": "アクティビティ(?!ー)",
   "to": "アクティビティー",
   "label": "アクティビティ→アクティビティー",
@@ -3332,11 +3383,11 @@
   "src": "guide"
  },
  {
-  "id": "k197",
+  "id": "k200",
   "kind": "fix",
   "level": 1,
   "area": "all",
-  "ji": 1,
+  "ji": 0,
   "re": "リノベーション",
   "to": "改装",
   "label": "リノベーション→改装",
@@ -3349,11 +3400,11 @@
   "src": "guide"
  },
  {
-  "id": "k198",
+  "id": "k201",
   "kind": "fix",
   "level": 1,
   "area": "all",
-  "ji": 1,
+  "ji": 0,
   "re": "厨房",
   "to": "調理場",
   "label": "厨房→調理場",
@@ -3366,11 +3417,11 @@
   "src": "guide"
  },
  {
-  "id": "k199",
+  "id": "k202",
   "kind": "fix",
   "level": 1,
   "area": "all",
-  "ji": 1,
+  "ji": 0,
   "re": "ブレイク",
   "to": "ブレーク",
   "label": "ブレイク→ブレーク",
@@ -3383,11 +3434,11 @@
   "src": "guide"
  },
  {
-  "id": "k200",
+  "id": "k203",
   "kind": "fix",
   "level": 1,
   "area": "all",
-  "ji": 1,
+  "ji": 0,
   "re": "バイカー",
   "to": "バイク乗り",
   "label": "バイカー→バイク乗り",
@@ -3400,11 +3451,11 @@
   "src": "guide"
  },
  {
-  "id": "k201",
+  "id": "k204",
   "kind": "fix",
   "level": 1,
   "area": "all",
-  "ji": 1,
+  "ji": 0,
   "re": "髙",
   "to": "高",
   "label": "髙→高",
@@ -3417,11 +3468,11 @@
   "src": "guide"
  },
  {
-  "id": "k202",
+  "id": "k205",
   "kind": "fix",
   "level": 1,
   "area": "all",
-  "ji": 1,
+  "ji": 0,
   "re": "﨑",
   "to": "崎",
   "label": "﨑→崎",
@@ -3434,7 +3485,7 @@
   "src": "guide"
  },
  {
-  "id": "k203",
+  "id": "k206",
   "kind": "fix",
   "level": 1,
   "area": "all",
@@ -3451,7 +3502,7 @@
   "src": "guide"
  },
  {
-  "id": "k204",
+  "id": "k207",
   "kind": "check",
   "level": 1,
   "area": "all",
@@ -3468,7 +3519,7 @@
   "src": "guide"
  },
  {
-  "id": "k205",
+  "id": "k208",
   "kind": "check",
   "level": 2,
   "area": "all",
@@ -3485,7 +3536,7 @@
   "src": "guide"
  },
  {
-  "id": "k206",
+  "id": "k209",
   "kind": "check",
   "level": 2,
   "area": "all",
@@ -3502,7 +3553,7 @@
   "src": "guide"
  },
  {
-  "id": "k207",
+  "id": "k210",
   "kind": "fix",
   "level": 1,
   "area": "all",
@@ -3519,7 +3570,7 @@
   "src": "guide"
  },
  {
-  "id": "k208",
+  "id": "k211",
   "kind": "check",
   "level": 2,
   "area": "all",
@@ -3536,11 +3587,11 @@
   "src": "guide"
  },
  {
-  "id": "k209",
+  "id": "k212",
   "kind": "fix",
   "level": 1,
   "area": "all",
-  "ji": 1,
+  "ji": 0,
   "re": "バンドエイド",
   "to": "絆創膏",
   "label": "バンドエイド→絆創膏",
@@ -3553,7 +3604,7 @@
   "src": "guide"
  },
  {
-  "id": "k210",
+  "id": "k213",
   "kind": "fix",
   "level": 1,
   "area": "all",
@@ -3570,65 +3621,14 @@
   "src": "guide"
  },
  {
-  "id": "k211",
-  "kind": "fix",
-  "level": 1,
-  "area": "all",
-  "ji": 1,
-  "re": "マジックテープ",
-  "to": "面ファスナー",
-  "label": "マジックテープ→面ファスナー",
-  "why": "登録商標の言い換え一覧",
-  "ch": 8,
-  "sec": "8-5 その他の表記ルール",
-  "r": "R39",
-  "stat": "",
-  "n": 0,
-  "src": "guide"
- },
- {
-  "id": "k212",
-  "kind": "fix",
-  "level": 1,
-  "area": "all",
-  "ji": 1,
-  "re": "サランラップ",
-  "to": "食品用ラップ",
-  "label": "サランラップ→食品用ラップ",
-  "why": "登録商標の言い換え一覧",
-  "ch": 8,
-  "sec": "8-5 その他の表記ルール",
-  "r": "R39",
-  "stat": "",
-  "n": 0,
-  "src": "guide"
- },
- {
-  "id": "k213",
-  "kind": "fix",
-  "level": 1,
-  "area": "all",
-  "ji": 1,
-  "re": "ホッチキス",
-  "to": "ステープラー",
-  "label": "ホッチキス→ステープラー",
-  "why": "登録商標の言い換え一覧",
-  "ch": 8,
-  "sec": "8-5 その他の表記ルール",
-  "r": "R39",
-  "stat": "",
-  "n": 0,
-  "src": "guide"
- },
- {
   "id": "k214",
   "kind": "fix",
   "level": 1,
   "area": "all",
-  "ji": 1,
-  "re": "万歩計",
-  "to": "歩数計",
-  "label": "万歩計→歩数計",
+  "ji": 0,
+  "re": "マジックテープ",
+  "to": "面ファスナー",
+  "label": "マジックテープ→面ファスナー",
   "why": "登録商標の言い換え一覧",
   "ch": 8,
   "sec": "8-5 その他の表記ルール",
@@ -3642,7 +3642,58 @@
   "kind": "fix",
   "level": 1,
   "area": "all",
-  "ji": 1,
+  "ji": 0,
+  "re": "サランラップ",
+  "to": "食品用ラップ",
+  "label": "サランラップ→食品用ラップ",
+  "why": "登録商標の言い換え一覧",
+  "ch": 8,
+  "sec": "8-5 その他の表記ルール",
+  "r": "R39",
+  "stat": "",
+  "n": 0,
+  "src": "guide"
+ },
+ {
+  "id": "k216",
+  "kind": "fix",
+  "level": 1,
+  "area": "all",
+  "ji": 0,
+  "re": "ホッチキス",
+  "to": "ステープラー",
+  "label": "ホッチキス→ステープラー",
+  "why": "登録商標の言い換え一覧",
+  "ch": 8,
+  "sec": "8-5 その他の表記ルール",
+  "r": "R39",
+  "stat": "",
+  "n": 0,
+  "src": "guide"
+ },
+ {
+  "id": "k217",
+  "kind": "fix",
+  "level": 1,
+  "area": "all",
+  "ji": 0,
+  "re": "万歩計",
+  "to": "歩数計",
+  "label": "万歩計→歩数計",
+  "why": "登録商標の言い換え一覧",
+  "ch": 8,
+  "sec": "8-5 その他の表記ルール",
+  "r": "R39",
+  "stat": "",
+  "n": 0,
+  "src": "guide"
+ },
+ {
+  "id": "k218",
+  "kind": "fix",
+  "level": 1,
+  "area": "all",
+  "ji": 0,
   "re": "UFOキャッチャー",
   "to": "クレーンゲーム",
   "label": "UFOキャッチャー→クレーンゲーム",
@@ -3655,7 +3706,7 @@
   "src": "guide"
  },
  {
-  "id": "k216",
+  "id": "k219",
   "kind": "fix",
   "level": 1,
   "area": "all",
@@ -3672,7 +3723,7 @@
   "src": "guide"
  },
  {
-  "id": "k217",
+  "id": "k220",
   "kind": "fix",
   "level": 1,
   "area": "all",
@@ -3689,11 +3740,11 @@
   "src": "guide"
  },
  {
-  "id": "k218",
+  "id": "k221",
   "kind": "fix",
   "level": 1,
   "area": "all",
-  "ji": 1,
+  "ji": 0,
   "re": "ウォール",
   "to": "ウオール",
   "label": "ウォール→ウオール",
@@ -3706,11 +3757,11 @@
   "src": "guide"
  },
  {
-  "id": "k219",
+  "id": "k222",
   "kind": "fix",
   "level": 1,
   "area": "all",
-  "ji": 1,
+  "ji": 0,
   "re": "もちもち",
   "to": "モチモチ",
   "label": "もちもち→モチモチ",
@@ -3723,7 +3774,7 @@
   "src": "guide"
  },
  {
-  "id": "k220",
+  "id": "k223",
   "kind": "fix",
   "level": 1,
   "area": "all",
@@ -3740,7 +3791,7 @@
   "src": "guide"
  },
  {
-  "id": "k221",
+  "id": "k224",
   "kind": "check",
   "level": 1,
   "area": "all",
@@ -3757,11 +3808,11 @@
   "src": "guide"
  },
  {
-  "id": "k222",
+  "id": "k225",
   "kind": "fix",
   "level": 1,
   "area": "all",
-  "ji": 1,
+  "ji": 0,
   "re": "味噌",
   "to": "みそ",
   "label": "味噌→みそ",
@@ -3774,11 +3825,11 @@
   "src": "guide"
  },
  {
-  "id": "k223",
+  "id": "k226",
   "kind": "fix",
   "level": 1,
   "area": "all",
-  "ji": 1,
+  "ji": 0,
   "re": "刺身",
   "to": "刺し身",
   "label": "刺身→刺し身",
@@ -3791,11 +3842,11 @@
   "src": "guide"
  },
  {
-  "id": "k224",
+  "id": "k227",
   "kind": "fix",
   "level": 1,
   "area": "all",
-  "ji": 1,
+  "ji": 0,
   "re": "出汁",
   "to": "だし",
   "label": "出汁→だし",
@@ -3808,11 +3859,11 @@
   "src": "guide"
  },
  {
-  "id": "k225",
+  "id": "k228",
   "kind": "fix",
   "level": 1,
   "area": "all",
-  "ji": 1,
+  "ji": 0,
   "re": "(?<![ァ-ヺー])タレ(?![ァ-ヺー])",
   "to": "たれ",
   "label": "タレ→たれ",
@@ -3825,7 +3876,7 @@
   "src": "guide"
  },
  {
-  "id": "k226",
+  "id": "k229",
   "kind": "fix",
   "level": 1,
   "area": "all",
@@ -3842,11 +3893,11 @@
   "src": "guide"
  },
  {
-  "id": "k227",
+  "id": "k230",
   "kind": "fix",
   "level": 1,
   "area": "all",
-  "ji": 1,
+  "ji": 0,
   "re": "お食事処",
   "to": "食事処",
   "label": "お食事処→食事処",
@@ -3859,11 +3910,11 @@
   "src": "guide"
  },
  {
-  "id": "k228",
+  "id": "k231",
   "kind": "fix",
   "level": 1,
   "area": "all",
-  "ji": 1,
+  "ji": 0,
   "re": "魚屋",
   "to": "鮮魚店",
   "label": "魚屋→鮮魚店",
@@ -3876,11 +3927,11 @@
   "src": "guide"
  },
  {
-  "id": "k229",
+  "id": "k232",
   "kind": "fix",
   "level": 1,
   "area": "all",
-  "ji": 1,
+  "ji": 0,
   "re": "ふわふわ",
   "to": "フワフワ",
   "label": "ふわふわ→フワフワ",
@@ -3893,11 +3944,11 @@
   "src": "guide"
  },
  {
-  "id": "k230",
+  "id": "k233",
   "kind": "fix",
   "level": 1,
   "area": "all",
-  "ji": 1,
+  "ji": 0,
   "re": "ほっと(?=[しす])",
   "to": "ホッと",
   "label": "ほっと→ホッと",
@@ -3910,7 +3961,7 @@
   "src": "guide"
  },
  {
-  "id": "k231",
+  "id": "k234",
   "kind": "fix",
   "level": 1,
   "area": "all",
@@ -3927,11 +3978,11 @@
   "src": "guide"
  },
  {
-  "id": "k232",
+  "id": "k235",
   "kind": "fix",
   "level": 1,
   "area": "all",
-  "ji": 1,
+  "ji": 0,
   "re": "ゴミ",
   "to": "ごみ",
   "label": "ゴミ→ごみ",
@@ -3944,11 +3995,11 @@
   "src": "guide"
  },
  {
-  "id": "k233",
+  "id": "k236",
   "kind": "fix",
   "level": 1,
   "area": "all",
-  "ji": 1,
+  "ji": 0,
   "re": "寄附",
   "to": "寄付",
   "label": "寄附→寄付",
@@ -3961,11 +4012,11 @@
   "src": "guide"
  },
  {
-  "id": "k234",
+  "id": "k237",
   "kind": "fix",
   "level": 1,
   "area": "all",
-  "ji": 1,
+  "ji": 0,
   "re": "車椅子|車イス",
   "to": "車いす",
   "label": "車椅子→車いす",
@@ -3978,7 +4029,7 @@
   "src": "guide"
  },
  {
-  "id": "k235",
+  "id": "k238",
   "kind": "form",
   "level": 1,
   "area": "all",
@@ -3995,7 +4046,7 @@
   "src": "guide"
  },
  {
-  "id": "k236",
+  "id": "k239",
   "kind": "form",
   "level": 1,
   "area": "all",
@@ -4012,7 +4063,7 @@
   "src": "guide"
  },
  {
-  "id": "k237",
+  "id": "k240",
   "kind": "form",
   "level": 1,
   "area": "all",
@@ -4029,7 +4080,7 @@
   "src": "guide"
  },
  {
-  "id": "k238",
+  "id": "k241",
   "kind": "form",
   "level": 2,
   "area": "all",
@@ -4046,7 +4097,7 @@
   "src": "guide"
  },
  {
-  "id": "k239",
+  "id": "k242",
   "kind": "form",
   "level": 2,
   "area": "all",
@@ -4063,7 +4114,7 @@
   "src": "guide"
  },
  {
-  "id": "k240",
+  "id": "k243",
   "kind": "check",
   "level": 1,
   "area": "all",
@@ -4080,7 +4131,7 @@
   "src": "guide"
  },
  {
-  "id": "k241",
+  "id": "k244",
   "kind": "form",
   "level": 1,
   "area": "all",
@@ -4097,7 +4148,7 @@
   "src": "guide"
  },
  {
-  "id": "k242",
+  "id": "k245",
   "kind": "form",
   "level": 1,
   "area": "all",
@@ -4114,7 +4165,7 @@
   "src": "autopilot"
  },
  {
-  "id": "k243",
+  "id": "k246",
   "kind": "form",
   "level": 1,
   "area": "all",
@@ -4131,7 +4182,7 @@
   "src": "guide"
  },
  {
-  "id": "k244",
+  "id": "k247",
   "kind": "form",
   "level": 1,
   "area": "all",
@@ -4148,15 +4199,15 @@
   "src": "guide"
  },
  {
-  "id": "k245",
-  "kind": "form",
+  "id": "k248",
+  "kind": "check",
   "level": 1,
   "area": "all",
   "ji": 0,
   "re": "(\\d+)対(\\d+)",
-  "to": "$1-$2",
+  "to": null,
   "label": "スコアはハイフン",
-  "why": "試合結果は「4-0」（半角ハイフン）",
+  "why": "試合結果は「4-0」（半角ハイフン）。「1対1の指導」などスコアでないものはそのまま",
   "ch": 6,
   "sec": "6-1 数字の基本",
   "r": "R8",
@@ -4165,12 +4216,12 @@
   "src": "guide"
  },
  {
-  "id": "k246",
+  "id": "k249",
   "kind": "form",
   "level": 1,
   "area": "all",
   "ji": 0,
-  "re": "(?<=\\d)名(?![称所物前簿刺])",
+  "re": "(?<=\\d)名(?![称所物前簿刺山様城水湯])",
   "to": "人",
   "label": "人数は「人」",
   "why": "人数は〇名→〇人",
@@ -4182,7 +4233,7 @@
   "src": "guide"
  },
  {
-  "id": "k247",
+  "id": "k250",
   "kind": "form",
   "level": 1,
   "area": "all",
@@ -4199,7 +4250,7 @@
   "src": "guide"
  },
  {
-  "id": "k248",
+  "id": "k251",
   "kind": "form",
   "level": 1,
   "area": "all",
@@ -4216,7 +4267,7 @@
   "src": "guide"
  },
  {
-  "id": "k249",
+  "id": "k252",
   "kind": "form",
   "level": 1,
   "area": "all",
@@ -4233,7 +4284,7 @@
   "src": "guide"
  },
  {
-  "id": "k250",
+  "id": "k253",
   "kind": "check",
   "level": 1,
   "area": "all",
@@ -4250,7 +4301,7 @@
   "src": "guide"
  },
  {
-  "id": "k251",
+  "id": "k254",
   "kind": "form",
   "level": 1,
   "area": "all",
@@ -4267,7 +4318,7 @@
   "src": "guide"
  },
  {
-  "id": "k252",
+  "id": "k255",
   "kind": "form",
   "level": 1,
   "area": "all",
@@ -4284,7 +4335,7 @@
   "src": "guide"
  },
  {
-  "id": "k253",
+  "id": "k256",
   "kind": "form",
   "level": 1,
   "area": "all",
@@ -4301,7 +4352,7 @@
   "src": "guide"
  },
  {
-  "id": "k254",
+  "id": "k257",
   "kind": "form",
   "level": 1,
   "area": "all",
@@ -4318,7 +4369,7 @@
   "src": "guide"
  },
  {
-  "id": "k255",
+  "id": "k258",
   "kind": "check",
   "level": 2,
   "area": "all",
@@ -4335,7 +4386,7 @@
   "src": "guide"
  },
  {
-  "id": "k256",
+  "id": "k259",
   "kind": "form",
   "level": 1,
   "area": "all",
@@ -4352,7 +4403,7 @@
   "src": "guide"
  },
  {
-  "id": "k257",
+  "id": "k260",
   "kind": "check",
   "level": 1,
   "area": "all",
@@ -4369,7 +4420,7 @@
   "src": "guide"
  },
  {
-  "id": "k258",
+  "id": "k261",
   "kind": "check",
   "level": 1,
   "area": "all",
@@ -4386,7 +4437,7 @@
   "src": "guide"
  },
  {
-  "id": "k259",
+  "id": "k262",
   "kind": "check",
   "level": 2,
   "area": "all",
@@ -4403,7 +4454,7 @@
   "src": "autopilot"
  },
  {
-  "id": "k260",
+  "id": "k263",
   "kind": "check",
   "level": 1,
   "area": "all",
@@ -4420,7 +4471,7 @@
   "src": "guide"
  },
  {
-  "id": "k261",
+  "id": "k264",
   "kind": "check",
   "level": 2,
   "area": "all",
@@ -4437,7 +4488,7 @@
   "src": "guide"
  },
  {
-  "id": "k262",
+  "id": "k265",
   "kind": "check",
   "level": 1,
   "area": "all",
@@ -4454,7 +4505,7 @@
   "src": "guide"
  },
  {
-  "id": "k263",
+  "id": "k266",
   "kind": "check",
   "level": 2,
   "area": "all",
@@ -4471,7 +4522,7 @@
   "src": "guide"
  },
  {
-  "id": "k264",
+  "id": "k267",
   "kind": "check",
   "level": 2,
   "area": "all",
@@ -4488,7 +4539,7 @@
   "src": "guide"
  },
  {
-  "id": "k265",
+  "id": "k268",
   "kind": "check",
   "level": 1,
   "area": "all",
@@ -4505,7 +4556,7 @@
   "src": "guide"
  },
  {
-  "id": "k266",
+  "id": "k269",
   "kind": "check",
   "level": 2,
   "area": "all",
@@ -4522,7 +4573,7 @@
   "src": "guide"
  },
  {
-  "id": "k267",
+  "id": "k270",
   "kind": "check",
   "level": 1,
   "area": "all",
@@ -4539,7 +4590,7 @@
   "src": "guide"
  },
  {
-  "id": "k268",
+  "id": "k271",
   "kind": "check",
   "level": 1,
   "area": "all",
@@ -4556,7 +4607,7 @@
   "src": "guide"
  },
  {
-  "id": "k269",
+  "id": "k272",
   "kind": "check",
   "level": 2,
   "area": "all",
@@ -4573,7 +4624,7 @@
   "src": "guide"
  },
  {
-  "id": "k270",
+  "id": "k273",
   "kind": "check",
   "level": 2,
   "area": "text",
@@ -4590,7 +4641,7 @@
   "src": "guide"
  },
  {
-  "id": "k271",
+  "id": "k274",
   "kind": "check",
   "level": 2,
   "area": "text",
@@ -4607,12 +4658,12 @@
   "src": "guide"
  },
  {
-  "id": "k272",
+  "id": "k275",
   "kind": "check",
   "level": 1,
   "area": "text",
   "ji": 1,
-  "re": "(?<![\\d〜０-９0-9])[一-龯ァ-ヺ]{1,6}(?=。)|[一-龯ァ-ヺ]{1,4}さん(?=。)|オープン(?=。)|[\\d,，０-９]+円(?=。)|[）\\)](?=。)",
+  "re": "(?<![一-龯ァ-ヺー々\\d０-９〜～])(?!同[一-龯ァ-ヺー々]{1,5}。)(?![一-龯ァ-ヺー々]*(?:定休|無休|休業|休館|休園|休み|無料)。)(?!一環。)[一-龯ァ-ヺー々]{1,6}(?=。)|(?<![一-龯ァ-ヺー々])[一-龯ァ-ヺー々]{1,6}さん(?=。)|[\\d,，０-９]+円(?=。)|(?<=[」』一-龯ァ-ヺー々])(?<![\\d０-９][時分日円])（[^（）\\n]{1,24}）(?=。)",
   "to": null,
   "label": "体言止め",
   "why": "体言止めは使わない（だ・するなどの述語動詞で結ぶ。末尾の営業情報は除く）",
@@ -4624,7 +4675,7 @@
   "src": "guide"
  },
  {
-  "id": "k273",
+  "id": "k276",
   "kind": "fix",
   "level": 1,
   "area": "title",
@@ -4641,7 +4692,7 @@
   "src": "guide"
  },
  {
-  "id": "k274",
+  "id": "k277",
   "kind": "check",
   "level": 1,
   "area": "title",
@@ -4658,7 +4709,7 @@
   "src": "guide"
  },
  {
-  "id": "k275",
+  "id": "k278",
   "kind": "fix",
   "level": 1,
   "area": "title",
@@ -4675,7 +4726,7 @@
   "src": "guide"
  },
  {
-  "id": "k276",
+  "id": "k279",
   "kind": "check",
   "level": 1,
   "area": "title",
@@ -4692,7 +4743,7 @@
   "src": "guide"
  },
  {
-  "id": "k277",
+  "id": "k280",
   "kind": "check",
   "level": 1,
   "area": "caption",
@@ -4709,7 +4760,7 @@
   "src": "guide"
  },
  {
-  "id": "k278",
+  "id": "k281",
   "kind": "check",
   "level": 1,
   "area": "caption",
@@ -4726,7 +4777,7 @@
   "src": "guide"
  },
  {
-  "id": "k279",
+  "id": "k282",
   "kind": "check",
   "level": 1,
   "area": "caption",
@@ -4743,11 +4794,11 @@
   "src": "guide"
  },
  {
-  "id": "k280",
+  "id": "k283",
   "kind": "fix",
   "level": 1,
   "area": "all",
-  "ji": 1,
+  "ji": 0,
   "re": "下さい",
   "to": "ください",
   "label": "下さい→ください",
@@ -4760,11 +4811,11 @@
   "src": "autopilot"
  },
  {
-  "id": "k281",
+  "id": "k284",
   "kind": "fix",
   "level": 1,
   "area": "all",
-  "ji": 1,
+  "ji": 0,
   "re": "(?<![ぁ-ゖ一-龯])頂(?=[くきけいこ])",
   "to": "いただ",
   "label": "頂く→いただく",
@@ -4777,7 +4828,7 @@
   "src": "autopilot"
  },
  {
-  "id": "k282",
+  "id": "k285",
   "kind": "check",
   "level": 2,
   "area": "all",
@@ -4794,7 +4845,7 @@
   "src": "autopilot"
  },
  {
-  "id": "k283",
+  "id": "k286",
   "kind": "check",
   "level": 2,
   "area": "all",
@@ -4811,11 +4862,11 @@
   "src": "autopilot"
  },
  {
-  "id": "k284",
+  "id": "k287",
   "kind": "fix",
   "level": 1,
   "area": "all",
-  "ji": 1,
+  "ji": 0,
   "re": "タスキ",
   "to": "たすき",
   "label": "タスキ→たすき",
@@ -4828,7 +4879,7 @@
   "src": "autopilot"
  },
  {
-  "id": "k285",
+  "id": "k288",
   "kind": "fix",
   "level": 1,
   "area": "all",
@@ -4845,7 +4896,7 @@
   "src": "autopilot"
  },
  {
-  "id": "k286",
+  "id": "k289",
   "kind": "fix",
   "level": 1,
   "area": "all",
@@ -4862,7 +4913,7 @@
   "src": "autopilot"
  },
  {
-  "id": "k287",
+  "id": "k290",
   "kind": "fix",
   "level": 1,
   "area": "all",
@@ -4879,7 +4930,7 @@
   "src": "autopilot"
  },
  {
-  "id": "k288",
+  "id": "k291",
   "kind": "fix",
   "level": 1,
   "area": "all",
@@ -4896,7 +4947,7 @@
   "src": "autopilot"
  },
  {
-  "id": "k289",
+  "id": "k292",
   "kind": "fix",
   "level": 1,
   "area": "all",
@@ -4913,7 +4964,7 @@
   "src": "autopilot"
  },
  {
-  "id": "k290",
+  "id": "k293",
   "kind": "fix",
   "level": 1,
   "area": "all",
@@ -4930,11 +4981,11 @@
   "src": "autopilot"
  },
  {
-  "id": "k291",
+  "id": "k294",
   "kind": "fix",
   "level": 1,
   "area": "all",
-  "ji": 1,
+  "ji": 0,
   "re": "ワクワク",
   "to": "わくわく",
   "label": "ワクワク→わくわく",
@@ -4947,7 +4998,7 @@
   "src": "guide"
  },
  {
-  "id": "k292",
+  "id": "k295",
   "kind": "form",
   "level": 1,
   "area": "all",
@@ -4964,7 +5015,7 @@
   "src": "guide"
  },
  {
-  "id": "k293",
+  "id": "k296",
   "kind": "form",
   "level": 1,
   "area": "all",
@@ -4981,7 +5032,7 @@
   "src": "guide"
  },
  {
-  "id": "k294",
+  "id": "k297",
   "kind": "form",
   "level": 1,
   "area": "title",
@@ -4998,7 +5049,7 @@
   "src": "guide"
  },
  {
-  "id": "k295",
+  "id": "k298",
   "kind": "fix",
   "level": 1,
   "area": "all",
@@ -5015,7 +5066,7 @@
   "src": "guide"
  },
  {
-  "id": "k296",
+  "id": "k299",
   "kind": "check",
   "level": 1,
   "area": "all",
@@ -5032,7 +5083,7 @@
   "src": "guide"
  },
  {
-  "id": "k297",
+  "id": "k300",
   "kind": "check",
   "level": 2,
   "area": "all",
@@ -5049,7 +5100,7 @@
   "src": "guide"
  },
  {
-  "id": "k298",
+  "id": "k301",
   "kind": "form",
   "level": 1,
   "area": "title",
@@ -5067,7 +5118,7 @@
   "builtin": "title_len"
  },
  {
-  "id": "k299",
+  "id": "k302",
   "kind": "check",
   "level": 1,
   "area": "title",
@@ -5085,7 +5136,7 @@
   "builtin": "title_space"
  },
  {
-  "id": "k300",
+  "id": "k303",
   "kind": "form",
   "level": 1,
   "area": "lead",
@@ -5103,7 +5154,7 @@
   "builtin": "lead_len"
  },
  {
-  "id": "k301",
+  "id": "k304",
   "kind": "form",
   "level": 1,
   "area": "text",
@@ -5121,7 +5172,7 @@
   "builtin": "body_len"
  },
  {
-  "id": "k302",
+  "id": "k305",
   "kind": "form",
   "level": 1,
   "area": "text",
@@ -5139,7 +5190,7 @@
   "builtin": "indent"
  },
  {
-  "id": "k303",
+  "id": "k306",
   "kind": "form",
   "level": 2,
   "area": "all",
@@ -5157,7 +5208,7 @@
   "builtin": "blank_space"
  },
  {
-  "id": "k304",
+  "id": "k307",
   "kind": "fix",
   "level": 1,
   "area": "all",
@@ -5173,5 +5224,41 @@
   "n": 13,
   "src": "guide",
   "builtin": "nested_quote"
+ },
+ {
+  "id": "k308",
+  "kind": "form",
+  "level": 1,
+  "area": "title",
+  "ji": 0,
+  "re": "",
+  "to": null,
+  "label": "タイトルの区切りは全角スペース",
+  "why": "タイトルの和文と和文の間のスペースは全角にする（半角は不可）",
+  "ch": 3,
+  "sec": "3-1 タイトルの基本",
+  "r": "",
+  "stat": "",
+  "n": 0,
+  "src": "guide",
+  "builtin": "title_halfspace"
+ },
+ {
+  "id": "k309",
+  "kind": "form",
+  "level": 1,
+  "area": "all",
+  "ji": 0,
+  "re": "",
+  "to": null,
+  "label": "かぎかっこの閉じ忘れ",
+  "why": "段落の中で「」『』（）の開きと閉じの数をそろえる（余ったかっこを光らせる）",
+  "ch": 8,
+  "sec": "8-5 その他の表記ルール",
+  "r": "",
+  "stat": "",
+  "n": 0,
+  "src": "guide",
+  "builtin": "quote_balance"
  }
 ]

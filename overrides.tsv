@@ -86,19 +86,19 @@ ch07_expression.md	意気込みを見せる	check	1	text	1	意気込みを見せ
 ch07_expression.md	語る／語った	fix	1	text	1	(?<!物)語る	話す	引用の動詞は「話す」	
 ch07_expression.md	語る／語った	fix	1	text	1	(?<!物)語っ(?=[たて])	話し	引用の動詞は「話す」	
 ch07_expression.md	○○を開催する／開催した／開催され	check	1	all	1	開催(?=する|した|して|しま|し、)		動詞の「開催」は「開く」「行う」に（「開催日」など名詞は可）	
-ch07_expression.md	実施する／実施した	fix	1	all	1	実施する	行う		
-ch07_expression.md	実施する／実施した	fix	1	all	1	実施し(?=[たて])	行っ		
-ch07_expression.md	実施する／実施した	fix	1	all	1	実施し(?=[、ま])	行い		
-ch07_expression.md	使用する／使用した／用いる	fix	1	all	1	使用する|用いる	使う		
-ch07_expression.md	使用する／使用した／用いる	fix	1	all	1	(?:使用し|用い)(?=[たて])	使っ		
-ch07_expression.md	使用する／使用した／用いる	fix	1	all	1	使用し(?=[、ま])	使い		
-ch07_expression.md	開始する	fix	1	all	1	開始する	始める		
-ch07_expression.md	開始する	fix	1	all	1	開始し(?=[たて、ま])	始め		
-ch07_expression.md	販売を行う	fix	1	all	1	販売を行う	販売する		
-ch07_expression.md	販売を行う	fix	1	all	1	販売を行(?:っ(?=[たて])|い)	販売し		
+ch07_expression.md	実施する／実施した	fix	1	all	2	実施する	行う		
+ch07_expression.md	実施する／実施した	fix	1	all	2	実施し(?=[たて])	行っ		
+ch07_expression.md	実施する／実施した	fix	1	all	2	実施し(?=[、ま])	行い		
+ch07_expression.md	使用する／使用した／用いる	fix	1	all	2	使用する|用いる	使う		
+ch07_expression.md	使用する／使用した／用いる	fix	1	all	2	(?:使用し|用い)(?=[たて])	使っ		
+ch07_expression.md	使用する／使用した／用いる	fix	1	all	2	使用し(?=[、ま])	使い		
+ch07_expression.md	開始する	fix	1	all	2	開始する	始める		
+ch07_expression.md	開始する	fix	1	all	2	開始し(?=[たて、ま])	始め		
+ch07_expression.md	販売を行う	fix	1	all	2	販売を行う	販売する		
+ch07_expression.md	販売を行う	fix	1	all	2	販売を行(?:っ(?=[たて])|い)	販売し		
 ch07_expression.md	営んでいた	skip							
-ch07_expression.md	体験を行う	fix	1	all	1	体験を行う	体験する		
-ch07_expression.md	体験を行う	fix	1	all	1	体験を行(?:っ(?=[たて])|い)	体験し		
+ch07_expression.md	体験を行う	fix	1	all	2	体験を行う	体験する		
+ch07_expression.md	体験を行う	fix	1	all	2	体験を行(?:っ(?=[たて])|い)	体験し		
 ch07_expression.md	「○○」という店	check	1	all	0	」という		削っても意味が通る「という」は削る	
 ch07_expression.md	「○○」というイベント	skip							
 ch07_expression.md	開発に携わったという（確定情報なのに）	check	2	text	1	(?<=[たる])という(?=。)		確定した事実なら「という」を付けない	
@@ -113,7 +113,7 @@ ch07_expression.md	また	check	1	text	1	(?<=^|[。　])また(?=、)		接続詞
 ch07_expression.md	そして	check	1	text	1	そして		使わない	
 ch07_expression.md	なお	check	1	text	1	(?<=^|[。　])なお(?=、)		使わない	
 ch07_expression.md	にて	fix	1	all	1	にて	で	古い言い回し	
-ch07_expression.md	ぜひ	fix	1	all	0	(?:ぜひ|是非)、?		本文・引用とも削る	
+ch07_expression.md	ぜひ	fix	1	all	0	(?:ぜひ|是非)(?!とも)、?		本文・引用とも削る	
 ch07_expression.md	！	check	1	all	1	[！!]		使わない（イベント名の「」内は可）	
 ch07_expression.md	キャンペーン	check	1	all	1	キャンペーン		広告色が出るため「企画」に	
 ch07_expression.md	各種	check	2	all	0	各種		なるべく割愛	
@@ -159,4 +159,6 @@ ch08_notation.md	よびかける	fix	1	all	0	よび(?=かけ|掛け)	呼び	「�
 ch08_notation.md	参加店舗／〇店舗	check	1	all	0	(?<=[0-9０-９]|参加|加盟|協力|出店|飲食|各|全)店舗		「参加店」「〇店」で足りることが多い（本部が直したのは半数）	
 ch08_notation.md	方／方々	check	2	all	0	(?<=[のな])方(?=[がはをにもと、。」])		かぎかっこの中でも、人を指す「方」は本部が「人」に直すことが多い	
 ch08_notation.md	コミュニティ	fix	1	all	0	コミュニティ(?!ー)(?![・･]?センター)	コミュニティー	語末の「ティ」は「ティー」（施設名の「コミュニティ・センター」はそのまま）	
-ch08_notation.md	すべて	skip							記者ハン準拠で副詞「すべて」は平仮名が正則のため除外	
+ch08_notation.md	すべて	check	1	all	0	すべて(?!の)		副詞の「すべて」は「全て」と書く（「すべての」は全称表現の規則で確かめる。本部は1年分で8か所中5か所を直した）	
+ch08_notation.md	時	check	2	all	0	(?<=[のたるいな])時(?=[からにはもの、])		「〜した時」「その時」など時刻でない「時」はひらがなの「とき」（時間・時刻・時期・時代・時点などはそのまま）	
+ch08_notation.md	のもと	fix	1	all	0	(?<=協力|指導|監修|管理|主導|支援|方針|テーマ|名)のもと	の下		
