@@ -77,7 +77,7 @@ ch07_expression.md	行われる	check	1	body	1	行われ		受動態は使わな�
 ch07_expression.md	食べられる	check	1	body	1	食べられ|食べることができ		→「食べる」。事業者目線なら「提供する」	
 ch07_expression.md	○○が開催された／行われた（本文）	check	1	body	1	開催され		→「○○を開いた／行った」	
 ch07_expression.md	意気込む	check	1	text	1	意気込(?=[むんみまめ])		引用の動詞は「話す」（締めの一文は除く）	
-ch07_expression.md	呼びかける	check	1	text	1	呼び[掛か]け		「呼びかける」は記事末尾の締めだけ。中盤は「話す」	
+ch07_expression.md	呼びかける	check	1	text	1	(?<=」と|と)呼び[掛か]け|呼び[掛か]け(?=[るたて、])		「呼びかける」は記事末尾の締めだけ。中盤は「話す」	
 ch07_expression.md	期待を寄せる	check	1	text	1	期待を寄せ		引用の動詞は「話す」	
 ch07_expression.md	振り返る	check	2	text	1	振り返(?=[るりっ])		引用の動詞は「話す」	
 ch07_expression.md	来店を呼びかける	skip							
@@ -85,20 +85,20 @@ ch07_expression.md	期待を込める	fix	1	text	1	期待を込め	期待を寄�
 ch07_expression.md	意気込みを見せる	check	1	text	1	意気込みを見せ		→「意気込む」または「話す」	
 ch07_expression.md	語る／語った	fix	1	text	1	(?<!物)語る	話す	引用の動詞は「話す」	
 ch07_expression.md	語る／語った	fix	1	text	1	(?<!物)語っ(?=[たて])	話し	引用の動詞は「話す」	
-ch07_expression.md	○○を開催する／開催した／開催され	check	1	all	0	開催(?=する|した|して|しま|し、)		動詞の「開催」は「開く」「行う」に（「開催日」など名詞は可）	
-ch07_expression.md	実施する／実施した	fix	1	all	0	実施する	行う		
-ch07_expression.md	実施する／実施した	fix	1	all	0	実施し(?=[たて])	行っ		
-ch07_expression.md	実施する／実施した	fix	1	all	0	実施し(?=[、ま])	行い		
-ch07_expression.md	使用する／使用した／用いる	fix	1	all	0	使用する|用いる	使う		
-ch07_expression.md	使用する／使用した／用いる	fix	1	all	0	(?:使用し|用い)(?=[たて])	使っ		
-ch07_expression.md	使用する／使用した／用いる	fix	1	all	0	使用し(?=[、ま])	使い		
-ch07_expression.md	開始する	fix	1	all	0	開始する	始める		
-ch07_expression.md	開始する	fix	1	all	0	開始し(?=[たて、ま])	始め		
-ch07_expression.md	販売を行う	fix	1	all	0	販売を行う	販売する		
-ch07_expression.md	販売を行う	fix	1	all	0	販売を行(?:っ(?=[たて])|い)	販売し		
+ch07_expression.md	○○を開催する／開催した／開催され	check	1	all	1	開催(?=する|した|して|しま|し、)		動詞の「開催」は「開く」「行う」に（「開催日」など名詞は可）	
+ch07_expression.md	実施する／実施した	fix	1	all	1	実施する	行う		
+ch07_expression.md	実施する／実施した	fix	1	all	1	実施し(?=[たて])	行っ		
+ch07_expression.md	実施する／実施した	fix	1	all	1	実施し(?=[、ま])	行い		
+ch07_expression.md	使用する／使用した／用いる	fix	1	all	1	使用する|用いる	使う		
+ch07_expression.md	使用する／使用した／用いる	fix	1	all	1	(?:使用し|用い)(?=[たて])	使っ		
+ch07_expression.md	使用する／使用した／用いる	fix	1	all	1	使用し(?=[、ま])	使い		
+ch07_expression.md	開始する	fix	1	all	1	開始する	始める		
+ch07_expression.md	開始する	fix	1	all	1	開始し(?=[たて、ま])	始め		
+ch07_expression.md	販売を行う	fix	1	all	1	販売を行う	販売する		
+ch07_expression.md	販売を行う	fix	1	all	1	販売を行(?:っ(?=[たて])|い)	販売し		
 ch07_expression.md	営んでいた	skip							
-ch07_expression.md	体験を行う	fix	1	all	0	体験を行う	体験する		
-ch07_expression.md	体験を行う	fix	1	all	0	体験を行(?:っ(?=[たて])|い)	体験し		
+ch07_expression.md	体験を行う	fix	1	all	1	体験を行う	体験する		
+ch07_expression.md	体験を行う	fix	1	all	1	体験を行(?:っ(?=[たて])|い)	体験し		
 ch07_expression.md	「○○」という店	check	1	all	0	」という		削っても意味が通る「という」は削る	
 ch07_expression.md	「○○」というイベント	skip							
 ch07_expression.md	開発に携わったという（確定情報なのに）	check	2	text	1	(?<=[たる])という(?=。)		確定した事実なら「という」を付けない	

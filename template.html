@@ -346,7 +346,14 @@ const META = /*META*/{};
       let word;
       if (f.info) word = '<span class="word">' + esc(f.info) + '</span>';
       else word = '<span class="word">「' + vis(f.text) + '」</span>';
-      const to = canApply ? '<span class="arrow">→</span><span class="to">' + (f.to === '' ? '（削除）' : '「' + vis(f.to) + '」') + '</span>' : '';
+      let to = '';
+      if (canApply) {
+        if (r.builtin === 'indent') {
+          to = '<span class="arrow">→</span><span class="to">先頭に「□」を追加</span>';
+        } else {
+          to = '<span class="arrow">→</span><span class="to">' + (f.to === '' ? '（削除）' : '「' + vis(f.to) + '」') + '</span>';
+        }
+      }
       const area = AREA[f.area] ? '<span class="src">' + AREA[f.area] + '</span>' : '';
       return '<li class="item k-' + r.kind + (f.key === activeKey ? ' act' : '') + '" data-k="' + esc(f.key) + '">' +
         '<div class="row1"><span class="badge b-' + r.kind + '">' + KIND[r.kind] + '</span>' + word + to + area + '<span class="sp"></span>' +
